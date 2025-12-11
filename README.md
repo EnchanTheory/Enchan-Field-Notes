@@ -1,9 +1,9 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current Version:** v0.2.1
+**Current Version:** v0.2.2
 **Status:** Speculative / Work in Progress
 
-## 🚀 What's New in v0.2.1
+## 🚀 What's New in v0.2.2
 This release incorporates major theoretical updates and structural refinements:
 * **Added Chapter 3 (Physical Motivation):** Explicitly connected the Enchan axiomatic structure to General Relativity using **Kerr black hole metrics**.
 * **Rotational Stability Defined:** Mathematically demonstrated how the spin parameter ($a_*$) modifies the Innermost Stable Circular Orbit (ISCO), providing a physical basis for the control parameter $\Omega$.
@@ -27,7 +27,7 @@ This repository contains purely theoretical and cosmological descriptions.
 
 ## Citation
 If you wish to cite this draft:
-> Kobayashi, M. (2025). *Enchan Field Notes: Emergent Spacetime and Rotational Control*. v0.2.1. GitHub Repository.
+> Kobayashi, M. (2025). *Enchan Field Notes: Emergent Spacetime and Rotational Control*. v0.2.2. GitHub Repository.
 
 ## License
 
