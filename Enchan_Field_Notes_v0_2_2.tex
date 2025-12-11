@@ -1,0 +1,847 @@
+%==============================================================================
+% Enchan Field Notes (Theoretical Framework)
+% Copyright (c) 2025 Mitsuhiro Kobayashi
+%
+% This work (textual content, PDF) is licensed under a
+% Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+% To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/
+%
+% The LaTeX source code structure itself is available under the MIT License.
+%==============================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+%===========================
+% Packages
+%===========================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}           % Times-like font
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{booktabs}           % For nicer tables
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+%===========================
+% Helpers
+%===========================
+% chapter-like section with page break
+\newcommand{\chap}[1]{\clearpage\section{#1}}
+
+%===========================
+% Title / Author
+%===========================
+\title{\textbf{Enchan Field Notes v0.2.2}\\[0.5em]
+\large Emergent Spacetime, Geometric Dark Matter, and Rotational Control}
+
+\author{Mitsuhiro Kobayashi\\[0.25em]
+Tokyo, Japan\\
+\texttt{enchan.theory@gmail.com}}
+
+\date{\today}
+
+%===========================
+% Document
+%===========================
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+\noindent
+These notes collect a minimal, field-theoretic realization of the Enchan framework.
+The central idea is that spacetime geometry is not fundamental but emerges as a
+stabilized long-lived configuration of a primordial fluctuation field. In this picture, dark
+matter is not a new particle species but the geometric imprint of persistent
+defects---``spacetime wrinkles''---in an emergent spatial order parameter $S$.
+
+In this v0.2.2 update, we explicitly incorporate the role of \emph{rotation} in
+determining the stability of spacetime structures. Drawing on the properties of
+Kerr black holes in general relativity, we show how the dimensionless spin parameter
+$a_*$ modifies the innermost stable circular orbit (ISCO) and the event horizon structure.
+This provides a rigorous physical motivation for the axiomatic dependency of emergent
+space $S$ on the rotational degree of freedom $\Omega$.
+
+The Enchan framework is \emph{not} intended to deny the Standard Model or general
+relativity. It should be read as a speculative ``source-code'' layer proposed
+beneath or alongside existing effective theories, especially in how we interpret
+the dark-matter sector.
+
+Starting from a conceptual set of effective degrees of freedom---fluctuations $F$, emergent space $S$,
+time $T$, localized excitations $P$, and a geometric dark sector $D$---we derive
+a simple Lagrangian for the Enchan field,
+\[
+\mathcal{L} = \tfrac{1}{2}(\partial_\mu S)(\partial^\mu S) + F S - V(S),
+\]
+and obtain the equation of motion
+\[
+\square S = F - \frac{\partial V}{\partial S}.
+\]
+In the static galactic regime, we introduce a hypothesis that asymptotic
+configurations with $\|\nabla S\| \propto 1/r$ generate an effective density
+profile $\rho(r) \propto 1/r^2$, which yields flat rotation curves
+$v(r) = \text{const}$ without particulate dark matter. We summarize the
+conceptual structure, its minimal field realization, and possible observational
+signatures, and we make explicit which elements are assumptions rather than
+derived results. This v0.2.2 version is intended as a technical backbone and
+ledger for future refinements.
+\end{abstract}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+%===========================
+% Chapter 1
+%===========================
+\chap{Overview and Roadmap}
+
+The Enchan framework starts from a simple but radical premise: spacetime geometry
+is not fundamental. Instead, the spatial structure we experience is a stabilized
+configuration of underlying microscopic fluctuations.
+In this view, gravity and dark matter are not added on top of a pre-given metric;
+rather, they emerge from the way this spatial order forms, relaxes, and fails
+to fully relax.
+
+A companion essay (\emph{``Dark Matter as Spacetime Wrinkles''}, submitted to
+the Gravity Research Foundation 2026) formulates this idea in conceptual and
+astrophysical terms: dark matter is identified with persistent topological
+defects (\emph{wrinkles}) in an emergent metric, whose $1/r^2$ energy-density
+profile explains flat galactic rotation curves and whose solitonic dynamics
+are potentially consistent with cluster collisions such as the Bullet Cluster.
+
+The purpose of these notes is different but complementary:
+\begin{itemize}
+\item to spell out the conceptual backbone of the framework, relating
+fluctuations, space, time, matter, and dark matter;
+\item to present a minimal scalar-field model---the \emph{Enchan field} $S$---
+that realizes these concepts at an effective level;
+\item to show explicitly how geometric defects in $S$ can reproduce the
+phenomenology usually attributed to particle dark matter;
+\item to delineate which parts of the construction are assumptions,
+which are derived, and which are left as open problems;
+\item to record, in a programmatic way, how these notes relate to a separate
+conceptual essay (GRF submission) and to a device-level patent
+application based on the same underlying picture.
+\end{itemize}
+
+\subsection*{Scope and relation to existing physics}
+
+Throughout these notes, ``Enchan theory'' is intended as a speculative layer
+\emph{beneath or alongside} existing frameworks:
+
+\begin{itemize}
+\item The Standard Model and general relativity are treated as effective
+theories that remain valid wherever they have been observationally
+tested.
+\item The Enchan framework proposes a different microscopic picture of how
+spacetime and the dark sector might emerge, but it is \emph{not}
+designed to contradict well-established empirical results.
+\item In particular, ordinary particles such as electrons and protons are
+assumed to exist as usual; they are accommodated in the Enchan scheme
+as part of the localized excitation sector $P$.
+\item \textbf{Technological implementations are explicitly out of scope.}
+While the theoretical concepts (e.g., rotational control of stability) may
+inspire engineering applications, this document is strictly limited to
+cosmological and field-theoretic descriptions. Specific device architectures,
+sensing algorithms, or industrial applications are distinct from this
+framework and are reserved for separate documentation.
+\end{itemize}
+
+The structure of these notes is as follows.
+Chapter~2 summarizes the conceptual structure of Enchan theory.
+Chapter~3 discusses the physical motivation for the role of rotation,
+based on Kerr black hole mechanics.
+Chapter~4 introduces the field-theoretic model for $S$ and derives its equation
+of motion. Chapter~5 discusses asymptotic configurations and their implication
+for galactic rotation curves.
+Chapter~6 outlines observational and theoretical directions.
+Chapter~7 concludes with a summary.
+Chapter~8 provides a programmatic mapping between these notes, the essay, and the patent.
+
+%===========================
+% Chapter 2 (PUBLIC-FACING)
+%===========================
+\chap{Conceptual Structure of the Enchan Framework}
+
+In this chapter we summarize the conceptual backbone of the Enchan framework
+in a way that is compatible with standard field-theoretic language.
+We deliberately avoid committing to any specific microscopic ``axioms'' or
+fixed-point equations; those belong to a more speculative, internal layer
+of the programme. Here we only introduce the effective degrees of freedom
+that will be used in the rest of these notes.
+
+\subsection*{Core ingredients}
+
+At the level of this document, the Enchan framework is built from the
+following ingredients:
+
+\begin{itemize}
+\item A \emph{fluctuation sector} $F(x)$, representing pre-geometric or
+microscopic inhomogeneities that act as a coarse-grained source for
+spatial structure.
+
+\item A \emph{rotational degree of freedom} $\Omega(x)$, capturing the
+irreducibly anisotropic, vortical component of the fluctuations.
+This is motivated by the role of spin and frame dragging in Kerr
+spacetimes: rotation is treated as a constitutive part of how
+stability domains are formed.
+
+\item An \emph{emergent spatial field} $S(x)$, which summarizes the
+large-scale ordering of space. In the minimal model of
+Chapter~4, $S$ is realized as a scalar field whose dynamics
+are driven by $F$ and stabilized by a self-interaction potential
+$V(S)$.
+
+\item A \emph{geometric dark sector} $D(x)$, defined at the effective
+level as a functional of $S$, and in the simplest realization
+identified with the norm of its spatial gradient:
+\begin{equation}
+D(x) \equiv \|\nabla S(x)\|.
+\end{equation}
+This object is interpreted as a measure of ``spacetime wrinkles''
+or scars in the emergent spatial order, and plays the role
+usually attributed to dark matter.
+
+\item A \emph{localized excitation sector} $P(x)$, which denotes
+ordinary matter and other localized structures (e.g.\ stars,
+galaxies, compact objects). In the broader Enchan picture,
+these are understood as localized defects or concentrations
+that live on top of the background geometry encoded by $S$
+and $D$, but their detailed realization is left open in
+the present notes.
+
+\item An \emph{effective time direction} $T$, associated not with a
+fundamental parameter but with gradients and flows of $S$ at
+large scales. We will not attempt to construct $T$ explicitly
+in this version; it suffices to note that, in the Enchan
+perspective, macroscopic time is tied to the evolution of
+spatial order rather than imposed \emph{a priori}.
+\end{itemize}
+
+In short, $F$ and $\Omega$ provide the driving environment, $S$ captures
+emergent spatial order, $D$ measures its residual geometric defects,
+$P$ stands for localized excitations, and $T$ encodes the effective
+time direction associated with the evolution of $S$.
+
+\subsection*{From concepts to an effective field model}
+
+The more speculative, microscopic side of the Enchan proposal includes
+various fixed-point relations between these quantities. In this document
+we do \emph{not} assume or specify those relations in detail. Instead,
+we adopt the following effective stance:
+
+\begin{itemize}
+\item The fluctuation sector $F$ is treated as an external source.
+Its precise microscopic origin is left unspecified, but it is
+assumed to possess well-defined large-scale statistics.
+
+\item The rotational degree $\Omega$ is regarded as a control parameter
+that can modify the stability properties of emergent configurations
+of $S$, in analogy with how the spin parameter $a_*$ modifies the
+ISCO radius in Kerr spacetimes (Chapter~3).
+
+\item The field $S$ is modeled as a scalar order parameter whose
+equation of motion follows from a standard Lagrangian of the
+form introduced in Chapter~4:
+\[
+\mathcal{L} = \tfrac{1}{2}(\partial_\mu S)(\partial^\mu S) + F S - V(S).
+\]
+
+\item The geometric dark sector $D$ is identified with a functional
+of $S$; in the simplest realization used here we take
+$D = \|\nabla S\|$ and associate the dominant dark-matter energy
+density with the gradient energy of $S$:
+\[
+\rho_D \propto (\nabla S)^2.
+\]
+\end{itemize}
+
+This is deliberately modest: we do not claim to know the full microscopic
+dynamics of $(F,\Omega,S)$, nor do we derive time from first principles.
+Instead, we specify just enough structure to construct a concrete field
+model (Chapter~4) and to explore its asymptotic implications for galactic
+dynamics (Chapter~5).
+
+\subsection*{Internal versus public layers (programmatic note)}
+
+The broader Enchan programme entertains a more detailed set of symbolic
+relations between fluctuations, space, dark sectors and localized
+excitations, including fixed-point expressions that are intended as an
+internal ``source-code'' layer of the framework.
+
+Those internal relations are \emph{not} required for the field-theoretic
+analysis presented here and are therefore deliberately omitted from this
+public-facing version of the notes. The present chapter should be read as
+a conceptual distillation that is sufficient to connect the Enchan picture
+to standard effective field theory and to observationally accessible
+questions in cosmology.
+
+%===========================
+% Chapter 3 (NEW in v0.2.x)
+%===========================
+\chap{Physical Motivation: Rotation and Stability}
+
+The Enchan conceptual structure posits that emergent spatial
+order depends critically on a rotational component $\Omega$. Before proceeding to
+the effective scalar field model, we briefly review the standard general relativistic
+justification for this dependency.
+
+In general relativity, the ``shape'' and ``depth'' of a gravity well are determined
+not only by mass $M$ but also by angular momentum $J$. This is described by the
+Kerr metric, which provides a precise analog for how rotation modifies the stability
+domain of the Enchan field.
+
+\subsection{The Spin Parameter and Geometry}
+
+In the Kerr spacetime geometry, the influence of rotation is quantified by the
+dimensionless spin parameter $a_*$:
+\begin{equation}
+a_* \equiv \frac{cJ}{GM^2}, \qquad -1 \le a_* \le 1.
+\end{equation}
+When $a_* \neq 0$, the spacetime metric ceases to be static and acquires a
+cross-term $dt\,d\phi$, leading to \emph{frame dragging} (the Lense--Thirring effect).
+In the slow-rotation, weak-field limit, the dragging angular velocity is
+\begin{equation}
+\Omega_{\rm LT}(r) \simeq \frac{2GJ}{c^2 r^3}.
+\end{equation}
+This indicates that the ``vacuum'' itself is twisted by the rotating source, creating
+a preferred orientation for stability.
+
+\subsection{Modification of Stability Limits (ISCO)}
+
+The most significant feature for Enchan theory is how rotation alters the
+\emph{Innermost Stable Circular Orbit} (ISCO). The ISCO radius $r_{\rm ISCO}$ defines
+the boundary beyond which stable orbits cannot exist (i.e., matter plunges into the
+horizon).
+
+For a non-rotating Schwarzschild black hole ($a_* = 0$), this limit is:
+\begin{equation}
+r_{\rm ISCO} = 6 \left( \frac{GM}{c^2} \right).
+\end{equation}
+However, for a maximally rotating Kerr black hole ($a_* \to 1$) in the prograde direction,
+this limit shrinks drastically:
+\begin{equation}
+r_{\rm ISCO} \to 1 \left( \frac{GM}{c^2} \right).
+\end{equation}
+The exact dependency is given by the standard Kerr relations:
+\begin{align}
+r_{\rm ISCO}^{\pm} &= \frac{GM}{c^2} \left[ 3 + Z_2 \mp \sqrt{(3-Z_1)(3+Z_1+2Z_2)} \right], \\
+Z_1 &= 1 + (1-a_*^2)^{1/3} [(1+a_*)^{1/3} + (1-a_*)^{1/3}], \nonumber \\
+Z_2 &= \sqrt{3a_*^2 + Z_1^2}. \nonumber
+\end{align}
+
+\subsection{Interpretation in the Enchan Framework}
+
+This relativistic result serves as the core physical motivation for our model:
+\begin{quote}
+\emph{Increasing the rotational control (spin) allows stable structures to exist
+much deeper within a potential well than would be possible in a static field.}
+\end{quote}
+In the Enchan language, the parameter $a_*$ corresponds to the intensity of the
+$\Omega$ control field. By modulating $\Omega$, the system can actively modify the
+effective stability radius of the emergent space $S$, effectively ``pushing back''
+the breakdown of geometry (the horizon). This justifies treating $\Omega$ as a fundamental
+control parameter alongside the fluctuation amplitude $F$.
+
+\subsection{Mapping GR Concepts to Enchan Variables}
+
+Based on the correspondence above, we establish the following conceptual mapping between
+standard General Relativity (GR) and the Enchan framework (Table \ref{tab:mapping}).
+
+\begin{table}[h]
+\centering
+\caption{Correspondence between GR parameters and Enchan control variables.}
+\label{tab:mapping}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lp{6cm}l@{}}
+\toprule
+\textbf{GR Symbol} & \textbf{Physical Meaning (GR)} & \textbf{Enchan Analog} \\ \midrule
+$M$ & Mass of the central body & Basic scale of the potential well \\
+$a_*$ (or $J$) & Spin / Angular Momentum & Intensity of $\Omega$ (Rotational Control) \\
+$r_{\rm ISCO}$ & Innermost Stable Circular Orbit & Stability limit of the emergent order $S$ \\
+$\Omega_{\rm LT}$ & Frame-dragging frequency & Intrinsic resonant frequency of the field \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%===========================
+% Chapter 4
+%===========================
+\chap{Minimal Enchan Field Model}
+
+In the Enchan framework, the emergent spatial order $S$ arises as a stabilized
+long-lived configuration of a primordial fluctuation field $F$. A natural way to capture
+this at a coarse-grained level is to model $S(x)$ as a scalar order parameter
+whose dynamics is driven by $F$ and stabilized by a self-interaction potential.
+
+\subsection{Universality and independence from microscopic details}
+
+Following the logic of modern renormalization-group theory, we assume:
+\begin{quote}
+\emph{The large-scale dynamics of $S$ depends only on the universality class
+of $F$, not on its detailed microscopic realization.}
+\end{quote}
+This principle ensures that the emergent theory is robust and does not rely
+on fine-tuning of the underlying fluctuation model. In these notes we treat
+$F$ as an effective source term with specified large-scale statistics, without
+committing to a particular microscopic origin.
+
+\subsection{Lagrangian formulation}
+
+We introduce the \emph{Enchan field} $S(x)$ via the following Lagrangian
+density:
+\begin{equation}
+\boxed{
+\mathcal{L} \;=\;
+\frac{1}{2}(\partial_\mu S)(\partial^\mu S)
+\;+\; F S
+\;-\; V(S)
+}
+\label{eq:Lagrangian}
+\end{equation}
+where $F$ plays the role of a source term coupling to $S$, and $V(S)$ is a
+self-interaction potential.
+
+We use the standard convention
+\begin{equation}
+\mathcal{L} = T - V,
+\end{equation}
+so that the Hamiltonian is bounded below and the potential exerts a restoring
+force. The term $F S$ represents the coupling between the primordial
+fluctuation source and the emergent spatial field. The potential $V(S)$
+controls stability, vacuum selection, and defect formation.
+
+\subsection{On the form of the potential \texorpdfstring{$V(S)$}{V(S)}}
+
+Just as the Higgs field's ``Mexican-hat'' potential is fixed by the requirement
+of spontaneous symmetry breaking, the specific form of $V(S)$ in the Enchan
+theory will be constrained by the requirement that $S$ supports stable
+topological defects (``spacetime wrinkles''):
+\begin{equation}
+\text{stable geometric wrinkles}
+\;\Longleftrightarrow\;
+\text{topological defects of } S.
+\end{equation}
+These defects are intended to realize the dark-matter sector defined by
+$D \equiv \|\nabla S\|$.
+
+In this minimal model we do not specify a unique form of $V(S)$.
+Instead, we assume that $V(S)$ belongs to a class of potentials that admit
+nontrivial topological configurations and whose far-field behavior can
+support asymptotic configurations with $\|\nabla S\| \propto 1/r$. Constructing
+explicit examples of such potentials in full three-dimensional geometry is an
+important open problem.
+
+\subsection{Euler--Lagrange equation of motion}
+
+Varying Eq.~\eqref{eq:Lagrangian} with respect to $S$ gives
+\begin{align}
+\frac{\partial \mathcal{L}}{\partial (\partial_\mu S)}
+&= \partial^\mu S, \\
+\frac{\partial \mathcal{L}}{\partial S}
+&= F - \frac{\partial V}{\partial S}.
+\end{align}
+Thus the Euler--Lagrange equation is
+\begin{equation}
+\partial_\mu \partial^\mu S
+\;=\;
+F - \frac{\partial V}{\partial S}.
+\end{equation}
+Equivalently,
+\begin{equation}
+\boxed{
+\square S \;=\; F \;-\; \frac{\partial V}{\partial S}
+}
+\label{eq:FieldEq}
+\end{equation}
+where $\square = \partial_\mu \partial^\mu$ is the d'Alembert operator.
+
+This expresses the Enchan principle in dynamical form:
+\begin{equation}
+\text{space is driven by fluctuations and stabilized by potential curvature.}
+\end{equation}
+
+For the purposes of these notes, we treat the energy density associated with
+$S$ in the usual way, with a dominant contribution from the gradient term
+in regimes where the field varies slowly in time:
+\begin{equation}
+\rho_S \;\sim\; \frac{1}{2} (\nabla S)^2 \;+\; V(S).
+\end{equation}
+In the next chapter we focus on regimes where $(\nabla S)^2$ dominates and
+explore the consequences for galactic dynamics.
+
+\subsection*{Status of dimensional analysis in v0.2.2}
+
+In this v0.2.2 version we do not yet fix the mass dimensions of $F$, $S$ and
+$V(S)$ in a fully systematic way. The coupling term $F S$ in
+Eq.~\eqref{eq:Lagrangian} should ultimately be accompanied by an explicit
+coupling constant so that the total mass dimension of $\mathcal{L}$ is
+$\mathrm{mass}^4$ in four spacetime dimensions, as in standard relativistic
+field theory.
+
+Here we treat the model as an effective description and leave the precise
+normalization and dimensional counting to a future, more complete version
+(v0.3 and beyond), where $[S]$, $[F]$ and the mass-dimension of $V(S)$ will be
+fixed and checked systematically. The present notes should therefore be read
+as specifying the \emph{structure} of the coupling, not its fully normalized
+form.
+
+\subsection*{Symmetries and conservation laws (programmatic remark)}
+
+At the level of the minimal field model, we treat $S$ as a Lorentz scalar and
+assume that the Lagrangian~\eqref{eq:Lagrangian} is Poincar\'e invariant in the
+usual sense. This guarantees the standard Noether currents associated with
+translations and Lorentz transformations, and thus energy--momentum conservation
+for the Enchan field in regimes where the background is approximately
+Minkowskian.
+
+At the same time, the broader Enchan framework allows for the possibility that
+the pre-geometric fluctuation sector $(\epsilon,F)$ lives at a more microscopic
+level where different symmetries---or their breaking---may be relevant. In this
+v0.2.2 version we do not attempt to specify these microscopic symmetries. The
+question of how the symmetries of $(\epsilon,F)$ flow to the effective
+Poincar\'e symmetry of $S$ is deferred to future work and is regarded as a key
+part of a more complete Enchan cosmology.
+
+%===========================
+% Chapter 5
+%===========================
+\chap{Asymptotic Structure and Galactic Dynamics}
+
+On galactic scales, the background configuration of $S$ is expected to evolve
+slowly compared to orbital timescales. As a first approximation, we therefore
+neglect time derivatives and take a static limit of Eq.~\eqref{eq:FieldEq}:
+\begin{equation}
+\square S \approx -\nabla^2 S,
+\end{equation}
+so that
+\begin{equation}
+\nabla^2 S
+\;=\;
+\frac{\partial V}{\partial S} - F.
+\label{eq:PoissonLike}
+\end{equation}
+
+We are interested in asymptotic regimes where the influence of $F$ and
+$V'(S)$ on the right-hand side combines to support configurations with a
+specific large-radius behavior of $\nabla S$.
+
+\subsection{Hypothesis on galactic asymptotics}
+
+In this minimal version of the Enchan field model, we do \emph{not} derive the
+far-field behavior of $S$ from a fully specified potential $V(S)$ and source
+$F$. Instead, we introduce the following working hypothesis:
+
+\medskip\noindent
+\textbf{Hypothesis 1 (galactic asymptotics).}
+\emph{For a suitable class of potentials $V(S)$ and large-scale effective
+sources $F$, there exist stable or long-lived configurations of $S$ in three
+spatial dimensions such that, at large radii,}
+\begin{equation}
+\|\nabla S\|(r) \;\propto\; \frac{1}{r}
+\qquad (r \to \infty).
+\label{eq:gradAsymptotic}
+\end{equation}
+
+\medskip
+This hypothesis is motivated by known examples of topological defects,
+such as global monopoles and related configurations, whose energy densities
+scale as $1/r^2$ at large radii. However, in the present notes we treat
+Eq.~\eqref{eq:gradAsymptotic} explicitly as an \emph{assumption}, not as a
+proved theorem.
+
+\subsection{Geometric dark sector and effective density profile}
+
+By definition,
+\begin{equation}
+D(r) = \|\nabla S\|,
+\end{equation}
+and we identify the dominant dark-matter contribution to the energy density
+with the gradient energy of $S$,
+\begin{equation}
+\rho_D(r) \;\propto\; (\nabla S)^2.
+\end{equation}
+If Hypothesis~1 holds, then at large radii we have
+\begin{equation}
+\rho_D(r) \;\propto\; \frac{1}{r^2}.
+\end{equation}
+In a Newtonian approximation, the enclosed mass $M(r)$ then grows linearly
+with $r$:
+\begin{equation}
+M(r)
+= \int_0^r 4\pi x^2 \rho_D(x)\,dx
+\;\propto\;
+\int_0^r 4\pi x^2 \frac{1}{x^2}\,dx
+\;\propto\; r,
+\end{equation}
+so that the circular velocity of a test particle is
+\begin{equation}
+v^2(r) = \frac{G M(r)}{r} = \text{const}.
+\end{equation}
+Thus, flat rotation curves emerge naturally from the asymptotic geometry of
+the Enchan field $S$, without the need for particulate dark matter, provided
+that the defect spectrum of $S$ includes configurations with
+$\|\nabla S\| \propto 1/r$ as in Hypothesis~1.
+
+\subsection{Status and limitations of the asymptotic assumption}
+
+It is important to emphasize that, at this stage, the condition
+$\|\nabla S\| \propto 1/r$ is an \emph{asymptotic requirement} rather than a
+fully derived result. In particular:
+\begin{itemize}
+\item In three spatial dimensions, the simplest harmonic solutions of
+$\nabla^2 S = 0$ yield $S \sim \text{const} + B/r$, not $\log r$.
+Achieving $\|\nabla S\| \propto 1/r$ in a fully consistent
+defect configuration generally requires a nontrivial interplay
+between the potential $V(S)$, the source term $F$, and the geometry.
+\item Known examples such as global monopoles and related topological
+defects provide useful guidance but do not yet uniquely fix the
+Enchan potential or defect spectrum.
+\end{itemize}
+A central task for future work is therefore to construct explicit, fully
+three-dimensional defect solutions of Eq.~\eqref{eq:PoissonLike} that realize
+the desired asymptotics and satisfy cosmological and astrophysical
+constraints.
+
+%===========================
+% Chapter 6
+%===========================
+\chap{Observational Signatures and Open Problems}
+
+The minimal Enchan field model sketched here is deliberately modest in scope,
+but it already suggests several concrete directions for further theoretical
+and observational study.
+
+\subsection{Rotation-curve structure}
+
+Under Hypothesis~1, the asymptotic condition $\|\nabla S\| \propto 1/r$
+implies a robust $1/r^2$ density profile at large radii. Deviations from this
+scaling near a core scale $r_c$, where the influence of $V(S)$ and $F$ is
+stronger, may lead to characteristic features in high-resolution galactic
+rotation curves. Comparing such features with existing data offers a near-term
+test of the model.
+
+\subsection{Cluster dynamics and lensing}
+
+If the dark sector $D = \|\nabla S\|$ dominates the gravitational potential
+on cluster scales, the spatial distribution of $S$ should be imprinted in
+weak- and strong-lensing maps. Systems such as the Bullet Cluster, which
+are often used to argue for particulate dark matter, become important
+testbeds: solitonic or defect-like configurations of $S$ should pass through
+baryonic plasma without drag, potentially reproducing the observed separation
+between gas and lensing mass.
+
+\subsection{Cosmological evolution}
+
+Embedding Eq.~\eqref{eq:FieldEq} in a cosmological FRW background would allow
+a systematic study of how the Enchan field contributes to structure formation.
+Key questions include:
+\begin{itemize}
+\item Can an ensemble of Enchan defects seed early structures in a way that
+alleviates current tensions in early-galaxy observations?
+\item How does the defect network evolve with cosmic time, and does it
+respect constraints from the cosmic microwave background and large-scale
+structure?
+\end{itemize}
+
+\subsection*{Limitations of the present v0.2.2 model}
+
+The discussion in this chapter is intentionally qualitative. In particular:
+
+\begin{itemize}
+\item We do not yet embed Eq.~\eqref{eq:FieldEq} into the full Einstein
+equations. A consistent treatment of lensing, light-cone structure,
+and cosmological evolution requires specifying how $T_{\mu\nu}[S]$
+couples to the metric $g_{\mu\nu}$, or whether $g_{\mu\nu}$ is itself
+an emergent functional of $S$. This is left open in v0.2.2.
+\item We do not derive detailed constraints from the cosmic microwave
+background or large-scale structure. Known bounds on defect networks
+(e.g.\ cosmic strings, global monopoles) provide important guidance,
+but a quantitative comparison for Enchan-type defects remains to be
+carried out.
+\item Beyond the generic prediction of asymptotically flat rotation curves
+from a $1/r^2$-type gradient energy profile, we do not propose in
+v0.2.2 a set of sharp, unique observational signatures that would
+distinguish the Enchan framework from other dark-matter models.
+\end{itemize}
+
+These limitations are not accidental but reflect the intended scope of this
+version: to provide a minimal, technically standard field-theoretic backbone
+on top of which more detailed cosmological and observational analyses can
+be built.
+
+%===========================
+% Chapter 7
+%===========================
+\chap{Conclusion}
+
+We have presented a minimal, field-theoretic realization of the Enchan
+framework, in which an emergent scalar field $S$ models stabilized spatial
+order and its defects play the role of geometric dark matter. Starting from
+a compact set of effective degrees of freedom relating fluctuations, space, time, localized
+excitations, and a dark sector, we introduced a simple Lagrangian
+\[
+\mathcal{L} = \tfrac{1}{2}(\partial_\mu S)(\partial^\mu S) + F S - V(S),
+\]
+derived the equation of motion
+\[
+\square S = F - \frac{\partial V}{\partial S},
+\]
+and, under a stated hypothesis on the asymptotic behavior of $\nabla S$,
+showed how configurations with $\|\nabla S\| \propto 1/r$ naturally lead to
+a $1/r^2$ density profile and flat galactic rotation curves.
+
+Many ingredients are still missing from a fully developed Enchan cosmology:
+a detailed specification of $V(S)$, explicit defect solutions in expanding
+backgrounds, a consistent coupling to ordinary matter and to the metric
+in general relativity, and a quantitative confrontation with cosmological
+data. Nevertheless, the notes demonstrate that the Enchan concepts admit a
+mathematically standard and observationally relevant field-theoretic
+realization, provided one is willing to treat the key asymptotic behavior
+as a hypothesis to be tested rather than a theorem already proved.
+
+From a broader perspective, these notes are intended as a transportable
+description and ledger of the framework: they make explicit which parts are
+speculative, which parts are conventional field theory, and how the Enchan
+picture relates to existing physics. This should allow future readers---human
+or machine---to pick up the thread, refine the assumptions, and test the
+consequences against data.
+
+%===========================
+% Chapter 8
+%===========================
+\chap{Programmatic Context and Long-Term Roadmap}
+
+This final chapter briefly records how the present notes relate to other
+Enchan-related documents, and how they are intended to evolve over time.
+
+\subsection{Multi-format realization of a single hypothesis}
+
+Enchan theory is meant to be a single underlying hypothesis about a possible
+``source code'' for the physical universe, realized simultaneously in several
+formats:
+
+\begin{itemize}
+\item A \emph{conceptual essay} (e.g.\ a Gravity Research Foundation
+submission) which presents the emergent-spacetime and geometric
+dark-matter picture in narrative and astrophysical terms, with a
+focus on existing observations such as galactic rotation curves,
+gravitational lensing, and early-galaxy data.
+\item The present \emph{Enchan Field Notes}, which express the same picture
+in the language of effective field theory, with explicit field-theoretic constructions,
+equations of motion, and clearly stated hypotheses.
+\item A \emph{device-level patent application}, which asks: assuming the
+Enchan picture is approximately correct, what kinds of spacetime-%
+modulation or ``metric control'' devices might be conceivable in
+principle, even if they are far beyond current engineering?
+\item A broader \emph{narrative and observational-literature program},
+in which ideas about fluctuations, emergent space, time, and
+defects are explored at the level of human perception and story,
+as a kind of cognitive laboratory for the same concepts.
+\end{itemize}
+
+These are not independent projects but different projections of the same
+underlying attempt to model spacetime and dark matter as emergent structures.
+
+\subsection{Role of these notes as a ledger}
+
+Within this multi-format picture, the present notes play a specific role:
+
+\begin{itemize}
+\item They serve as a \emph{ledger} or \emph{versioned notebook} in which the
+mathematical and physical content of the Enchan framework is recorded
+in a compact, technical form.
+\item They explicitly mark which elements are assumptions, which are standard
+constructions in field theory, and which are hypotheses awaiting
+confirmation or refutation.
+\item They provide a natural location for incorporating new references,
+numerical experiments, and consistency checks over time (e.g.\ v0.2,
+v1.0, and beyond).
+\end{itemize}
+
+In particular, if future simulations or observations falsify key Enchan
+assumptions (for example, if no defect spectrum can reproduce the required
+asymptotics within acceptable cosmological bounds), these notes are intended
+to record that fact and to provide a starting point for formulating alternative
+hypotheses.
+
+\subsection{Long-term roadmap (10--20 year horizon)}
+
+The intended time scale for developing or discarding the Enchan framework as a
+physical hypothesis is not one or two years but on the order of one or two
+decades. Very schematically, one can imagine the following stages:
+
+\paragraph{Near term (v0.x series).}
+\begin{itemize}
+\item Clarify dimensional analysis and normalization of the $F S$ coupling,
+including explicit mass dimensions for $F$, $S$ and $V(S)$.
+\item Construct at least one explicit example of a potential $V(S)$ and
+source configuration $F$ that supports nontrivial defects in three
+dimensions, and explore them numerically in simplified settings.
+\item Refine the axiomatic structure as needed in light of these examples.
+\end{itemize}
+
+\paragraph{Medium term (v1.x series).}
+\begin{itemize}
+\item Embed the Enchan field in an explicit coupling to the metric, via
+either $T_{\mu\nu}[S]$ in Einstein's equations or a more radical
+emergent-metric construction.
+\item Compare the resulting model with galactic rotation curves and lensing
+data, at least in simplified or idealized systems.
+\item Begin to confront the defect spectrum with basic cosmological
+constraints, including the cosmic microwave background.
+\end{itemize}
+
+\paragraph{Longer term.}
+\begin{itemize}
+\item Perform more systematic cosmological simulations of defect networks
+and structure formation in Enchan-like models, using them to test the
+framework against a wider range of observations.
+\item Either progressively tighten the Enchan picture into a more predictive
+theory, or, if it fails, document how and where it breaks down and
+treat it as a stepping stone toward a more accurate description.
+\end{itemize}
+
+In all of these stages, the guiding principle is that Enchan theory is to be
+treated as a serious but speculative hypothesis: it should be sharpened,
+criticized, and, if necessary, falsified in the usual scientific manner.
+
+\section*{Acknowledgements}
+
+The author thanks informal collaborators and reviewers for their critical
+feedback on earlier versions of this framework.
+
+\clearpage
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+
+\bibitem{Kibble1976}
+T.~W.~B. Kibble,
+\newblock Topology of cosmic domains and strings.
+\newblock {\em Journal of Physics A: Mathematical and General}, 9(8):1387, 1976.
+
+\bibitem{BarriolaVilenkin1989}
+M.~Barriola and A.~Vilenkin,
+\newblock Gravitational field of a global monopole.
+\newblock {\em Physical Review Letters}, 63(4):341, 1989.
+
+\bibitem{Perivolaropoulos2022}
+L.~Perivolaropoulos,
+\newblock Frustrated topological defects.
+\newblock {\em Physical Review D}, 105(12):124002, 2022.
+
+\end{thebibliography}
+
+\end{document}
