@@ -1,0 +1,2 @@
+source_mrt,N,a_intercept,b_slope,rms_dex_logMb,fit_model
+BTFR_Lelli2019.mrt,123,2.1879755009219517,3.747716462240437,0.23483512225473022,log10(Mb) = a + b*log10(Vf)
