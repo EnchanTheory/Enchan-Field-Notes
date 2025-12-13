@@ -8,7 +8,7 @@
 This script reproduces a minimal SPARC RAR benchmark from the public `Rotmod_LTG.zip` archive.
 
 > Note: `Rotmod_LTG.zip` is **not** committed to this repository.
-> Download it from the SPARC site and place it next to the script (or pass a path via `--zip`).
+> Download it from the SPARC database download page (mass models / Rotmod_LTG) and place it next to the script (or pass a path via `--zip`).
 
 ## Input
 - `Rotmod_LTG.zip` (contains 175 `*_rotmod.dat` files)
