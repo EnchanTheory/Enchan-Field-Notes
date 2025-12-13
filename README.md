@@ -1,14 +1,15 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current Version:** v0.2.2
+**Current Version:** v0.2.3
 **Status:** Speculative / Work in Progress
 
-## 🚀 What's New in v0.2.2
-This release incorporates major theoretical updates and structural refinements:
-* **Added Chapter 3 (Physical Motivation):** Explicitly connected the Enchan axiomatic structure to General Relativity using **Kerr black hole metrics**.
-* **Rotational Stability Defined:** Mathematically demonstrated how the spin parameter ($a_*$) modifies the Innermost Stable Circular Orbit (ISCO), providing a physical basis for the control parameter $\Omega$.
-* **Clarified Interpretational Remarks:** Added distinct definitions for microscopic time ($t$) and emergent macroscopic time ($T$).
-* **Updated Disclaimer:** Explicitly stated that technological implementations (devices/patents) are out of scope.
+## 🚀 What's New in v0.2.3
+This update adds important observational context and bounds based on recent investigations:
+* **Added Experimental Constraints (Chapter 6):** Included a summary of null results from feasibility studies and public LIGO/Virgo strain data analysis.
+* **Parameter Space Bounded:** Explicitly ruled out the "human-scale strong-coupling" variant of the hypothesis within the tested frequency band (10–100 Hz).
+* **Theoretical Clarification:** Added a remark distinguishing the hypothesized driven coupling from general relativistic black-hole ringdown (Quasi-Normal Modes).
+
+*(Previous v0.2.2 updates included: Rotational Stability defined via Kerr metric analogies, and definitions for emergent macroscopic time.)*
 
 ---
 
@@ -20,14 +21,15 @@ It proposes a speculative framework where spacetime geometry emerges from micros
 * **Emergent Gravity:** Gravity as a residual effect of spatial ordering.
 * **Geometric Dark Matter:** Identifying dark matter with topological defects ($|\nabla S| \propto 1/r$).
 * **Rotational Stability:** Utilizing Kerr metric analogies to describe stability control.
+* **Observational Constraints:** Bounding coupling constants using interferometric data limits.
 
 ## Disclaimer
 This repository contains purely theoretical and cosmological descriptions.
-**Technological implementations, specific device architectures, and industrial applications (e.g., Enchan-001/002) are explicitly out of scope and are not disclosed here.**
+**Technological implementations, specific device architectures, and industrial applications (e.g., feasibility studies referenced in the notes) are explicitly out of scope and are not disclosed here.**
 
 ## Citation
 If you wish to cite this draft:
-> Kobayashi, M. (2025). *Enchan Field Notes: Emergent Spacetime and Rotational Control*. v0.2.2. GitHub Repository.
+> Kobayashi, M. (2025). *Enchan Field Notes: Emergent Spacetime and Rotational Control*. v0.2.3. GitHub Repository.
 
 ## License
 
