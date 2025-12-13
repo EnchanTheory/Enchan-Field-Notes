@@ -1,5 +1,10 @@
 # Enchan SPARC rotation-curve prediction reproducibility
 
+> **Status (baseline / non-Enchan):**  
+> **Not derived from Enchan equations. Baseline only.**  
+> This package validates a published empirical mapping (RAR/MDAR-style) on public SPARC mass-model data.  
+> It is kept here as a reproducible benchmark and regression test for future Enchan-derived models.
+
 This package reproduces the **fixed-parameter rotation-curve prediction test** from SPARC `Rotmod_LTG` mass-model files.
 
 ## What it does
@@ -10,6 +15,7 @@ From each galaxy's `*_rotmod.dat` table:
 - maps `g_bar -> g_pred` using the one-parameter empirical curve used in RAR/MDAR literature
 - predicts rotation speed `V_pred(r)=sqrt(g_pred*r)`
 - outputs CSV tables + diagnostic figures (and optionally a minimal TeX stub)
+**Note:** The `g_bar -> g_pred` mapping used here is an empirical baseline and is **not** derived from Enchan equations.
 
 This is a **reproducibility/validation tool**, not a per-galaxy fit.
 
