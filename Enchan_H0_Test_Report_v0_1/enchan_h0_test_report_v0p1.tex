@@ -1,0 +1,158 @@
+%==============================================================================
+% Enchan H0 Test Report (TDCOSMO chain export)
+% Copyright (c) 2025 Mitsuhiro Kobayashi
+%
+% This work (textual content, PDF) is licensed under a
+% Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+% To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/
+%
+% The LaTeX source code structure itself is available under the MIT License.
+%==============================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+%===========================
+% Packages (match Enchan Field Notes style)
+%===========================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+%===========================
+% Helpers
+%===========================
+\newcommand{\chap}[1]{\clearpage\section{#1}}
+
+%===========================
+% Title / Author
+%===========================
+\title{\textbf{Enchan H0 Test Report v0.1}\\[0.5em]
+\large Reproducing a public TDCOSMO chain-export posterior for $H_0$}
+\author{Mitsuhiro Kobayashi\\[0.25em]
+Tokyo, Japan\\
+\texttt{enchan.theory@gmail.com}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+\noindent
+This report documents a minimal, reproducible extraction of the $H_0$ posterior
+from a publicly released TDCOSMO chain-export file (\texttt{LambdaCDM1a.h5}).
+We load the MCMC samples, select the parameter \texttt{h0} (in km/s/Mpc),
+and compute summary statistics (median, 16th/84th percentiles) and a single diagnostic plot.
+For the analyzed chain (Dataset: TDCOSMO + Pantheon+; Lens label: RXJ1131-1231),
+we obtain $H_0 = 71.64^{+3.89}_{-3.33}$ km/s/Mpc
+(16--84\%: 68.30--75.53).
+\end{abstract}
+
+\clearpage
+\tableofcontents
+
+\chap{Scope and deliverable}
+This document is intentionally narrow: it records a \textbf{single} verification task
+that can be rerun from public data with short Python code.
+The goal is to establish an externally intelligible handle for later work:
+\begin{itemize}
+\item verify that the publicly released chain-export data reproduce a concrete $H_0$ posterior;
+\item fix the extraction steps and outputs (figure + CSV summary) for transparent reuse.
+\end{itemize}
+No claim of definitive model selection is made here.
+
+\chap{Data and method}
+\subsection*{Data}
+We analyze the chain-export HDF5 file:
+\begin{itemize}
+\item file: \texttt{LambdaCDM1a.h5}
+\item model label: LambdaCDM (from filename)
+\item dataset label: TDCOSMO + Pantheon+
+\item lens label in metadata: RXJ1131-1231
+\end{itemize}
+The file contains an array of samples and a list of parameter names.
+
+\subsection*{Extraction}
+We read the dataset \texttt{samples} and the array \texttt{parameters},
+locate the column named \texttt{h0}, and compute:
+\begin{itemize}
+\item median and 16th/84th percentiles of $H_0$;
+\item a histogram of the posterior with percentile markers.
+\end{itemize}
+Additionally, we report $P(H_0<67)$ as a simple reference probability.
+This value is \emph{not} a full tension metric and is included only to provide a transparent,
+single-number comparison point.
+
+\chap{Results}
+\subsection*{Summary statistics}
+Table~\ref{tab:h0} summarizes the extracted posterior statistics.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Chain & Median & 16th & 84th & $P(H_0<67)$\\
+\midrule
+\texttt{LambdaCDM1a} & 71.64 & 68.30 & 75.53 & 0.079\\
+\bottomrule
+\end{tabular}
+\caption{Extracted $H_0$ posterior summary (km/s/Mpc).}
+\label{tab:h0}
+\end{table}
+
+\subsection*{Posterior shape}
+Figure~\ref{fig:h0post} shows the posterior histogram with median and 16th/84th percentile markers.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{fig_h0_posterior_LambdaCDM1a.png}
+\caption{Posterior for $H_0$ extracted from \texttt{LambdaCDM1a.h5}.}
+\label{fig:h0post}
+\end{figure}
+
+\chap{Interpretation: geometry vs particles (minimal statement)}
+This report establishes one empirical fact about the provided public chain:
+\textbf{the extracted posterior has median $H_0$ around 71--72 km/s/Mpc in this configuration.}
+
+\subsection*{Does this test validate a geometric explanation?}
+No. The chain samples are produced under standard gravitational lensing modeling assumptions.
+This report only verifies and summarizes the released posterior. To test a geometric modification,
+one would need a forward model that changes the inferred time-delay distance and then re-fit
+(or re-weight) against the data.
+
+\subsection*{How it can still help later Enchan work}
+The value and uncertainty reported here provide a reproducible target.
+Any proposed mechanism (geometric or particle-based) that aims to address late-vs-early $H_0$
+differences can be checked against this posterior using the same extraction interface.
+
+\chap{Reproducibility artifacts}
+This report is accompanied by:
+\begin{itemize}
+\item \texttt{tdcosmo\_h0\_summary\_LambdaCDM1a.csv}: extracted posterior summary
+\item \texttt{fig\_h0\_posterior\_LambdaCDM1a.png}: diagnostic posterior plot
+\end{itemize}
+Reproduction procedure (minimal): load \texttt{LambdaCDM1a.h5}, locate \texttt{h0} in \texttt{parameters},
+compute quantiles on the \texttt{samples} column, and export the CSV + histogram figure.
+
+\chap{References}
+\begin{itemize}
+\item TDCOSMO 2025 public repository (chain export): \url{https://github.com/TDCOSMO/TDCOSMO2025_public}
+\end{itemize}
+
+\end{document}
