@@ -1,5 +1,10 @@
 # Enchan RAR reproduce
 
+> **Status (baseline / non-Enchan):**  
+> **Not derived from Enchan equations. Baseline only.**  
+> This package validates a published empirical mapping (RAR/MDAR-style) on public SPARC mass-model data.  
+> It is kept here as a reproducible benchmark and regression test for future Enchan-derived models.
+
 This script reproduces a minimal SPARC RAR benchmark from the public `Rotmod_LTG.zip` archive.
 
 > Note: `Rotmod_LTG.zip` is **not** committed to this repository.
