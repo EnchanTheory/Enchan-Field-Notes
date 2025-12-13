@@ -41,7 +41,7 @@
 %===========================
 % Title / Author
 %===========================
-\title{\textbf{Enchan Field Notes v0.2.2}\\[0.5em]
+\title{\textbf{Enchan Field Notes v0.2.3}\\[0.5em]
 \large Emergent Spacetime, Geometric Dark Matter, and Rotational Control}
 
 \author{Mitsuhiro Kobayashi\\[0.25em]
@@ -66,12 +66,8 @@ stabilized long-lived configuration of a primordial fluctuation field. In this p
 matter is not a new particle species but the geometric imprint of persistent
 defects---``spacetime wrinkles''---in an emergent spatial order parameter $S$.
 
-In this v0.2.2 update, we explicitly incorporate the role of \emph{rotation} in
-determining the stability of spacetime structures. Drawing on the properties of
-Kerr black holes in general relativity, we show how the dimensionless spin parameter
-$a_*$ modifies the innermost stable circular orbit (ISCO) and the event horizon structure.
-This provides a rigorous physical motivation for the axiomatic dependency of emergent
-space $S$ on the rotational degree of freedom $\Omega$.
+Previous updates (v0.2.2) incorporated the role of rotation in stability, drawing on Kerr black hole mechanics.
+\textbf{In this v0.2.3 update}, we append a note on recent experimental constraints. Specifically, we summarize the null results from a search for macroscopic rotational coupling using ground-based interferometric limits, which, within the tested band and sensitivity limits, rule out the ``human-scale strong-coupling'' variant of the hypothesis.
 
 The Enchan framework is \emph{not} intended to deny the Standard Model or general
 relativity. It should be read as a speculative ``source-code'' layer proposed
@@ -94,7 +90,7 @@ profile $\rho(r) \propto 1/r^2$, which yields flat rotation curves
 $v(r) = \text{const}$ without particulate dark matter. We summarize the
 conceptual structure, its minimal field realization, and possible observational
 signatures, and we make explicit which elements are assumptions rather than
-derived results. This v0.2.2 version is intended as a technical backbone and
+derived results. This v0.2.3 version is intended as a technical backbone and
 ledger for future refinements.
 \end{abstract}
 
@@ -482,9 +478,9 @@ in regimes where the field varies slowly in time:
 In the next chapter we focus on regimes where $(\nabla S)^2$ dominates and
 explore the consequences for galactic dynamics.
 
-\subsection*{Status of dimensional analysis in v0.2.2}
+\subsection*{Status of dimensional analysis in v0.2.3}
 
-In this v0.2.2 version we do not yet fix the mass dimensions of $F$, $S$ and
+In this v0.2.3 version we do not yet fix the mass dimensions of $F$, $S$ and
 $V(S)$ in a fully systematic way. The coupling term $F S$ in
 Eq.~\eqref{eq:Lagrangian} should ultimately be accompanied by an explicit
 coupling constant so that the total mass dimension of $\mathcal{L}$ is
@@ -510,7 +506,7 @@ Minkowskian.
 At the same time, the broader Enchan framework allows for the possibility that
 the pre-geometric fluctuation sector $(\epsilon,F)$ lives at a more microscopic
 level where different symmetries---or their breaking---may be relevant. In this
-v0.2.2 version we do not attempt to specify these microscopic symmetries. The
+v0.2.3 version we do not attempt to specify these microscopic symmetries. The
 question of how the symmetries of $(\epsilon,F)$ flow to the effective
 Poincar\'e symmetry of $S$ is deferred to future work and is regarded as a key
 part of a more complete Enchan cosmology.
@@ -643,6 +639,43 @@ testbeds: solitonic or defect-like configurations of $S$ should pass through
 baryonic plasma without drag, potentially reproducing the observed separation
 between gas and lensing mass.
 
+%==============================================================================
+% Added for v0.2.3 update
+%==============================================================================
+\subsection{Constraints from macroscopic rotational-coupling searches (v0.2.3 note)}
+
+Recent feasibility studies and null searches using public interferometer data have placed important constraints on the scaling of the geometric coupling constants postulated in the Enchan framework.
+
+\subsubsection*{Hypothesis tested (restricted form)}
+We investigated a restricted ``strong-coupling'' variant of the Enchan programme in which macroscopic rotation or vibration of ordinary matter induces an additional, non-GR geometric response that is:
+\begin{enumerate}
+    \item Detectable as a non-reciprocal optical phase bias in interferometric readouts (Sagnac-like effect), and/or
+    \item Manifests as a narrowband, approximately stationary feature in strain-sensitive instruments within a representative human-scale frequency band ($10$--$100$\,Hz).
+\end{enumerate}
+
+\subsubsection*{Methodology}
+Two complementary constraint routes were pursued to bound the coupling strength:
+
+\paragraph{Detectability studies for interferometric phase readouts.}
+Using standard interferometric scaling relations, we quantified how thermally induced non-reciprocity (Shupe effect) and polarization-related visibility fluctuations bound achievable sensitivity in practical ground-based configurations. The goal of this study was not device design, but to estimate whether the hypothesized coupling could plausibly rise above dominant, well-known noise terms in realistic environments.
+
+\paragraph{Search for narrowband stationary features in public strain data.}
+We analyzed representative segments of publicly available high-sensitivity interferometer data (public LIGO/Virgo strain data via GWOSC \cite{GWOSC}) and searched the $10$--$100$\,Hz band for persistent narrow spectral features consistent with the restricted hypothesis. Candidate lines were cross-checked against known instrumental artifacts (e.g., scattering arches, calibration lines, and suspension resonances) to assess whether any statistically compelling anomaly remained.
+
+\subsubsection*{Results (null within scope)}
+Across the tested parameter space and analysis settings, no evidence was found for an additional strong geometric response beyond known instrumental/systematic features. 
+In particular, the detectability study indicates that dominant thermal non-reciprocity places stringent practical bounds on how large any putative effect could be before it becomes indistinguishable from environmental drift in compact, ground-based configurations. Similarly, strain data analysis yielded no candidates exceeding typical strain noise levels in that band (order $10^{-23}$--$10^{-22}/\sqrt{\mathrm{Hz}}$) that could not be vetted as instrumental noise.
+
+\subsubsection*{Conclusion and implication for model-building}
+The above results do not falsify the broader Enchan hypothesis space. They do, however, rule out---within the tested band, sensitivity targets, and analysis assumptions---the specific ``human-scale strong-coupling'' realization. Future versions of the theory should therefore:
+\begin{itemize}
+    \item Treat the coupling strength as bounded from above by these null results (i.e., the effect must be weaker than the current observational limits).
+    \item Shift emphasis toward either microphysical/quantum regimes or genuinely strong-gravity/cosmological regimes where the relevant scales may differ by many orders of magnitude.
+\end{itemize}
+
+\paragraph{Remark on ``resonance'' in astrophysical strong gravity.}
+Damped post-merger oscillations (``ringdown'') observed in compact-binary signals are consistent with the quasi-normal-mode response of perturbed black-hole spacetimes in general relativity. This phenomenon reflects a strong-gravity transient excited by a large perturbation and should not be conflated with a laboratory-scale, externally driven macroscopic rotational coupling. Consequently, similarity in frequency band alone (e.g., $10$--$100$\,Hz) does not imply scale invariance; the relevant control parameters are the strength of curvature and relativistic compactness, which differ by many orders of magnitude between astrophysical mergers and terrestrial rotating apparatus.
+
 \subsection{Cosmological evolution}
 
 Embedding Eq.~\eqref{eq:FieldEq} in a cosmological FRW background would allow
@@ -656,7 +689,7 @@ respect constraints from the cosmic microwave background and large-scale
 structure?
 \end{itemize}
 
-\subsection*{Limitations of the present v0.2.2 model}
+\subsection*{Limitations of the present v0.2.3 model}
 
 The discussion in this chapter is intentionally qualitative. In particular:
 
@@ -665,7 +698,7 @@ The discussion in this chapter is intentionally qualitative. In particular:
 equations. A consistent treatment of lensing, light-cone structure,
 and cosmological evolution requires specifying how $T_{\mu\nu}[S]$
 couples to the metric $g_{\mu\nu}$, or whether $g_{\mu\nu}$ is itself
-an emergent functional of $S$. This is left open in v0.2.2.
+an emergent functional of $S$. This is left open in v0.2.3.
 \item We do not derive detailed constraints from the cosmic microwave
 background or large-scale structure. Known bounds on defect networks
 (e.g.\ cosmic strings, global monopoles) provide important guidance,
@@ -673,7 +706,7 @@ but a quantitative comparison for Enchan-type defects remains to be
 carried out.
 \item Beyond the generic prediction of asymptotically flat rotation curves
 from a $1/r^2$-type gradient energy profile, we do not propose in
-v0.2.2 a set of sharp, unique observational signatures that would
+v0.2.3 a set of sharp, unique observational signatures that would
 distinguish the Enchan framework from other dark-matter models.
 \end{itemize}
 
@@ -841,6 +874,12 @@ M.~Barriola and A.~Vilenkin,
 L.~Perivolaropoulos,
 \newblock Frustrated topological defects.
 \newblock {\em Physical Review D}, 105(12):124002, 2022.
+
+\bibitem{GWOSC}
+R. Abbott et al. (LIGO Scientific Collaboration and Virgo Collaboration),
+\newblock Open Data from the First and Second Observing Runs of Advanced LIGO and Advanced Virgo.
+\newblock {\em SoftwareX}, 13:100658, 2021.
+\newblock \url{https://www.gw-openscience.org}
 
 \end{thebibliography}
 
