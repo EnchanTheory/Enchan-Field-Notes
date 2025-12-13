@@ -1,11 +1,17 @@
 # Enchan BTFR reproduce
 
+> **Status (baseline / non-Enchan):**  
+> **Not derived from Enchan equations. Baseline only.**  
+> This folder provides a reproducible BTFR benchmark from a public SPARC table and is intended as a reference/regression test for future Enchan-derived models.
+
 This folder contains a minimal, reproducible BTFR benchmark from a SPARC BTFR `.mrt` table.
 
 ## Input (not committed)
 Place the SPARC BTFR table next to the script, for example:
 
 - `BTFR_Lelli2019.mrt`
+
+**Note:** This benchmark fits an empirical log-log relation and does not implement an Enchan forward model.
 
 ## Run
 ```bash
