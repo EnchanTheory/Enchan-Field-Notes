@@ -1,12 +1,11 @@
-# Data files (Do not commit external datasets)
+# --- Input Data (Large/External files) ---
 *.zip
 *.mrt
-*.csv
 *.dat
 
-# Python cache
+# --- Python Cache ---
 __pycache__/
 *.pyc
 
-# Output directories
-Enchan_*_Report_v*/
+# --- Note: We DO want to commit CSV and PNG reports ---
+# (Removed *.csv from ignore list so reports are uploaded)
