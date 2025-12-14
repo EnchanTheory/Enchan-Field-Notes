@@ -1,0 +1,12 @@
+# Data files (Do not commit external datasets)
+*.zip
+*.mrt
+*.csv
+*.dat
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Output directories
+Enchan_*_Report_v*/

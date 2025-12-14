@@ -1,6 +1,0 @@
-# local data (do not commit)
-*.mrt
-
-# python
-__pycache__/
-*.pyc
