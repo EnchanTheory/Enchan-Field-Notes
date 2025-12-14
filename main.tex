@@ -1,0 +1,173 @@
+%==============================================================================
+% Enchan Field Notes (Theoretical Framework)
+% Version: v0.3.0 (Pivot: Inception & Anchor)
+% Main file - loads sections from ./sections/
+%==============================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+%===========================
+% Packages
+%===========================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdftitle={Enchan Field Notes v0.3.0},
+    pdfauthor={Mitsuhiro Kobayashi},
+    pdfsubject={Inception World: Topological Defects and Emergent Acceleration Scale},
+    pdfkeywords={Enchan, dark matter, RAR, BTFR, topological defect, scalar field}
+}
+
+%===========================
+% Helpers
+%===========================
+% chapter-like section with page break
+\newcommand{\chap}[1]{\clearpage\section{#1}}
+
+% Dimensionless field symbol (explicitly defined)
+\newcommand{\EnchanS}{S}
+
+%---------------------------
+% hyperref: avoid PDF-string warnings when math appears in headings
+%---------------------------
+\pdfstringdefDisableCommands{%
+  \def\EnchanS{S}%
+  \def\bm#1{#1}%
+  \def\mathrm#1{#1}%
+  \def\mathcal#1{#1}%
+  \def\sqrt#1{sqrt(#1)}%
+  \def\ln{ln}%
+}
+
+%===========================
+% Title / Author
+%===========================
+\title{\textbf{Enchan Field Notes v0.3.0}\\[0.5em]
+\large The Inception World: Topological Defects and the Origin of an Acceleration Scale}
+
+\author{Mitsuhiro Kobayashi\\[0.25em]
+Tokyo, Japan\\
+\texttt{enchan.theory@gmail.com}}
+
+\date{\today}
+
+%===========================
+% Document
+%===========================
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+%===========================
+% Abstract
+%===========================
+\begin{abstract}
+\noindent
+\textbf{v0.3.0 update (hypothesis shift):}
+This version pivots from the earlier ``resonant space'' direction (v0.2.x) to a
+topological-defect picture.
+We introduce a \emph{dimensionless} scalar field $\EnchanS$ interpreted as an effective
+time-dilation factor (a compact proxy for gravitational time delay).
+
+Assuming that $\EnchanS$ admits logarithmic defect-like profiles anchored by baryonic structure,
+we show how an effective acceleration closure compatible with the Radial Acceleration Relation (RAR)
+and the Baryonic Tully--Fisher Relation (BTFR) can emerge at the phenomenological level.
+A central goal of v0.3.0 is to express the characteristic acceleration scale $a_0$
+as a derived parameter in terms of vacuum stiffness and defect geometry, rather than as an
+unexplained constant.
+\end{abstract}
+
+%===========================
+% Status / Scope box
+%===========================
+\vspace{1em}
+\hrule
+\section*{Status and Scope (v0.3.0)}
+This document presents a \textbf{speculative effective framework} intended to sit
+beneath (not replace) the Standard Model and General Relativity.
+\begin{itemize}
+    \item \textbf{Empirical baseline:} The included Python scripts reproduce standard
+    galactic scaling regularities (SPARC-based RAR / BTFR / fixed-parameter rotation-curve prediction)
+    as external benchmarks. Verification code is available at:\\
+    \url{https://github.com/EnchanTheory/Enchan-Field-Notes}
+    
+    \item \textbf{Theoretical proposal:} The working hypothesis is that these regularities can be
+    interpreted as signatures of defect-like configurations in the field $\EnchanS$.
+    \item \textbf{Assumptions:} The ``Anchor Condition'' linking baryonic structure to the defect scale
+    is currently a phenomenological ansatz and is explicitly marked as such.
+    \item \textbf{Conservativeness:} The framework is not presented as a modification of strong-field GR;
+    it targets the galaxy-scale, weak-field phenomenology where the empirical relations are defined.
+\end{itemize}
+\hrule
+\vspace{1em}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+%===========================
+% Content Injection
+%===========================
+\input{sections/01_overview}
+\input{sections/02_concept}
+\input{sections/03_rotation}
+\input{sections/04_field_model}
+\input{sections/05_asymptotics}
+\input{sections/06_derivation}
+\input{sections/07_observation}
+\input{sections/99_conclusion}
+
+%===========================
+% Bibliography
+%===========================
+\clearpage
+\begin{thebibliography}{99}
+
+\bibitem{Kibble1976}
+T.~W.~B. Kibble,
+\newblock ``Topology of cosmic domains and strings,''
+\newblock {\em Journal of Physics A: Mathematical and General}, 9:1387, 1976.
+
+\bibitem{BarriolaVilenkin1989}
+M. Barriola and A. Vilenkin,
+\newblock ``Gravitational field of a global monopole,''
+\newblock {\em Physical Review Letters}, 63:341, 1989.
+
+\bibitem{McGaugh2016}
+S.~S. McGaugh, F.~Lelli, and J.~M. Schombert,
+\newblock ``Radial Acceleration Relation in Rotationally Supported Galaxies,''
+\newblock {\em Physical Review Letters}, 117:201101, 2016.
+
+\bibitem{Lelli2019}
+F. Lelli et al.,
+\newblock ``The Baryonic Tully--Fisher Relation for Different Galaxy Types,''
+\newblock {\em Monthly Notices of the Royal Astronomical Society}, 484:3267, 2019.
+
+\bibitem{Abbott2021}
+R. Abbott et al. (LIGO Scientific Collaboration and Virgo Collaboration),
+\newblock ``Open Data from the First and Second Observing Runs of Advanced LIGO and Advanced Virgo,''
+\newblock {\em SoftwareX}, 13:100658, 2021.
+
+\bibitem{Dvali2000}
+G. Dvali, G. Gabadadze, and M. Porrati,
+\newblock ``4D Gravity on a Brane in 5D Minkowski Space,''
+\newblock {\em Physics Letters B}, 485:208, 2000.
+
+\end{thebibliography}
+
+\end{document}

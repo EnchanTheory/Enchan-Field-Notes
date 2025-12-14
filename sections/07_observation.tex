@@ -1,0 +1,214 @@
+%===========================
+% Chapter 7: Observation / Reproducible Benchmarks
+%===========================
+
+\chap{Observational anchors and reproducible benchmarks}
+
+\subsection*{Purpose of this chapter}
+This chapter fixes a small set of \textbf{public-data benchmarks} that the Enchan model
+must ultimately reproduce \emph{from its own field equation}. The intent is practical:
+
+\begin{itemize}
+\item Provide \textbf{externally checkable targets} (data, definitions, numbers, artifacts).
+\item Keep claims \textbf{strictly separated}:
+  \begin{itemize}
+  \item \textbf{Empirical / reproduced}: verified directly from public data with deterministic code.
+  \item \textbf{Baseline mapping}: an empirical closure used only as a compact benchmark interface.
+  \item \textbf{Enchan-derived (future)}: what must be derived from the Enchan field equation.
+  \end{itemize}
+\end{itemize}
+
+\subsection*{Status note (baseline vs Enchan-derived)}
+\begin{quote}
+\textbf{Status (baseline / not yet Enchan-derived):}
+The benchmarks below are computed from public datasets using standard, published
+RAR/BTFR-style definitions. Some steps use an \emph{empirical closure} as a baseline.
+They are kept here as reproducible regression tests and as targets for a future
+Enchan-derived forward model.
+\end{quote}
+
+\subsection*{Data sources (public)}
+We use the following public sources:
+\begin{itemize}
+\item \textbf{SPARC} mass-model rotation-curve decomposition archive
+(\texttt{Rotmod\_LTG.zip}) and related tables.\\
+\url{https://astroweb.case.edu/SPARC/}
+\item \textbf{SPARC BTFR table} distributed as a CDS-style fixed-width file
+(e.g. \texttt{BTFR\_Lelli2019.mrt}).\\
+\url{https://astroweb.case.edu/SPARC/}
+\end{itemize}
+
+\noindent
+Repository policy: large upstream data files (e.g. \texttt{Rotmod\_LTG.zip}) are not committed.
+Each script records the \textbf{SHA256} hash of the local input file to make results comparable.
+
+\subsection*{Reproducibility artifacts (this repository)}
+The following reproducibility tools (Python scripts + README) are intended to be runnable
+on a standard local environment:
+\begin{itemize}
+\item \textbf{RAR benchmark (multi-point):} \texttt{Enchan\_RAR\_Test\_Report\_v0\_1/}
+\item \textbf{BTFR benchmark (one point per galaxy):} \texttt{Enchan\_BTFR\_Test\_Report\_v0\_1/}
+\item \textbf{Rotation-curve prediction benchmark (shape test):}
+\texttt{Enchan\_SPARC\_Rotation\_Curve\_Prediction\_Report\_v0\_1/}
+\end{itemize}
+
+\bigskip
+
+%----------------------------------------------------------
+\subsection{Benchmark A: RAR / MDAR (multi-point relation)}
+\label{sec:obs_rar}
+
+\subsubsection*{Definition}
+For each radial point in each galaxy, we form:
+\begin{align}
+g_{\rm obs}(r) &= \frac{V_{\rm obs}(r)^2}{r},\\
+g_{\rm bar}(r) &= \frac{V_{\rm gas}(r)^2 + Y_d\,V_{\rm disk}(r)^2 + Y_b\,V_{\rm bul}(r)^2}{r},
+\end{align}
+with unit conversion to $\mathrm{m/s^2}$.
+
+\subsubsection*{Baseline mapping used for summarizing the trend}
+A widely used one-parameter empirical curve is used as a compact summary:
+\begin{equation}
+g_{\rm obs}(g_{\rm bar}; a_0) =
+\frac{g_{\rm bar}}{1 - \exp\!\left(-\sqrt{g_{\rm bar}/a_0}\right)}.
+\end{equation}
+This is treated as a \textbf{benchmark closure} (not yet derived from the Enchan field equation).
+
+\subsubsection*{Reproduced result (public SPARC data)}
+Using \texttt{Rotmod\_LTG.zip} (175 galaxies; 3391 points; SB-clean subset defined by
+\texttt{SBdisk>0} giving 3111 points), the relation is reproduced with small scatter.
+A representative reproduced summary is:
+
+\begin{itemize}
+\item Baseline mass-to-light setting: $Y_d=0.50$, $Y_b=0.70$\\
+best-fit $a_0 \approx 1.39\times 10^{-10}\,\mathrm{m/s^2}$, RMS scatter $\approx 0.213$ dex.
+\item SB-trend-minimized setting (scan in $Y_d$ at fixed $Y_b=0.70$): $Y_d \approx 0.60$\\
+best-fit $a_0 \approx 1.12\times 10^{-10}\,\mathrm{m/s^2}$, RMS scatter $\approx 0.212$ dex,
+with residual correlation vs SBdisk reduced to near zero (galaxy-median statistic).
+\end{itemize}
+
+\subsubsection*{Why this benchmark matters for Enchan}
+Empirical content (reproduced): \textbf{across many galaxies and radii, $g_{\rm bar}$ nearly fixes $g_{\rm obs}$.}
+Any successful Enchan-derived model must reproduce:
+\begin{itemize}
+\item the existence of a tight multi-point mapping,
+\item the appearance of an acceleration scale $a_0 \sim 10^{-10}\,\mathrm{m/s^2}$,
+\item the small scatter and its residual systematics (including SB-related trends under specific choices of $Y_d$).
+\end{itemize}
+
+\bigskip
+
+%----------------------------------------------------------
+\subsection{Benchmark B: BTFR (one galaxy = one point)}
+\label{sec:obs_btfr}
+
+\subsubsection*{Definition}
+BTFR is treated as a galaxy-level mapping between baryonic mass $M_{\rm b}$
+(stars + gas) and a characteristic outer/flat rotation speed $V_{\rm f}$.
+From a public SPARC BTFR table (e.g. \texttt{BTFR\_Lelli2019.mrt}) we extract:
+\begin{equation}
+x \equiv \log_{10}(V_{\rm f}/\mathrm{km\,s^{-1}}), \qquad
+y \equiv \log_{10}(M_{\rm b}/M_\odot),
+\end{equation}
+and fit a log--log line:
+\begin{equation}
+y = a + b\,x.
+\end{equation}
+
+\subsubsection*{Reproduced result (public table)}
+After basic finite-value cuts and requiring $V_{\rm f}>0$, a representative reproduction yields
+$N=123$ galaxies with:
+\begin{equation}
+a \approx 2.188,\qquad b \approx 3.748,\qquad \mathrm{RMS} \approx 0.235~\mathrm{dex}
+\end{equation}
+(scatter in $y=\log_{10} M_{\rm b}$ around the best-fit line).
+
+\subsubsection*{Acceleration-scale diagnostic from BTFR}
+A commonly used diagnostic is the per-galaxy estimate
+\begin{equation}
+a_{0,{\rm BTFR}} \equiv \frac{V_{\rm f}^4}{G\,M_{\rm b}},
+\end{equation}
+which has units of acceleration and is expected to be $\mathcal{O}(10^{-10}\,\mathrm{m/s^2})$
+when the BTFR is close to slope $\sim 4$.
+
+\noindent
+In our reproducibility script, the distribution of $a_{0,{\rm BTFR}}$ is treated as a
+\textbf{numerical target} (baseline / not yet Enchan-derived). A representative run yields:
+\begin{itemize}
+\item median $a_{0,{\rm BTFR}} \approx 1.53\times 10^{-10}\,\mathrm{m/s^2}$,
+\item 16--84\% range $\approx (0.90$--$2.65)\times 10^{-10}\,\mathrm{m/s^2}$.
+\end{itemize}
+
+\subsubsection*{Why this benchmark matters for Enchan}
+Enchan must ultimately explain \emph{why} a stable acceleration scale appears in galaxy-level
+data summaries, and how it relates (or does not relate) to the multi-point RAR scale.
+
+\bigskip
+
+%----------------------------------------------------------
+\subsection{Benchmark C: Rotation-curve prediction (shape test)}
+\label{sec:obs_rcpred}
+
+\subsubsection*{Definition (fixed-parameter prediction)}
+Using the SPARC mass-model components at each radius, we compute $g_{\rm bar}(r)$ and apply
+a fixed mapping to obtain a predicted response $g_{\rm pred}(r)$, then predict:
+\begin{equation}
+V_{\rm pred}(r) = \sqrt{g_{\rm pred}(r)\,r}.
+\end{equation}
+In the baseline benchmark, parameters are fixed globally (no per-galaxy tuning):
+\begin{equation}
+(Y_d, Y_b) = (0.60, 0.70),\qquad a_0 = 1.12\times 10^{-10}\,\mathrm{m/s^2}.
+\end{equation}
+
+\subsubsection*{Reproduced result (public SPARC data)}
+A representative reproduction over the full archive (175 galaxies; 3391 points) yields:
+\begin{itemize}
+\item global RMS residual in $\log_{10} g$: $\approx 0.208$ dex,
+\item global RMS fractional velocity error: $\approx 0.358$,
+\item per-galaxy reduced $\chi^2$ values (approximate; using only velocity errors) typically above unity.
+\end{itemize}
+
+\subsubsection*{Interpretation (what it does and does not claim)}
+This benchmark is \textbf{not} a proof of any specific theory. It is a \textbf{stress test}:
+a single fixed mapping produces nontrivial, sample-wide curve shapes without tuning.
+A future Enchan-derived model must reproduce at least comparable performance, and must also
+explain where and why failures occur.
+
+\bigskip
+
+%----------------------------------------------------------
+\subsection{What these benchmarks establish (and what they do not)}
+\label{sec:obs_limits}
+
+\subsubsection*{Established here (reproduced, empirical)}
+\begin{itemize}
+\item A tight multi-point RAR/MDAR is strongly present in public SPARC mass-model data.
+\item A tight galaxy-level BTFR is strongly present in a public SPARC BTFR table.
+\item A fixed-parameter mapping can generate nontrivial rotation-curve predictions at scale.
+\end{itemize}
+
+\subsubsection*{Not established here (explicit non-claims)}
+\begin{itemize}
+\item These results do \textbf{not} falsify particle dark matter.
+\item These results do \textbf{not} (yet) derive the closure or the scale $a_0$ from the Enchan field equation.
+\item These results do \textbf{not} replace a forward model: they define the targets a forward model must hit.
+\end{itemize}
+
+\bigskip
+
+%----------------------------------------------------------
+\subsection{Model-facing requirements (for the next iteration)}
+\label{sec:obs_requirements}
+
+To claim an \emph{Enchan-derived} explanation, the next step is to replace baseline closures with a
+forward prediction from the Enchan field equation, and demonstrate:
+
+\begin{itemize}
+\item (i) a derived mapping from baryonic configuration to an effective gravitational response,
+\item (ii) an emergent acceleration scale matching $a_0 \sim 10^{-10}\,\mathrm{m/s^2}$,
+\item (iii) agreement with the three benchmarks above using the same core mechanism.
+\end{itemize}
+
+\noindent
+Until (i)--(iii) are complete, the benchmarks in this chapter should be read as
+\textbf{targets and regression tests}, not as a completed theory proof.

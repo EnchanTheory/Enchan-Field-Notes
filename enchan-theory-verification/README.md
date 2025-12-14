@@ -1,5 +1,11 @@
 # Enchan Theory Verification Package (v0.3.0)
 
+> **Note:**
+> This directory contains **reproducibility scripts** for the Enchan v0.3.0 theoretical framework.
+> These scripts are scientific utilities, not metaphysical or speculative material. They are designed to objectively test the mathematical predictions of the framework against standard astronomical datasets.
+
+## Overview
+
 This package verifies that the acceleration scaling law ("Quadrature Closure") theoretically derived in **Enchan Theory v0.3.0 (Inception/Defect Model)** is consistent with actual galactic observational data (SPARC).
 
 ## Theoretical Background (v0.3.0 Pivot)
