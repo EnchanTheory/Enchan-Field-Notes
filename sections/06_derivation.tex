@@ -1,256 +1,89 @@
 %===========================
-% Chapter 6: Theoretical Derivation (v0.3.0)
+% Chapter 6: Derivation / Acceleration Scale
 %===========================
 
-\chap{Derivation of the acceleration scale}
+\chap{Derivation: the acceleration scale}
 
-\subsection*{Purpose and status}
-This chapter provides a \textbf{dimensionally consistent} derivation path from the v0.3.0 field definition
-to the emergence of an acceleration scale. The point is to make the logic auditable:
+\subsection{Purpose and scope}
+This chapter provides a \textbf{model-facing derivation ledger} for the acceleration scale $a_0$.
+The goal is not to claim completion, but to fix:
+(i) the assumptions used in the derivation,
+(ii) the dimensional bookkeeping, and
+(iii) a concrete, testable dependence that can be confronted with public data.
+
+\subsection{Assumptions used in this chapter}
+We work under the following controlled assumptions:
 \begin{itemize}
-\item what follows from the Lagrangian and a chosen static defect profile,
-\item what is an \textbf{anchor condition} (phenomenological input) connecting baryons to the defect scale,
-\item what becomes a numerical target for the public-data benchmarks (RAR / BTFR / rotation-curve shape).
+\item \textbf{Static limit:} $\partial_t S \simeq 0$ on galactic scales.
+\item \textbf{Spherical defect ansatz:} the dominant large-scale defect profile is treated as effectively spherical.
+\item \textbf{Anchor condition (ansatz):} the defect core energy density is tied to a baryonic \emph{surface}-density proxy evaluated at a characteristic anchor radius $r=r_c$.
 \end{itemize}
+These assumptions are explicitly flagged so that later revisions can replace them with a more fundamental construction.
 
-\subsection*{Dimensional bookkeeping (fixed)}
-We adopt the v0.3.0 convention:
-\begin{itemize}
-\item The Enchan field $S$ is \textbf{dimensionless}.
-\item It is interpreted as a time-dilation / potential-like quantity, so that in the weak-field,
-quasi-static regime we read an effective acceleration from
+\subsection{Field normalization and dimensions}
+We adopt the v0.3.1 convention that the Enchan field $S$ is \textbf{dimensionless} and is interpreted as an effective time-dilation factor.
+The Lagrangian density is written schematically as
 \begin{equation}
-g_S(r) \;\equiv\; c^2\,\left|\nabla S(r)\right| ,
-\label{eq:gS_def}
+\mathcal{L} = \frac{\sigma_{\rm vac}}{2}(\partial_\mu S)(\partial^\mu S) - V(S),
 \end{equation}
-consistent with the identification $S \sim \Phi/c^2$.
-\item The stiffness $\sigma_{\rm vac}$ carries units such that
-$\sigma_{\rm vac}(\nabla S)^2$ has units of energy density. A consistent choice is
-$[\sigma_{\rm vac}] = {\rm J/m}$ (equivalently N), since $[\nabla S]^2 = 1/{\rm m^2}$.
-\end{itemize}
+where $\sigma_{\rm vac}$ is a universal stiffness parameter (vacuum ``rigidity'') and $V(S)$ is an effective potential encoding anchoring and defect-core energetics.
+This chapter uses $\sigma_{\rm vac}$ and a defect-core energy density scale $V_0$ to define the length and acceleration scales below.
 
-%----------------------------------------------------------
-\subsection{Field equation from the v0.3.0 Lagrangian}
-\label{sec:derivation_eom}
-
-We start from the Lagrangian density introduced in Chapter 4 (Eq.~\eqref{eq:Lagrangian}),
+\subsection{Defect length scale}
+We introduce a characteristic core/anchor length scale $\ell_c$ via
 \begin{equation}
-\mathcal{L} \;=\; \frac{\sigma_{\rm vac}}{2}(\partial_\mu S)(\partial^\mu S) \;+\; F S \;-\; V(S).
+\ell_c \equiv \sqrt{\frac{\sigma_{\rm vac}}{2V_0}},
+\label{eq:lc_def}
 \end{equation}
-The Euler--Lagrange equation gives
-\begin{equation}
-\sigma_{\rm vac}\,\Box S \;+\; \frac{dV}{dS} \;=\; F .
-\label{eq:EL_full}
-\end{equation}
+where $V_0$ has units of energy density and represents the effective defect-core energy density associated with the anchoring region.
+This definition is used as a convenient parameterization of the ``stiffness versus core energy'' balance.
 
-For a quasi-static galactic configuration in a locally flat background, we use
-$\Box \rightarrow \nabla^2$ and obtain
+\subsection{Defect profile ansatz}
+At radii outside the core, we take a logarithmic defect profile,
 \begin{equation}
-\sigma_{\rm vac}\,\nabla^2 S \;+\; \frac{dV}{dS} \;=\; F.
-\label{eq:EL_static}
+S(r) \simeq S_0 + \eta_S \ln\!\left(\frac{r}{\ell_c}\right),
+\label{eq:S_log_profile}
 \end{equation}
-In the outer region (outside the dominant baryonic distribution), it is useful to treat $F$ as negligible
-and interpret the persistent nontrivial profile as a \textbf{defect/boundary-condition} solution:
+where $\eta_S$ is a dimensionless defect-strength parameter and $S_0$ is a gauge constant.
+This log profile is the minimal form that yields an asymptotic gradient $|\nabla S|\propto 1/r$.
+
+\subsection{Surface-density anchor ansatz}
+A key design choice is to anchor the defect using a \textbf{surface-density} proxy rather than a volume density, to avoid the enormous galaxy-to-galaxy dynamic range of $\rho_b$.
+We therefore introduce an \emph{effective baryonic surface mass density} $\Sigma_{\rm b}(r_c)$ at an anchor radius $r=r_c$, and postulate the scaling
 \begin{equation}
-\sigma_{\rm vac}\,\nabla^2 S \;+\; \frac{dV}{dS} \;\simeq\; 0 \qquad (r \gtrsim \text{baryonic extent}).
-\label{eq:outer_eq}
+V_0 \simeq \frac{G\,\Sigma_{\rm b}(r_c)^2}{\alpha_c},
+\label{eq:V0_anchor}
 \end{equation}
+where $\alpha_c$ is a dimensionless geometric factor.  This should be read as a \textbf{minimal ansatz}: it is the simplest local energetic scaling constructed from $\Sigma_{\rm b}$ and $G$.
 
-%----------------------------------------------------------
-\subsection{Inverse problem: potential compatible with a logarithmic defect}
-\label{sec:derivation_potential}
+\subsubsection{Observational proxy definition}
+For practical confrontation with data, $\Sigma_{\rm b}(r_c)$ is treated as an \textbf{observational proxy} derived from public surface-brightness indicators in SPARC products (e.g.\ disk surface-brightness columns in the mass-model tables, or equivalent catalog proxies).
+The purpose here is to fix the dependence and its sign/strength, not to claim a unique mapping from photometry to $\Sigma_{\rm b}$.
 
-We now impose the v0.3.0 defect ansatz
+\subsection{Derived acceleration scale}
+We define the effective acceleration scale $a_0$ by combining the defect profile parameter $\eta_S$ with the characteristic length $\ell_c$:
 \begin{equation}
-S(r) \;=\; \eta_S \,\ln\!\left(\frac{r}{r_c}\right),
-\label{eq:log_defect}
+a_0 \equiv \frac{c^2\,\eta_S}{\ell_c}
+= c^2\,\eta_S \sqrt{\frac{2V_0}{\sigma_{\rm vac}}}.
+\label{eq:a0_def}
 \end{equation}
-where $\eta_S$ is dimensionless and $r_c$ is a core/anchor length scale.
-
-For spherical symmetry,
+Using the anchor scaling in Eq.~\eqref{eq:V0_anchor}, this implies the parametric dependence
 \begin{equation}
-\nabla^2 S \;=\; \frac{1}{r^2}\frac{d}{dr}\left(r^2\frac{dS}{dr}\right).
+a_0 \propto \eta_S\,\Sigma_{\rm b}(r_c)\,\sqrt{\frac{G}{\sigma_{\rm vac}}}\,,
+\label{eq:a0_scaling}
 \end{equation}
-Using $dS/dr = \eta_S/r$ from Eq.~\eqref{eq:log_defect}, we obtain
-\begin{equation}
-\nabla^2 S \;=\; \frac{\eta_S}{r^2}.
-\label{eq:laplace_log}
-\end{equation}
+i.e.\ $a_0$ is not assumed fundamental, but is controlled by vacuum stiffness and an anchored surface-density proxy (up to dimensionless factors).
 
-Requiring Eq.~\eqref{eq:outer_eq} to hold for the profile \eqref{eq:log_defect} implies
-\begin{equation}
-\frac{dV}{dS} \;=\; -\,\sigma_{\rm vac}\,\frac{\eta_S}{r^2}.
-\label{eq:dVdS_rform}
-\end{equation}
-To rewrite the right-hand side purely as a function of $S$, eliminate $r$ using
-$r = r_c\,e^{S/\eta_S}$ from Eq.~\eqref{eq:log_defect}, giving
-\begin{equation}
-\frac{1}{r^2} \;=\; \frac{1}{r_c^2}\,\exp\!\left(-\frac{2S}{\eta_S}\right).
-\end{equation}
-Thus Eq.~\eqref{eq:dVdS_rform} becomes
-\begin{equation}
-\frac{dV}{dS} \;=\; -\,\sigma_{\rm vac}\,\frac{\eta_S}{r_c^2}\,
-\exp\!\left(-\frac{2S}{\eta_S}\right).
-\end{equation}
-Integrating with respect to $S$ yields the required potential form
-\begin{equation}
-V(S) \;=\; V_0\,\exp\!\left(-\frac{2S}{\eta_S}\right) \;+\; \text{const},
-\label{eq:V_exponential}
-\end{equation}
-with the amplitude fixed by consistency to
-\begin{equation}
-V_0 \;=\; \frac{\sigma_{\rm vac}\,\eta_S^2}{2\,r_c^2}.
-\label{eq:V0_def}
-\end{equation}
+\subsection{Testable prediction}
+Because Eq.~\eqref{eq:a0_scaling} links $a_0$ to a baryonic surface-density proxy, this framework makes a direct, falsifiable statement:
+\begin{quote}
+\textbf{Prediction:} the per-galaxy acceleration scale inferred from galaxy-level relations should exhibit a \emph{weak} correlation with surface-brightness indicators (or related $\Sigma_{\rm b}$ proxies), rather than being perfectly universal.
+\end{quote}
+If a near-universal $a_0$ continues to describe diverse galaxies, this must correspond to either
+(i) weak variation of the relevant proxy, or
+(ii) self-regulation (e.g.\ compensating variation in $\eta_S$ and/or $\alpha_c$).
+Either outcome is informative and can be tested.
 
-\noindent
-This is the precise sense in which an \textbf{exponential anchor potential} is singled out by the
-requirement that a logarithmic defect profile be a static solution.
-
-%----------------------------------------------------------
-\subsection{Emergent acceleration and flat rotation curves}
-\label{sec:derivation_accel}
-
-From Eq.~\eqref{eq:log_defect}, the gradient is
-\begin{equation}
-\left|\nabla S\right| \;=\; \left|\frac{dS}{dr}\right| \;=\; \frac{\eta_S}{r}.
-\end{equation}
-Using the v0.3.0 identification \eqref{eq:gS_def}, the defect contribution to the effective acceleration is
-\begin{equation}
-g_S(r) \;=\; c^2\,\frac{\eta_S}{r}.
-\label{eq:gS_1overr}
-\end{equation}
-If the outer rotation curve is supported by this effective acceleration (dominant at large $r$),
-\begin{equation}
-\frac{v_{\rm flat}^2}{r} \;\simeq\; g_S(r)
-\quad\Rightarrow\quad
-v_{\rm flat}^2 \;\simeq\; c^2\,\eta_S,
-\label{eq:vflat_eta}
-\end{equation}
-i.e. a \textbf{flat} rotation curve with a dimensionless coefficient $\eta_S \sim (v_{\rm flat}/c)^2$.
-
-%----------------------------------------------------------
-\subsection{Anchor condition and the appearance of a universal scale}
-\label{sec:derivation_anchor}
-
-The defect profile introduces a length scale $r_c$ and an amplitude parameter $\eta_S$.
-To connect the field solution to baryons, we introduce an \textbf{anchor condition}.
-
-A minimal and observationally convenient choice is to define $r_c$ as the radius where the
-baryonic Newtonian acceleration reaches the characteristic scale:
-\begin{equation}
-g_{\rm bar}(r_c) \;\equiv\; \frac{G\,M_{\rm b}}{r_c^2} \;\simeq\; a_0,
-\label{eq:anchor_rc}
-\end{equation}
-where $M_{\rm b}$ is the (asymptotic) baryonic mass relevant for the outer dynamics.
-This gives
-\begin{equation}
-r_c \;\simeq\; \sqrt{\frac{G\,M_{\rm b}}{a_0}}.
-\label{eq:rc_from_a0}
-\end{equation}
-
-Evaluate the defect acceleration \eqref{eq:gS_1overr} at $r=r_c$:
-\begin{equation}
-g_S(r_c) \;=\; c^2\,\frac{\eta_S}{r_c}.
-\end{equation}
-Imposing $g_S(r_c)\simeq a_0$ (transition matching at the anchor scale) implies
-\begin{equation}
-a_0 \;\simeq\; c^2\,\frac{\eta_S}{r_c}.
-\label{eq:a0_core_form}
-\end{equation}
-Combining with Eq.~\eqref{eq:rc_from_a0} yields an explicit baryon--defect relation:
-\begin{equation}
-\eta_S^2 \;\simeq\; \frac{G\,a_0\,M_{\rm b}}{c^4}.
-\label{eq:eta_mass_relation}
-\end{equation}
-
-Using Eq.~\eqref{eq:vflat_eta}, we immediately obtain
-\begin{equation}
-v_{\rm flat}^4 \;\simeq\; G\,a_0\,M_{\rm b},
-\label{eq:BTFR_slope4}
-\end{equation}
-which is the \textbf{BTFR slope-4 form}. In this reading, $a_0$ is the \textbf{universal} scale,
-while $\eta_S$ varies from galaxy to galaxy and encodes baryonic mass via the anchor condition.
-
-%----------------------------------------------------------
-\subsection{Connection to the quadrature closure used in benchmarks}
-\label{sec:derivation_quadrature}
-
-The public-data reproducibility benchmarks use the quadrature closure
-\begin{equation}
-g_{\rm tot} \;=\; \sqrt{g_{\rm bar}^2 + a_0\,g_{\rm bar}},
-\label{eq:quadrature_closure}
-\end{equation}
-which matches the observed RAR trend across the relevant dynamic range.
-
-Within the present framework, Eq.~\eqref{eq:quadrature_closure} can be read as a \textbf{target closure}
-under the identification
-\begin{equation}
-g_S^2 \;\equiv\; a_0\,g_{\rm bar},
-\label{eq:gS_target}
-\end{equation}
-so that $g_{\rm tot} = \sqrt{g_{\rm bar}^2 + g_S^2}$.
-In the deep regime ($g_{\rm bar}\ll a_0$) one then has $g_{\rm tot}\approx \sqrt{a_0 g_{\rm bar}}$,
-while in the high-acceleration regime ($g_{\rm bar}\gg a_0$) one recovers $g_{\rm tot}\approx g_{\rm bar}$.
-
-\noindent
-Important: in v0.3.0 this chapter does \textbf{not} claim that Eq.~\eqref{eq:quadrature_closure}
-has been uniquely derived from microphysics. Rather, the goal is to show that a logarithmic defect profile,
-together with a physically interpretable anchoring scale, provides a \textbf{consistent theoretical slot}
-in which the empirical closure can arise.
-
-%----------------------------------------------------------
-\subsection{Expressing a0 in terms of vacuum stiffness and the anchor potential}
-\label{sec:derivation_a0_from_constants}
-
-Equation \eqref{eq:a0_core_form} gives a useful dimensional form
-\begin{equation}
-a_0 \;\simeq\; \frac{c^2}{r_c}\,\eta_S,
-\end{equation}
-consistent with the v0.3.0 requirement that $a_0$ has dimensions of acceleration.
-
-Using the exponential potential parameterization \eqref{eq:V_exponential}--\eqref{eq:V0_def},
-we may also eliminate $(\eta_S, r_c)$ in favor of the ratio $V_0/\sigma_{\rm vac}$:
-\begin{equation}
-V_0 \;=\; \frac{\sigma_{\rm vac}\,\eta_S^2}{2\,r_c^2}
-\quad\Rightarrow\quad
-\frac{\eta_S}{r_c} \;=\; \sqrt{\frac{2V_0}{\sigma_{\rm vac}}}.
-\end{equation}
-Then Eq.~\eqref{eq:a0_core_form} implies the compact expression
-\begin{equation}
-\boxed{
-a_0 \;\simeq\; c^2\,\sqrt{\frac{2V_0}{\sigma_{\rm vac}}}
-}
-\label{eq:a0_from_V0_sigma}
-\end{equation}
-which is dimensionally correct:
-$[V_0/\sigma_{\rm vac}] = 1/{\rm m^2}$, so $c^2\sqrt{V_0/\sigma_{\rm vac}}$ is an acceleration.
-
-\subsection*{Interpretation}
-Eq.~\eqref{eq:a0_from_V0_sigma} states that, in this construction, the acceleration scale is
-set by a \textbf{vacuum stiffness} $\sigma_{\rm vac}$ and the \textbf{anchor potential amplitude} $V_0$,
-while the galaxy-to-galaxy diversity enters through the anchored defect parameters $(\eta_S, r_c)$,
-linked to baryons via Eq.~\eqref{eq:eta_mass_relation}.
-
-%----------------------------------------------------------
-\subsection{Summary of assumptions and what remains to be completed}
-\label{sec:derivation_status}
-
-\subsection*{What is shown here}
-\begin{itemize}
-\item A logarithmic defect profile \eqref{eq:log_defect} implies a $1/r$ gradient and thus a flat-curve acceleration \eqref{eq:gS_1overr}.
-\item Requiring the defect to satisfy the static field equation outside sources selects an exponential potential \eqref{eq:V_exponential}.
-\item Introducing an anchor scale $r_c$ where $g_{\rm bar}(r_c)\sim a_0$ yields BTFR slope-4 in the form \eqref{eq:BTFR_slope4}.
-\item The universal acceleration scale can be expressed as \eqref{eq:a0_from_V0_sigma}.
-\end{itemize}
-
-\subsection*{What is not yet shown (explicit)}
-\begin{itemize}
-\item A unique microphysical derivation of the anchor condition \eqref{eq:anchor_rc} and the quadrature closure \eqref{eq:quadrature_closure}.
-\item A full relativistic embedding and stress-energy accounting that demonstrates consistency in all regimes.
-\end{itemize}
-
-\noindent
-Accordingly, v0.3.0 treats this chapter as a \textbf{theoretical consistency bridge}:
-it aligns the field definitions with the empirically reproduced scale $a_0$, and it cleanly isolates
-the remaining theoretical tasks for an Enchan-derived forward model.
+\subsection{Connection to the empirical benchmarks}
+Ch.~\ref{sec:obs_btfr} and Ch.~\ref{sec:obs_rar} (benchmarks) summarize the observed emergence of an acceleration scale $\sim 10^{-10}\,\mathrm{m/s^2}$ from public data.
+This chapter provides a \textbf{theory-side parametrization} of where such a scale could enter the model, and fixes the dependencies that must be checked against the benchmark outputs.

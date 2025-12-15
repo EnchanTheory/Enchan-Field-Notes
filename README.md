@@ -1,59 +1,113 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current Version:** v0.3.0
-**Status:** Speculative / Theoretical Proposal (with Numerical Verification)
+**Current version:** v0.3.1  
+**Status:** speculative research note + public-data reproducibility package
 
-## 🚀 What's New in v0.3.0 (The Pivot)
-This version marks a significant paradigm shift from the "Resonant Space" model (v0.2.x) to the **"Inception World / Topological Defect"** model. Following null results in macroscopic resonance searches, the framework has been re-derived from a new geometric basis:
+Enchan Field Notes is a collection of theoretical memoranda exploring whether several
+well-known galaxy-scale regularities can be described by an effective field picture
+(topological defects in a dimensionless “time-dilation” field `S`).
 
-* **Hypothesis Shift:** Gravity is redefined as "friction" against a cosmic fall within a higher-dimensional embedding ("Inception World"). The scalar field $S$ is now interpreted as a dimensionless **Time-Dilation factor**.
-* **Derivation of $a_0$:** We successfully derive the critical acceleration scale $a_0$ from the Lagrangian of a logarithmic topological defect, identifying it as a composite parameter of vacuum stiffness and defect geometry.
-* **The "Anchor" Condition:** Introduced the concept of baryonic mass acting as a "pinning center" for vacuum defects, naturally recovering the phenomenology of MOND without modifying inertia.
-* **Numerical Verification Added:** Added a Python verification package (`enchan-theory-verification/`) that reproduces the Radial Acceleration Relation (RAR) and Baryonic Tully-Fisher Relation (BTFR) using public SPARC galaxy data.
+This repository includes:
+- a LaTeX/PDF note (`main.pdf`, `sections/`)
+- a small Python reproducibility package based on public SPARC products (`enchan-theory-verification/`)
+
+This work is not peer-reviewed. It does not claim to falsify particle dark matter.
+In v0.3.x, several scripts use an **effective closure** as a benchmark mapping (see below);
+a field-theoretic derivation is a theory-side goal rather than an established result.
 
 ---
 
-## Overview
-Enchan Field Notes is a collection of theoretical memoranda exploring the concept of **Emergent Spacetime** and the **Dark Sector**.
-It proposes that "Dark Matter" is not a particle species, but the elastic stress energy of topological defects ($\nabla S$) in the time-flow field, anchored by baryonic matter.
+## What is reproduced here (public-data benchmarks)
 
-## Key Concepts (v0.3.0)
-* **Inception World Hypothesis:** Our universe is embedded in a bulk flow; "time" is the velocity of the fall.
-* **Geometric Dark Matter:** Dark halos are topological defects with a density profile $\rho \propto 1/r^2$ (Singular Isothermal Sphere), generating flat rotation curves.
-* **The Anchor Condition:** Defects are stabilized by baryonic mass. This coupling imposes the relation $v^4 \propto M_b$.
-* **Quadrature Closure:** The effective acceleration follows the emergent law $g_{tot} = \sqrt{g_{bar}^2 + a_0 g_{bar}}$.
+The reproducibility package focuses on three SPARC-based empirical regularities:
 
-## Repository Structure
+1. **RAR / MDAR**: across many radii and galaxies, observed acceleration tightly tracks baryonic acceleration.
+2. **BTFR**: baryonic mass tightly correlates with outer/flat rotation velocity.
+3. **Rotation-curve shape stress test**: with baryonic components + a single fixed rule, one can generate nontrivial curve shapes across a large sample (no per-galaxy tuning).
 
-* `main.tex` / `Enchan_Field_Notes_v0_3_0.pdf`: The main theoretical document.
-* `sections/`: LaTeX source files for each chapter.
-* `enchan-theory-verification/`: **[NEW]** Python scripts for observational verification.
-    * Reproduces RAR and BTFR benchmarks using SPARC data.
-    * Validates the "Quadrature Closure" against real galactic rotation curves.
+These are treated as **externally checkable targets** and regression tests.
+
+---
+
+## The benchmark closure used in v0.3.x scripts
+
+Several scripts use an effective one-parameter mapping as a working hypothesis:
+
+$$
+g_{\mathrm{tot}} = \sqrt{g_{\mathrm{bar}}^2 + a_0\,g_{\mathrm{bar}}}
+$$
+
+This repository reproduces the above benchmarks using standard SPARC-style definitions and
+reports scatter/diagnostics. This should be read as **reproducibility of the benchmark mapping**,
+not as a completed derivation from a unique fundamental theory.
+
+---
+
+## What’s new in v0.3.1
+
+- **Theory-side refinement (Chapter 6):** the note formalizes a “surface-density anchor” ansatz:
+  the apparent acceleration scale `a0` is treated as an emergent scale linked (directly or indirectly)
+  to a baryonic surface-density proxy at an anchor radius.
+- **New exploratory analysis:** `enchan_a0_sb_correlation.py` checks whether a BTFR-derived `a0`
+  shows any trend with a surface-brightness proxy extracted from SPARC rotmod files.
+
+Important caveat: SPARC `SBdisk` is a **luminosity** surface density; no mass-to-light correction is applied.
+Any correlation (or lack thereof) can reflect proxy limitations, selection effects, or self-regulation mechanisms.
+Interpretation scenarios are pre-registered in the script docstring.
+
+---
+
+## Repository structure
+
+- `main.pdf`: compiled note (Enchan Field Notes)
+- `sections/`: LaTeX sources
+- `enchan-theory-verification/`: reproducibility package (scripts, outputs, hashes)
+
+---
+
+## Verification (quick start)
+
+The reproducibility package has its own README with detailed instructions:
+
+- Go to `enchan-theory-verification/`
+- Download SPARC public products:
+  - `Rotmod_LTG.zip`
+  - `BTFR_Lelli2019.mrt`
+  from the SPARC website: http://astroweb.case.edu/SPARC/
+- Run the scripts as described in `enchan-theory-verification/README.md`
+
+---
 
 ## Disclaimer
-This repository contains purely theoretical and cosmological descriptions.
-**Technological implementations, specific device architectures (e.g., "Enchan-001" referenced in the text), and industrial applications are explicitly out of scope and are not disclosed here.**
+
+This repository contains theoretical and cosmological descriptions.
+Technological implementations, specific device architectures (e.g., “Enchan-001” referenced in the text),
+and industrial applications are out of scope and are not disclosed here.
+
+---
 
 ## Citation
+
 If you wish to cite this work:
-> Kobayashi, M. (2025). *Enchan Field Notes: The Inception World and Topological Defects*. v0.3.0. GitHub Repository.
+
+> Kobayashi, M. (2025). *Enchan Field Notes: The Inception World and Topological Defects*. v0.3.1. GitHub Repository.
+
+---
 
 ## License
 
 This repository uses a hybrid licensing scheme:
 
--   **Source code / Verification scripts (`enchan-theory-verification/`):**
-    [MIT License](LICENSE)
+- **Source code / verification scripts (`enchan-theory-verification/`):**
+  MIT License (see `LICENSE`)
+- **Textual content of Enchan Field Notes (`main.tex`, PDF, and `sections/`):**
+  Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
 
--   **Textual content of "Enchan Field Notes" (main.tex, PDF, and sections/):**
-    [Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
+You are free to share and adapt the text and PDF for **non-commercial** purposes,
+as long as you provide proper attribution and indicate if changes were made.
 
-You are free to share and adapt the text and PDF for **non-commercial purposes**, as long as you provide proper attribution to the original author (Mitsuhiro Kobayashi / Enchan Theory) and indicate if changes were made.
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17904518.svg)](https://doi.org/10.5281/zenodo.17904518)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17928705.svg)](https://doi.org/10.5281/zenodo.17928705)
 
 ---
+
 *Note: This is a living document and subject to change without notice.*
