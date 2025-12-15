@@ -5,7 +5,7 @@
 
 Enchan Field Notes is a collection of theoretical memoranda exploring whether several
 well-known galaxy-scale regularities can be described by an effective field picture
-(topological defects in a dimensionless “time-dilation” field `S`).
+(topological defects in a dimensionless "time-dilation" field `S`).
 
 This repository includes:
 - a LaTeX/PDF note (`main.pdf`, `sections/`)
@@ -43,9 +43,9 @@ not as a completed derivation from a unique fundamental theory.
 
 ---
 
-## What’s new in v0.3.1
+## What's new in v0.3.1
 
-- **Theory-side refinement (Chapter 6):** the note formalizes a “surface-density anchor” ansatz:
+- **Theory-side refinement (Chapter 6):** the note formalizes a "surface-density anchor" ansatz:
   the apparent acceleration scale `a0` is treated as an emergent scale linked (directly or indirectly)
   to a baryonic surface-density proxy at an anchor radius.
 - **New exploratory analysis:** `enchan_a0_sb_correlation.py` checks whether a BTFR-derived `a0`
@@ -73,7 +73,7 @@ The reproducibility package has its own README with detailed instructions:
 - Download SPARC public products:
   - `Rotmod_LTG.zip`
   - `BTFR_Lelli2019.mrt`
-  from the SPARC website: http://astroweb.case.edu/SPARC/
+  from the [SPARC website](http://astroweb.case.edu/SPARC/)
 - Run the scripts as described in `enchan-theory-verification/README.md`
 
 ---
@@ -81,7 +81,7 @@ The reproducibility package has its own README with detailed instructions:
 ## Disclaimer
 
 This repository contains theoretical and cosmological descriptions.
-Technological implementations, specific device architectures (e.g., “Enchan-001” referenced in the text),
+Technological implementations, specific device architectures (e.g., "Enchan-001" referenced in the text),
 and industrial applications are out of scope and are not disclosed here.
 
 ---
