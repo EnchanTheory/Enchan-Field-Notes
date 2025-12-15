@@ -102,7 +102,7 @@ This repository uses a hybrid licensing scheme:
 You are free to share and adapt the text and PDF for **non-commercial** purposes,
 as long as you provide proper attribution and indicate if changes were made.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17937650.svg)](https://doi.org/10.5281/zenodo.17937650)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17939277.svg)](https://doi.org/10.5281/zenodo.17939277)
 
 ---
 
