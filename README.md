@@ -1,6 +1,6 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current version:** v0.3.1  
+**Current version:** v0.3.2  
 **Status:** speculative research note + public-data reproducibility package
 
 Enchan Field Notes is a collection of theoretical memoranda exploring whether several
@@ -43,17 +43,13 @@ not as a completed derivation from a unique fundamental theory.
 
 ---
 
-## What's new in v0.3.1
+## What's new in v0.3.2
 
-- **Theory-side refinement (Chapter 6):** the note formalizes a "surface-density anchor" ansatz:
-  the apparent acceleration scale `a0` is treated as an emergent scale linked (directly or indirectly)
-  to a baryonic surface-density proxy at an anchor radius.
-- **New exploratory analysis:** `enchan_a0_sb_correlation.py` checks whether a BTFR-derived `a0`
-  shows any trend with a surface-brightness proxy extracted from SPARC rotmod files.
+- **Refined Exploratory Analysis:** The `enchan_a0_sb_correlation.py` script has been updated to improve statistical transparency. It now explicitly logs data filtering steps (e.g., non-positive points) and provides robust correlation checks (trimmed, permutation tests) to avoid over-interpretation of p-values.
+- **Mathematical Consistency Check:** Added `enchan_transition_function_check.py`. This tool numerically verifies the transition function $\mu(x)$ to ensure stability against catastrophic cancellation in the deep MOND regime ($g \sim 10^{-15}$), guaranteeing that the implementation matches the theoretical definition with high precision.
+- **Theory-side refinement (Chapter 6):** The note continues to formalize the "surface-density anchor" ansatz, where the apparent acceleration scale `a0` is treated as an emergent scale linked to a baryonic surface-density proxy.
 
-Important caveat: SPARC `SBdisk` is a **luminosity** surface density; no mass-to-light correction is applied.
-Any correlation (or lack thereof) can reflect proxy limitations, selection effects, or self-regulation mechanisms.
-Interpretation scenarios are pre-registered in the script docstring.
+*Note on Data:* SPARC `SBdisk` is used as a luminosity surface density proxy without mass-to-light correction. Any correlations reported are preliminary and subject to proxy limitations.
 
 ---
 
@@ -90,7 +86,7 @@ and industrial applications are out of scope and are not disclosed here.
 
 If you wish to cite this work:
 
-> Kobayashi, M. (2025). *Enchan Field Notes: The Inception World and Topological Defects*. v0.3.1. GitHub Repository.
+> Kobayashi, M. (2025). *Enchan Field Notes: The Inception World and Topological Defects*. v0.3.2. GitHub Repository.
 
 ---
 

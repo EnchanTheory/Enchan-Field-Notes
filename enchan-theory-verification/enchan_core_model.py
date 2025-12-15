@@ -87,3 +87,20 @@ def robust_percentiles(x: np.ndarray, q: Tuple[float, float, float] = (16.0, 50.
         return (float("nan"), float("nan"), float("nan"))
     p = np.percentile(xx, list(q))
     return float(p[0]), float(p[1]), float(p[2])
+
+def mu_function(x: np.ndarray) -> np.ndarray:
+    """
+    Enchan Transition Function mu(x).
+    
+    Relates the total acceleration to the baryonic acceleration:
+        g_bar = mu(x) * g_tot
+    where x = g_tot / a0.
+
+    This implementation uses the rationalized form:
+        mu(x) = 2x / (sqrt(1 + 4x^2) + 1)
+    
+    This form is mathematically equivalent to (sqrt(1+4x^2)-1)/2x but
+    is numerically stable for small x (x << 1), avoiding catastrophic
+    cancellation in the Deep MOND regime.
+    """
+    return 2 * x / (np.sqrt(1 + 4 * x**2) + 1)

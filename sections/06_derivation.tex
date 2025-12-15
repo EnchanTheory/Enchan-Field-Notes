@@ -21,7 +21,7 @@ We work under the following controlled assumptions:
 These assumptions are explicitly flagged so that later revisions can replace them with a more fundamental construction.
 
 \subsection{Field normalization and dimensions}
-We adopt the v0.3.1 convention that the Enchan field $S$ is \textbf{dimensionless} and is interpreted as an effective time-dilation factor.
+We adopt the \version convention that the Enchan field $S$ is \textbf{dimensionless} and is interpreted as an effective time-dilation factor.
 The Lagrangian density is written schematically as
 \begin{equation}
 \mathcal{L} = \frac{\sigma_{\rm vac}}{2}(\partial_\mu S)(\partial^\mu S) - V(S),
@@ -54,7 +54,8 @@ We therefore introduce an \emph{effective baryonic surface mass density} $\Sigma
 V_0 \simeq \frac{G\,\Sigma_{\rm b}(r_c)^2}{\alpha_c},
 \label{eq:V0_anchor}
 \end{equation}
-where $\alpha_c$ is a dimensionless geometric factor.  This should be read as a \textbf{minimal ansatz}: it is the simplest local energetic scaling constructed from $\Sigma_{\rm b}$ and $G$.
+where $\alpha_c$ is a dimensionless geometric factor.
+This should be read as a \textbf{minimal ansatz}: it is the simplest local energetic scaling constructed from $\Sigma_{\rm b}$ and $G$.
 
 \subsubsection{Observational proxy definition}
 For practical confrontation with data, $\Sigma_{\rm b}(r_c)$ is treated as an \textbf{observational proxy} derived from public surface-brightness indicators in SPARC products (e.g.\ disk surface-brightness columns in the mass-model tables, or equivalent catalog proxies).
@@ -85,5 +86,86 @@ If a near-universal $a_0$ continues to describe diverse galaxies, this must corr
 Either outcome is informative and can be tested.
 
 \subsection{Connection to the empirical benchmarks}
-Ch.~\ref{sec:obs_btfr} and Ch.~\ref{sec:obs_rar} (benchmarks) summarize the observed emergence of an acceleration scale $\sim 10^{-10}\,\mathrm{m/s^2}$ from public data.
+Sec.~\ref{sec:obs_btfr} and Sec.~\ref{sec:obs_rar} (benchmarks) summarize the observed emergence of an acceleration scale $\sim 10^{-10}\,\mathrm{m/s^2}$ from public data.
 This chapter provides a \textbf{theory-side parametrization} of where such a scale could enter the model, and fixes the dependencies that must be checked against the benchmark outputs.
+
+%===========================================================
+% \version Addendum: Effective Field Equation & Transition
+%===========================================================
+\subsection{Effective field equation and a candidate transition function}
+\label{sec:transition_function}
+
+This section provides an \emph{effective} (approximate) derivation of the transition
+between the low-acceleration and high-acceleration regimes. The goal is to connect
+the benchmark closure used in v0.3.x to a field-equation form suitable for \version.
+
+\subsubsection{Quasi-static limit and the source term}
+We assume a quasi-static, weak-field regime on galactic scales, and identify the
+effective gravitational response with the gradient of the dimensionless time-dilation field:
+\begin{equation}
+\bm{g}_{\rm tot} \equiv c^2 \nabla S .
+\end{equation}
+Because matter follows the physical metric that depends on $S$ (time dilation),
+the matter sector contributes an effective source for $S$ in the non-relativistic limit.
+We therefore adopt the following Poisson-like \emph{effective} equation:
+\begin{equation}
+\nabla \cdot \left[ \mu\!\left(\frac{g_{\rm tot}}{a_0}\right)\, \bm{g}_{\rm tot} \right]
+= 4\pi G \rho_{\rm bar}.
+\label{eq:mu_poisson}
+\end{equation}
+Equation~\eqref{eq:mu_poisson} should be read as an effective macroscopic description
+of the vacuum texture response. A microscopic derivation from a specific defect model
+is deferred to future work.
+
+\subsubsection{Transition function consistent with the quadrature closure}
+In spherical symmetry, Eq.~\eqref{eq:mu_poisson} reduces to the algebraic relation
+\begin{equation}
+\mu\!\left(\frac{g_{\rm tot}}{a_0}\right)\, g_{\rm tot} = g_{\rm bar},
+\qquad
+g_{\rm bar}(r)\equiv \frac{G M_{\rm bar}(<r)}{r^2}.
+\label{eq:mu_relation}
+\end{equation}
+The v0.3.x benchmarks use the ``Enchan quadrature'' closure
+\begin{equation}
+g_{\rm tot}=\sqrt{g_{\rm bar}^2+a_0 g_{\rm bar}}
+= g_{\rm bar}\,\nu\!\left(\frac{g_{\rm bar}}{a_0}\right),
+\qquad
+\nu(y)=\sqrt{1+\frac{1}{y}} .
+\label{eq:nu_quadrature}
+\end{equation}
+We define a candidate $\mu$-function that reproduces this closure:
+\begin{equation}
+\mu\!\left(x\right)=\frac{g_{\rm bar}}{g_{\rm tot}}
+=\frac{\sqrt{1+4x^2}-1}{2x},
+\qquad x\equiv \frac{g_{\rm tot}}{a_0}.
+\label{eq:mu_quadrature}
+\end{equation}
+Equations~\eqref{eq:nu_quadrature}--\eqref{eq:mu_quadrature} define a transition function that is \emph{by construction} consistent with the benchmark closure.
+The theory-side task for \version+ is to derive (or approximate) this response from an explicit
+defect profile and anchoring mechanism, rather than postulating it.
+
+\subsubsection{Why the modification ``hides'' in strong-gravity environments}
+The limits of Eq.~\eqref{eq:nu_quadrature} are:
+\begin{itemize}
+\item \textbf{Low-acceleration (deep) regime $g_{\rm bar}\ll a_0$:}
+\begin{equation}
+g_{\rm tot}\simeq \sqrt{a_0 g_{\rm bar}},
+\end{equation}
+which yields asymptotically flat rotation curves ($v^2\simeq \sqrt{G M_{\rm bar} a_0}$).
+
+\item \textbf{High-acceleration regime $g_{\rm bar}\gg a_0$:}
+\begin{equation}
+g_{\rm tot}= g_{\rm bar}\sqrt{1+\frac{a_0}{g_{\rm bar}}}
+\simeq g_{\rm bar}\left(1+\frac{a_0}{2g_{\rm bar}}\right).
+\end{equation}
+For Solar-System/terrestrial accelerations ($g_{\rm bar}\gg a_0$), the fractional correction $\Delta g/g_{\rm bar}\sim a_0/(2g_{\rm bar})$ becomes negligibly small, making the deviation effectively unobservable in practice.
+\end{itemize}
+
+\subsubsection{Connection to the RAR benchmarks}
+Using $\nu(y)=\sqrt{1+1/y}$, the closure can be written as
+\begin{equation}
+g_{\rm tot}=g_{\rm bar}\,\nu\!\left(\frac{g_{\rm bar}}{a_0}\right),
+\end{equation}
+which is the mapping implemented in the v0.3.x reproducibility scripts. In this sense,
+the RAR benchmark can be restated as a \emph{field-equation-compatible} effective law,
+pending a microscopic derivation of $\mu$ (or $\nu$) from the Enchan defect model.

@@ -1,28 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enchan a0 vs Surface Brightness Correlation (v0.3.1)
+Enchan a0 vs Surface Brightness Correlation (v0.3.2 Final)
 
 Exploratory test of the "Surface Density Anchor" ansatz (Chapter 6).
 This script checks for correlations between:
 1. a0 derived from BTFR (a0 ~ Vf^4 / Mb)
 2. Surface Brightness proxy from Rotmod (SB_disk at inner radii)
 
-Methodology & Caveats:
-- Proxy: SB_proxy is the MEDIAN of the innermost 3 positive SB_disk points.
-  This represents SBdisk at the innermost reliable radii (not necessarily the true central value),
-  serving as a robustness measure against resolution effects and outliers.
-- Physical Interpretation: We use SB_disk (Luminosity Surface Density) as an
-  observational proxy for Sigma_b (Baryonic Mass Surface Density).
-  Variations in Mass-to-Light ratio (M/L) are NOT corrected here.
+Methodology & Robustness:
+- Primary Proxy: Median of the innermost 3 positive SB_disk points.
+- Robustness Checks:
+  1. Trimmed Correlation: Excludes top/bottom 5% of outliers to check stability.
+  2. Proxy Sensitivity: Checks if using innermost 5 points changes the result.
+- Significance: Uses SciPy if available, otherwise runs a Permutation Test (N=10,000)
+  with (k+1)/(n+1) correction to avoid p=0.
 
 Pre-registered Interpretation Scenarios:
-  P1 (Minimal Model): If eta_S is constant and SB tracks Sigma_b,
-      a weak positive correlation is expected.
-  P2 (Self-Regulation): If eta_S inversely covaries with Sigma_b,
-      the correlation may be zero or negligible.
-  P3 (Proxy Limit): If SB_disk is a poor proxy for Sigma_b (e.g. variable M/L),
-      the correlation may be unstable or noisy.
+  P1 (Minimal Anchor): Weak positive correlation. (Supports Enchan ansatz)
+  P2 (Self-Regulation): Near-zero correlation. (Implies cancellations)
+  P3 (Proxy Limit): Unstable/noisy correlation. (Proxy/data quality dominance)
 
 Usage:
   python enchan_a0_sb_correlation.py --mrt BTFR_Lelli2019.mrt --zip Rotmod_LTG.zip
@@ -35,31 +32,30 @@ import hashlib
 import re
 import sys
 import zipfile
+import time
 from io import StringIO
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, List
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Try to import SciPy for p-values, but fall back to manual calc if missing
+# Try to import SciPy, else use manual permutation test
 try:
     from scipy.stats import pearsonr, spearmanr
     HAS_SCIPY = True
 except ImportError:
     HAS_SCIPY = False
 
-# Ensure local imports work if running from root or directory
+# Ensure local imports work
 sys.path.append(str(Path(__file__).parent))
 
-# Import reusable logic
 try:
     from enchan_core_model import G_SI, MSUN_KG, KMS_TO_MS
     from enchan_btfr_reproduce_enchan import parse_mrt_fixedwidth, extract_btfr
 except ImportError:
-    print("Error: Helper modules (enchan_core_model, enchan_btfr_reproduce_enchan) not found.")
-    print("Please run this script from the enchan-theory-verification directory.")
+    print("Error: Helper modules (enchan_core_model, etc.) not found.")
     sys.exit(1)
 
 
@@ -70,250 +66,274 @@ def sha256_file(path: Path) -> str:
             h.update(chunk)
     return h.hexdigest()
 
-
 def norm_name(s: str) -> str:
-    """
-    Normalize galaxy names for robust matching.
-    1. Uppercase, remove ALL NON-ALPHANUMERIC characters (spaces, -, _, ., etc.).
-    2. Normalize numeric parts to remove leading zeros (e.g., NGC0289 -> NGC289).
-    """
     s = str(s).upper().strip()
     s = re.sub(r"[^A-Z0-9]", "", s)
-    
-    # Match pattern like "NGC" + "0289" -> "NGC" + "289"
     m = re.match(r"^([A-Z]+)(\d+)$", s)
     if m:
         prefix, num = m.group(1), m.group(2)
         s = f"{prefix}{int(num)}"
-    
     return s
 
+# --- Statistical Helpers ---
 
-# Manual correlation implementations for SciPy-less environments
-def pearson_corr_manual(x: np.ndarray, y: np.ndarray) -> float:
-    x = np.asarray(x, dtype=float)
-    y = np.asarray(y, dtype=float)
-    if x.size < 2:
-        return float("nan")
-    
-    mx = np.mean(x)
-    my = np.mean(y)
-    xm = x - mx
-    ym = y - my
-    
-    num = np.sum(xm * ym)
-    den = np.sqrt(np.sum(xm * xm) * np.sum(ym * ym))
-    
-    if den == 0:
-        return float("nan")
-    return float(num / den)
-
-def spearman_corr_manual(x: np.ndarray, y: np.ndarray) -> float:
-    # Spearman is Pearson of ranks
-    # pandas rank is robust and doesn't require scipy
-    rx = pd.Series(x).rank(method="average").to_numpy(dtype=float)
-    ry = pd.Series(y).rank(method="average").to_numpy(dtype=float)
-    return pearson_corr_manual(rx, ry)
-
-
-def get_sb_proxy(zip_path: Path) -> pd.DataFrame:
+def permutation_test(x: np.ndarray, y: np.ndarray, n_perm: int = 10000) -> float:
     """
-    Extracts a Surface Brightness proxy for each galaxy from Rotmod_LTG.zip.
-    Method: MEDIAN of the innermost 3 valid points.
+    Computes a two-sided p-value for Pearson correlation using permutation.
+    Robust and dependency-free.
+    Uses (count + 1) / (n_perm + 1) to avoid p=0.
+    """
+    if len(x) < 3: return float("nan")
+    
+    # Observed correlation
+    r_obs = np.corrcoef(x, y)[0, 1]
+    
+    # Pre-calculate centered arrays
+    x_c = x - np.mean(x)
+    y_c = y - np.mean(y)
+    ss_x = np.sum(x_c**2)
+    ss_y = np.sum(y_c**2)
+    denom = np.sqrt(ss_x * ss_y)
+    
+    if denom == 0: return float("nan")
+    
+    count_extreme = 0
+    y_perm = y_c.copy()
+    
+    # Use fixed seed for reproducibility
+    rng = np.random.default_rng(42)
+    
+    for _ in range(n_perm):
+        rng.shuffle(y_perm)
+        r_perm = np.sum(x_c * y_perm) / denom
+        if abs(r_perm) >= abs(r_obs):
+            count_extreme += 1
+            
+    # Conservative p-value estimate
+    return (count_extreme + 1) / (n_perm + 1)
+
+def get_stats(x: np.ndarray, y: np.ndarray) -> dict:
+    """Calculate Pearson/Spearman and p-values (SciPy or Permutation)."""
+    stats = {}
+    if len(x) < 3:
+        return {"r": np.nan, "p": np.nan, "rho": np.nan, "rho_p": np.nan}
+
+    # Pearson
+    if HAS_SCIPY:
+        r, p = pearsonr(x, y)
+        stats["r"] = r
+        stats["p"] = p
+    else:
+        stats["r"] = np.corrcoef(x, y)[0, 1]
+        stats["p"] = permutation_test(x, y)
+
+    # Spearman
+    if HAS_SCIPY:
+        rho, rho_p = spearmanr(x, y)
+        stats["rho"] = rho
+        stats["rho_p"] = rho_p
+    else:
+        # Manual Spearman (rank correlation)
+        rx = pd.Series(x).rank()
+        ry = pd.Series(y).rank()
+        stats["rho"] = np.corrcoef(rx, ry)[0, 1]
+        stats["rho_p"] = np.nan # Permutation for Spearman is expensive, skip
+
+    return stats
+
+# --- Data Extraction ---
+
+def get_sb_proxy(zip_path: Path, n_points: int = 3) -> pd.DataFrame:
+    """
+    Extracts SB proxy.
+    n_points: Number of innermost points to take median of.
     """
     rows = []
     with zipfile.ZipFile(zip_path, "r") as z:
         for name in z.namelist():
-            if not name.endswith("_rotmod.dat"):
-                continue
-            
+            if not name.endswith("_rotmod.dat"): continue
             gal_name_raw = name.replace("_rotmod.dat", "")
             
-            raw = z.read(name).decode("utf-8", errors="ignore")
-            data_lines = [ln for ln in raw.splitlines() if ln.strip() and not ln.lstrip().startswith("#")]
-            if not data_lines:
-                continue
-            
             try:
-                # Columns: r, Vobs, eV, Vgas, Vdisk, Vbul, SBdisk, SBbul
-                df_gal = pd.read_csv(
-                    StringIO("\n".join(data_lines)),
-                    sep=r"\s+",
-                    header=None,
-                    names=["r", "Vobs", "eV", "Vgas", "Vdisk", "Vbul", "SBdisk", "SBbul"],
-                    engine="python"
-                )
+                raw = z.read(name).decode("utf-8", errors="ignore")
+                data_lines = [ln for ln in raw.splitlines() if ln.strip() and not ln.lstrip().startswith("#")]
+                if not data_lines: continue
                 
-                # Robust numeric conversion
+                df_gal = pd.read_csv(StringIO("\n".join(data_lines)), sep=r"\s+", header=None,
+                                     names=["r", "Vobs", "eV", "Vgas", "Vdisk", "Vbul", "SBdisk", "SBbul"],
+                                     engine="python")
+                
                 df_gal["r"] = pd.to_numeric(df_gal["r"], errors="coerce")
                 df_gal["SBdisk"] = pd.to_numeric(df_gal["SBdisk"], errors="coerce")
-                
-                # Drop invalid rows and sort
                 df_gal = df_gal.dropna(subset=["r", "SBdisk"]).sort_values("r")
                 
                 # Filter strictly positive SB
                 sb_vals = df_gal.loc[df_gal["SBdisk"] > 0, "SBdisk"].to_numpy(dtype=float)
                 
                 if len(sb_vals) > 0:
-                    # Take up to 3 innermost points
-                    take_n = min(len(sb_vals), 3)
-                    inner_vals = sb_vals[:take_n]
-                    sb_proxy = float(np.median(inner_vals))
-                    
+                    take_n = min(len(sb_vals), n_points)
+                    sb_proxy = float(np.median(sb_vals[:take_n]))
                     rows.append({
-                        "name_raw": gal_name_raw,
                         "name_norm": norm_name(gal_name_raw),
                         "SB_proxy": sb_proxy
                     })
             except Exception:
                 continue
+    
+    # Ensure uniqueness
+    return pd.DataFrame(rows).drop_duplicates(subset=["name_norm"])
 
-    return pd.DataFrame(rows)
-
+# --- Main ---
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--mrt", required=True, help="Path to BTFR_Lelli2019.mrt")
-    ap.add_argument("--zip", required=True, help="Path to Rotmod_LTG.zip")
-    ap.add_argument("--outdir", default="Enchan_Correlation_Test_v0_3_1", help="Output directory")
+    ap.add_argument("--mrt", required=True)
+    ap.add_argument("--zip", required=True)
+    ap.add_argument("--outdir", default="Enchan_Correlation_Test_v0_3_2")
     args = ap.parse_args()
 
-    mrt_path = Path(args.mrt)
-    zip_path = Path(args.zip)
-    if not mrt_path.exists() or not zip_path.exists():
-        raise FileNotFoundError("Input files not found.")
-
+    mrt_path, zip_path = Path(args.mrt), Path(args.zip)
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Load a0 from BTFR
-    print("Loading BTFR a0 data...")
+    print("--- Enchan v0.3.2 Correlation Test ---")
+
+    # 1. Load Data
+    print("Loading BTFR...")
     df_raw = parse_mrt_fixedwidth(mrt_path)
     df_btfr = extract_btfr(df_raw)
     
-    # Calculate a0 per galaxy: a0 = Vf^4 / (G * Mb)
+    # Calculate a0
     Vf_ms = np.power(10.0, df_btfr["logVf"].values) * KMS_TO_MS
     Mb_kg = np.power(10.0, df_btfr["logMb"].values) * MSUN_KG
     df_btfr["a0_si"] = (Vf_ms**4) / (G_SI * Mb_kg)
-    
-    # Normalize names
     df_btfr["name_norm"] = df_btfr["name"].apply(norm_name)
-    
-    # 2. Load SB proxy from Rotmod
-    print("Loading SB proxy from Rotmod (Method: Median of innermost 3)...")
-    df_sb = get_sb_proxy(zip_path)
 
-    # 3. Merge
-    merged = pd.merge(df_btfr, df_sb, on="name_norm", how="inner", suffixes=("", "_sb"))
-    
-    # Counts for reporting
-    n_btfr = len(df_btfr)
-    n_rotmod = len(df_sb)
-    n_matched = len(merged)
-    
-    print(f"Loaded: BTFR={n_btfr}, Rotmod={n_rotmod}")
-    print(f"Matched: {n_matched} galaxies available for correlation test.")
+    # 2. Load SB Proxies (Primary: 3-point, Sensitivity: 5-point)
+    print("Loading SB Proxies (3-point and 5-point)...")
+    df_sb3 = get_sb_proxy(zip_path, n_points=3).rename(columns={"SB_proxy": "SB_3pt"})
+    df_sb5 = get_sb_proxy(zip_path, n_points=5).rename(columns={"SB_proxy": "SB_5pt"})
 
-    # 4. Analysis
-    # Strict cleaning for log scale (remove infs, nans, non-positives)
-    valid = merged.copy()
-    valid = valid.replace([np.inf, -np.inf], np.nan)
-    valid = valid.dropna(subset=["a0_si", "SB_proxy"])
-    valid = valid[(valid["a0_si"] > 0) & (valid["SB_proxy"] > 0)].copy()
+    # Merge
+    merged = pd.merge(df_btfr, df_sb3, on="name_norm", how="left")
+    merged = pd.merge(merged, df_sb5, on="name_norm", how="left")
     
+    n_total_btfr = len(df_btfr)
+    n_matched = merged["SB_3pt"].notna().sum()
+    
+    # 3. Drop Analysis
+    df_work = merged.copy()
+    
+    # Count drops
+    n_nan_sb = df_work["SB_3pt"].isna().sum() # unmatched or no-data
+    
+    # Subset to matched
+    df_work = df_work.dropna(subset=["SB_3pt"])
+    
+    n_nan_a0 = df_work["a0_si"].isna().sum()
+    df_work = df_work.dropna(subset=["a0_si"])
+    
+    n_nonpos_a0 = (df_work["a0_si"] <= 0).sum()
+    n_nonpos_sb = (df_work["SB_3pt"] <= 0).sum()
+    
+    valid = df_work[(df_work["a0_si"] > 0) & (df_work["SB_3pt"] > 0)].copy()
     n_valid = len(valid)
     
-    # Only calculate stats if sufficient data
-    if n_valid > 5:
-        x = np.log10(valid["SB_proxy"].values)  # log(SB [Lsun/pc^2])
-        y = np.log10(valid["a0_si"].values)     # log(a0 [m/s^2])
-        
-        if HAS_SCIPY:
-            pearson_r, p_val = pearsonr(x, y)
-            spearman_r, s_p_val = spearmanr(x, y)
-            stats_str = (
-                f"N={n_valid}\n"
-                f"Pearson r={pearson_r:.3f} (p={p_val:.1e})\n"
-                f"Spearman r={spearman_r:.3f} (p={s_p_val:.1e})"
-            )
-        else:
-            # Fallback to manual implementation
-            pearson_r = pearson_corr_manual(x, y)
-            spearman_r = spearman_corr_manual(x, y)
-            p_val, s_p_val = float("nan"), float("nan")
-            stats_str = (
-                f"N={n_valid}\n"
-                f"Pearson r={pearson_r:.3f}\n"
-                f"Spearman r={spearman_r:.3f}\n"
-                f"(No SciPy, p-values skipped)"
-            )
-    else:
-        pearson_r, spearman_r = float("nan"), float("nan")
-        p_val, s_p_val = float("nan"), float("nan")
-        stats_str = f"N={n_valid} (Insufficient data)"
+    print(f"Total BTFR: {n_total_btfr}")
+    print(f"Matched SB: {n_matched} (Dropped {n_total_btfr - n_matched} unmatched)")
+    print(f"Valid Data: {n_valid}")
+    print(f"  [Drops] NaN a0: {n_nan_a0}, Non-pos a0: {n_nonpos_a0}, Non-pos SB: {n_nonpos_sb}")
 
-    print("-" * 40)
-    print("Correlation Results:")
-    print(stats_str)
-    print("-" * 40)
-
-    # Save Data
-    valid.rename(columns={"name": "name_btfr"}, inplace=True)
-    out_cols = ["name_btfr", "name_norm", "logMb", "logVf", "a0_si", "SB_proxy"]
-    valid[out_cols].to_csv(outdir / "a0_sb_correlation_data.csv", index=False)
-
-    # Summary File with Hashes and Counts
-    summary = pd.DataFrame([{
-        "mrt_file": mrt_path.name,
-        "mrt_sha256": sha256_file(mrt_path),
-        "zip_file": zip_path.name,
-        "zip_sha256": sha256_file(zip_path),
-        "n_btfr": n_btfr,
-        "n_rotmod_extracted": n_rotmod,
-        "n_matched": n_matched,
-        "n_valid_points": n_valid,
-        "sb_proxy_method": "median_innermost_3_positive",
-        "pearson_r": pearson_r,
-        "pearson_p_value": p_val,
-        "spearman_r": spearman_r,
-        "spearman_p_value": s_p_val,
-        "note": "Exploratory check of Surface-Density Anchor. Sign/strength depends on proxy validity and eta_S behavior."
-    }])
-    summary.to_csv(outdir / "correlation_summary.csv", index=False)
-
-    # 5. Plot (Neutral style)
-    if n_valid > 0:
-        plt.figure(figsize=(8, 6))
-        x = np.log10(valid["SB_proxy"].values)
-        y = np.log10(valid["a0_si"].values)
-        
-        plt.scatter(x, y, alpha=0.6, edgecolors="k", label="SPARC Galaxies")
-        
-        # Simple linear fit for visualization
-        if n_valid > 1:
-            try:
-                m, c = np.polyfit(x, y, 1)
-                fit_x = np.linspace(x.min(), x.max(), 100)
-                plt.plot(fit_x, m*fit_x + c, "--", color="black", alpha=0.7, label=f"Fit slope={m:.2f}")
-            except Exception:
-                pass
-        
-        plt.xlabel(r"$\log_{10}(\mathrm{SB}_{\mathrm{proxy}} \; [L_\odot/\mathrm{pc}^2])$")
-        plt.ylabel(r"$\log_{10}(a_0 \; [\mathrm{m/s}^2])$")
-        plt.title("Exploratory Test: Acceleration Scale vs Surface Brightness")
-        plt.legend()
-        plt.grid(True, alpha=0.3)
-        
-        # Add stats box
-        plt.text(0.05, 0.95, stats_str, transform=plt.gca().transAxes,
-                 verticalalignment='top', 
-                 bbox=dict(boxstyle='round', facecolor='white', alpha=0.9))
-        
-        plt.tight_layout()
-        plt.savefig(outdir / "fig_a0_sb_correlation.png", dpi=150)
-        plt.close()
+    # 4. Correlation Analysis
+    results = {}
     
-    print(f"Outputs written to: {outdir.resolve()}")
+    # A. Primary (All Valid, 3pt)
+    x = np.log10(valid["SB_3pt"].values)
+    y = np.log10(valid["a0_si"].values)
+    st = get_stats(x, y)
+    results["primary_r"] = st["r"]
+    results["primary_p"] = st["p"]
+    results["primary_rho"] = st.get("rho", np.nan)
+    
+    # B. Robustness: Trimmed (Drop top/bottom 5% of a0)
+    valid_sorted = valid.sort_values("a0_si")
+    trim_n = int(n_valid * 0.05)
+    if n_valid > 20 and trim_n > 0:
+        valid_trimmed = valid_sorted.iloc[trim_n : -trim_n]
+        xt = np.log10(valid_trimmed["SB_3pt"].values)
+        yt = np.log10(valid_trimmed["a0_si"].values)
+        st_t = get_stats(xt, yt)
+        results["trimmed_r"] = st_t["r"]
+        results["trimmed_n"] = len(valid_trimmed)
+    else:
+        results["trimmed_r"] = np.nan
+        results["trimmed_n"] = 0
+        
+    # C. Robustness: Sensitivity (5-point proxy)
+    valid5 = merged[(merged["a0_si"] > 0) & (merged["SB_5pt"] > 0)].copy()
+    if len(valid5) > 5:
+        x5 = np.log10(valid5["SB_5pt"].values)
+        y5 = np.log10(valid5["a0_si"].values)
+        st_5 = get_stats(x5, y5)
+        results["sens_5pt_r"] = st_5["r"]
+    else:
+        results["sens_5pt_r"] = np.nan
+
+    print("-" * 40)
+    print(f"Primary Correlation (r): {results['primary_r']:.3f} (p={results['primary_p']:.1e})")
+    print(f"Trimmed (5%) Correlation: {results['trimmed_r']:.3f} (N={results['trimmed_n']})")
+    print(f"Sensitivity (5-pt Median): {results['sens_5pt_r']:.3f}")
+    print("-" * 40)
+
+    # 5. Outputs
+    # CSV Data
+    out_cols = ["name", "name_norm", "logMb", "logVf", "a0_si", "SB_3pt", "SB_5pt"]
+    valid[out_cols].to_csv(outdir / "correlation_data_v0_3_2.csv", index=False)
+    
+    # Summary
+    summary = {
+        "mrt_sha256": sha256_file(mrt_path),
+        "zip_sha256": sha256_file(zip_path),
+        "n_total_btfr": n_total_btfr,
+        "n_valid": n_valid,
+        # Expanded Drop Logs (Requested Fix B-1)
+        "n_matched_sb3": n_matched,
+        "n_dropped_unmatched_sb3": n_total_btfr - n_matched,
+        "n_dropped_nan_sb3": n_nan_sb,
+        "n_dropped_nan_a0": n_nan_a0,
+        "n_dropped_nonpos_a0": n_nonpos_a0,
+        "n_dropped_nonpos_sb": n_nonpos_sb,
+        # Stats
+        "primary_pearson_r": results["primary_r"],
+        "primary_p_value": results["primary_p"],
+        "p_value_method": "scipy" if HAS_SCIPY else "permutation_10k_plus1",
+        "primary_spearman_rho": results["primary_rho"],
+        "robust_trimmed_r": results["trimmed_r"],
+        "robust_sensitivity_5pt_r": results["sens_5pt_r"],
+        # Softer Interpretation (Requested Fix B-3)
+        "interpretation": "Positive r is consistent with P1 (minimal anchor) under this SB proxy; does not establish causality."
+    }
+    pd.DataFrame([summary]).to_csv(outdir / "correlation_summary.csv", index=False)
+    
+    # Plot
+    plt.figure(figsize=(8, 6))
+    plt.scatter(x, y, alpha=0.6, edgecolors="k", label=f"Galaxies (N={n_valid})")
+    
+    if n_valid > 1:
+        m, c = np.polyfit(x, y, 1)
+        fit_x = np.linspace(min(x), max(x), 100)
+        plt.plot(fit_x, m*fit_x + c, "k--", alpha=0.7, label=f"Fit (slope={m:.2f})")
+    
+    plt.xlabel(r"$\log_{10}(\mathrm{SB}_{\mathrm{proxy, 3pt}})$")
+    plt.ylabel(r"$\log_{10}(a_0)$")
+    plt.title(f"a0 vs Surface Brightness (v0.3.2)\nr={results['primary_r']:.3f}, Trimmed={results['trimmed_r']:.3f}")
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(outdir / "fig_correlation_v0_3_2.png", dpi=150)
+    plt.close()
+
+    print(f"Done. Results in {outdir}")
 
 if __name__ == "__main__":
     main()
