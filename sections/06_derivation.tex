@@ -47,19 +47,44 @@ S(r) \simeq S_0 + \eta_S \ln\!\left(\frac{r}{\ell_c}\right),
 where $\eta_S$ is a dimensionless defect-strength parameter and $S_0$ is a gauge constant.
 This log profile is the minimal form that yields an asymptotic gradient $|\nabla S|\propto 1/r$.
 
-\subsection{Surface-density anchor ansatz}
-A key design choice is to anchor the defect using a \textbf{surface-density} proxy rather than a volume density, to avoid the enormous galaxy-to-galaxy dynamic range of $\rho_b$.
-We therefore introduce an \emph{effective baryonic surface mass density} $\Sigma_{\rm b}(r_c)$ at an anchor radius $r=r_c$, and postulate the scaling
+\subsection{The Surface-Density Anchor: A Pressure-Matching Condition}
+\label{sec:anchor_derivation}
+
+We now formulate the local condition that determines the topological defect strength from the baryonic distribution.
+A key design choice is to anchor the defect using a \textbf{surface-density} proxy rather than a volume density, thereby avoiding the enormous dynamic range of $\rho_{\rm b}$ across galactic scales and focusing on the relevant dynamical quantity for disk systems.
+
+Dimensional analysis provides a robust guide for this coupling.
+We introduce an \emph{effective defect stress scale}, $P_{\rm def}$, defined as:
 \begin{equation}
-V_0 \simeq \frac{G\,\Sigma_{\rm b}(r_c)^2}{\alpha_c},
+P_{\rm def}(r) \equiv \frac{V_0(r)}{c^2 \eta_S}.
+\end{equation}
+By construction, $P_{\rm def}$ has the dimensions of pressure ($[M][L]^{-1}[T]^{-2}$).
+On the baryonic side, consider a self-gravitating sheet with surface mass density $\Sigma_{\rm b}$. The characteristic gravitational pressure (or vertical stress) within the sheet scales as $P_{\rm sg} \sim G \Sigma_{\rm b}^2$, up to an order-unity geometric factor.
+
+We therefore postulate that the defect's effective pressure scale matches the baryonic gravitational pressure at the anchor radius $r_c$.
+The \textit{minimal anchor ansatz} is then the condition of pressure equilibrium:
+\begin{equation}
+P_{\rm def}(r_c) \simeq \frac{1}{\alpha_c} P_{\rm sg}(r_c)
+\quad \Longrightarrow \quad
+\frac{V_0(r_c)}{c^2 \eta_S} \simeq \frac{1}{\alpha_c} \, G \, \Sigma_{\rm b}(r_c)^2,
 \label{eq:V0_anchor}
 \end{equation}
-where $\alpha_c$ is a dimensionless geometric factor.
-This should be read as a \textbf{minimal ansatz}: it is the simplest local energetic scaling constructed from $\Sigma_{\rm b}$ and $G$.
+where $\alpha_c$ is a dimensionless coupling efficiency factor of order unity.
+This relation implies that the vacuum texture is locally "pinned" or regulated by the self-gravity of the baryonic sheet.
+Equation (\ref{eq:V0_anchor}) recovers the scaling dependence used in Eq.~(19), but frames it as a leading-order effective field theory (EFT) description consistent with pressure dimensions, rather than an arbitrary choice.
 
-\subsubsection{Observational proxy definition}
-For practical confrontation with data, $\Sigma_{\rm b}(r_c)$ is treated as an \textbf{observational proxy} derived from public surface-brightness indicators in SPARC products (e.g.\ disk surface-brightness columns in the mass-model tables, or equivalent catalog proxies).
-The purpose here is to fix the dependence and its sign/strength, not to claim a unique mapping from photometry to $\Sigma_{\rm b}$.
+\subsubsection{Observational Proxy for \texorpdfstring{$\Sigma_{\rm b}$}{Sigma\_b}}
+For practical confrontation with SPARC data, we treat $\Sigma_{\rm b}(r_c)$ not as a theoretically exact quantity, but as an \textbf{observational proxy} derived from surface photometry.
+Assuming the disk dominates the potential at the anchor radius, we adopt:
+\begin{equation}
+\Sigma_{\rm b}(r_c) \approx \Upsilon_* I_{\rm disk}(r_c) + \Sigma_{\rm gas}(r_c),
+\label{eq:sigma_proxy}
+\end{equation}
+where $\Upsilon_*$ is the stellar mass-to-light ratio and $I_{\rm disk}$ is the observed luminosity profile.
+
+We acknowledge that this proxy carries systematic uncertainties (e.g., from $\Upsilon_*$ variations, geometry, or bulge contamination).
+However, the primary goal of the differential prediction test (Test C1) is to verify the \textit{sign and power-law index} of the dependence implied by Eq.~(\ref{eq:V0_anchor})—specifically that the relevant acceleration scale scales with surface density—rather than to strictly constrain the normalization constants.
+Any global systematic offsets in the proxy are absorbed into the effective coupling factor $\alpha_c$.
 
 \subsection{Derived acceleration scale}
 We define the effective acceleration scale $a_0$ by combining the defect profile parameter $\eta_S$ with the characteristic length $\ell_c$:

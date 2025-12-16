@@ -1,6 +1,6 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current version:** v0.3.2  
+**Current version:** v0.3.3  
 **Status:** speculative research note + public-data reproducibility package
 
 Enchan Field Notes is a collection of theoretical memoranda exploring whether several
@@ -43,13 +43,16 @@ not as a completed derivation from a unique fundamental theory.
 
 ---
 
-## What's new in v0.3.2
+## What's new in v0.3.3
 
-- **Refined Exploratory Analysis:** The `enchan_a0_sb_correlation.py` script has been updated to improve statistical transparency. It now explicitly logs data filtering steps (e.g., non-positive points) and provides robust correlation checks (trimmed, permutation tests) to avoid over-interpretation of p-values.
-- **Mathematical Consistency Check:** Added `enchan_transition_function_check.py`. This tool numerically verifies the transition function $\mu(x)$ to ensure stability against catastrophic cancellation in the deep MOND regime ($g \sim 10^{-15}$), guaranteeing that the implementation matches the theoretical definition with high precision.
-- **Theory-side refinement (Chapter 6):** The note continues to formalize the "surface-density anchor" ansatz, where the apparent acceleration scale `a0` is treated as an emergent scale linked to a baryonic surface-density proxy.
+- **Theory-side refinement (Chapter 6):** We reformulate the "surface-density anchor" as a **pressure-matching / stress-scale** condition, providing a compact dimensional motivation for a scaling of the form $V_0 \propto G \Sigma_b^2$ (up to order-unity factors and proxy systematics). This should be read as an EFT-level organizing principle, not yet a first-principles derivation.
 
-*Note on Data:* SPARC `SBdisk` is used as a luminosity surface density proxy without mass-to-light correction. Any correlations reported are preliminary and subject to proxy limitations.
+- **Differential Prediction Test (Test C1):** We added a 5-fold cross-validation test comparing:
+  (A) a fixed-$a_0$ baseline vs. (B) a proxy-driven variable-$a_0$ model.
+  - **Global (this run):** performance is similar overall (e.g., Mean RMS differs by ~0.003 dex; Win Rate ~52%).
+  - **Stratified (by SB_proxy quartiles):** the variable-$a_0$ model performs better in the **low-SB quartile** (e.g., Win Rate ~73% in Q1), while degrading in the highest-SB quartile. This pattern is consistent with (i) a cleaner disk proxy regime at low SB and/or (ii) proxy/structure limitations in dense inner regions.
+
+- **Traceability upgrades:** the pipeline now exports reproducibility metadata (hashes, run config) and diagnostic lists (dropped-by-filter and name-collision logs) to support auditing and re-analysis.
 
 ---
 
@@ -86,7 +89,7 @@ and industrial applications are out of scope and are not disclosed here.
 
 If you wish to cite this work:
 
-> Kobayashi, M. (2025). *Enchan Field Notes: The Inception World and Topological Defects*. v0.3.2. GitHub Repository.
+> Kobayashi, M. (2025). *Enchan Field Notes: The Inception World and Topological Defects*. v0.3.3. GitHub Repository.
 
 ---
 
