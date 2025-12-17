@@ -63,6 +63,71 @@ python -m pip install scipy
 
 ---
 
+# v0.4.0 (Enchan Field Notes) — File layout + what to run
+
+This repository folder contains the public-data reproducibility scripts.
+As of v0.4.0, the key addition is the **Eq. 6.6.2 pinning (Phi-screening)** engine separation,
+and an **optional Eq. 6.6.3 high-acceleration safeguard** used only for Solar-System extrapolation diagnostics.
+
+## v0.4.0 file map (what each .py does)
+
+Core engines (do not rename; imported by tests):
+- `enchan_core_model.py`
+  - Shared physical constants and common helpers.
+- `enchan_core_model_plus.py`  **(Eq. 6.6.2 ONLY)**
+  - Phi-screening ("pinning") only. This is the galaxy-calibrated core.
+  - NOTE: g-screening is intentionally excluded here.
+- `enchan_core_model_g_screening.py` **(Eq. 6.6.3 ONLY)**
+  - High-acceleration suppression (g-screening) for Solar-System extrapolation diagnostics only.
+
+Galaxy reproducibility / verification:
+- `enchan_btfr_reproduce_enchan.py`
+  - BTFR benchmark + implied per-galaxy a0 estimates.
+- `enchan_variable_a0_prediction.py`
+  - Differential prediction test (Test C1) for variable-a0 vs fixed-a0 (disk-dominated filter).
+- `enchan_c1_pinning_test_strict.py`  **(NEW in v0.4.0)**
+  - C1 pinning test in strict mode: evaluates whether a single global (Phi_c, n) reduces over-correction
+    in high-SB subsets without erasing the low-SB signal.
+  - Uses Eq. 6.6.2 (`enchan_core_model_plus.py`) only. (No g-screening here.)
+
+Solar-System diagnostics (optional, not an ephemeris fit):
+- `enchan_solar_system_delta_accel.py`
+  - Delta-g / boost / phantom-mass diagnostic under the working closure.
+  - Can run in:
+    - Eq. 6.6.2 only (default; g-screening OFF)
+    - Eq. 6.6.2 + Eq. 6.6.3 (only when you explicitly pass `--g_c`)
+
+Exploration (not required for v0.4.0 minimal verification):
+- `enchan_a0_sb_correlation.py`
+  - Exploratory a0 vs SB-proxy correlation diagnostics.
+
+## Inputs (not committed)
+You need the following public SPARC files locally:
+- `Rotmod_LTG.zip`
+- `BTFR_Lelli2019.mrt`
+
+Source: SPARC website (see link above in this README)
+
+## Install
+Minimal:
+`python -m pip install numpy pandas matplotlib`
+
+## v0.4.0 quick commands (copy/paste)
+
+(1) C1 pinning test (Eq. 6.6.2 only; Strict Mode)
+`python enchan_c1_pinning_test_strict.py --mrt BTFR_Lelli2019.mrt --zip Rotmod_LTG.zip --inner_cut 1.0`
+
+(2) Solar-System delta-accel diagnostic — Eq. 6.6.2 only (default)
+`python enchan_solar_system_delta_accel.py --a0 1.2e-10 --phi_c 40000 --n 1.0`
+
+(3) Solar-System delta-accel diagnostic — Eq. 6.6.2 + Eq. 6.6.3 (optional safeguard)
+`python enchan_solar_system_delta_accel.py --a0 1.2e-10 --phi_c 40000 --n 1.0 --g_c 6e-11 --m 1.0`
+
+## Scope note (important)
+- Eq. 6.6.2 (Phi-screening / pinning) is the galaxy-calibrated regime extension used in C1 tests.
+- Eq. 6.6.3 (g-screening) is an **optional Solar-System extrapolation safeguard** and is **not used**
+  in galaxy cross-validation / calibration runs.
+
 ##Scripts in this folder###1) BTFR benchmark (and implied a_0 distribution)Computes BTFR points, a simple log–log fit, and the implied per-galaxy estimate:
 
 ```bash

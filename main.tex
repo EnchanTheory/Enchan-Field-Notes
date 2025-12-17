@@ -26,7 +26,7 @@
     linkcolor=blue,
     citecolor=blue,
     urlcolor=blue,
-    pdftitle={Enchan Field Notes v0.3.3},
+    pdftitle={Enchan Field Notes v0.4.0},
     pdfauthor={Mitsuhiro Kobayashi},
     pdfsubject={Inception World: Topological Defects and Emergent Acceleration Scale},
     pdfkeywords={Enchan, dark matter, RAR, BTFR, topological defect, scalar field}
@@ -69,7 +69,7 @@ Tokyo, Japan\\
 % Document
 %===========================
 %--- Version Definition ---
-\newcommand{\version}{v0.3.3} 
+\newcommand{\version}{v0.4.0} 
 %--------------------------
 
 \begin{document}
@@ -82,19 +82,29 @@ Tokyo, Japan\\
 %===========================
 \begin{abstract}
 \noindent
-\textbf{\version update (hypothesis shift):}
-This version pivots from the earlier ``resonant space'' direction (v0.2.x) to a
-topological-defect picture.
-We introduce a \emph{dimensionless} scalar field $\EnchanS$ interpreted as an effective
-time-dilation factor (a compact proxy for gravitational time delay).
+\textbf{\version update (structural refinement):}
+This version consolidates the framework into a minimal, explicitly testable form.
+We formulate a \emph{dimensionless} scalar field $\EnchanS$, interpreted as an effective
+time-dilation factor (a compact proxy for gravitational time delay), and examine how
+defect-like configurations of $\EnchanS$ anchored by baryonic structure can generate
+galaxy-scale regularities.
 
-Assuming that $\EnchanS$ admits logarithmic defect-like profiles anchored by baryonic structure,
-we show how an effective acceleration closure compatible with the Radial Acceleration Relation (RAR)
-and the Baryonic Tully--Fisher Relation (BTFR) can emerge at the phenomenological level.
-A central goal of \version is to express the characteristic acceleration scale $a_0$
-as a derived parameter in terms of vacuum stiffness and defect geometry, rather than as an
-unexplained constant.
+A central result of \version is the explicit separation of regimes.
+At the galaxy scale, we introduce an \emph{environmental pinning} mechanism
+(Eq.~6.6.2) in which the effective acceleration scale
+$a_{0,\mathrm{eff}}$ is suppressed in deep baryonic potentials via a potential-depth proxy.
+This term is constrained directly by cross-validated fits to SPARC data.
+
+At smaller, high-acceleration scales (e.g.\ the Solar System), we show that an additional
+suppression may be required to avoid unphysical extrapolation.
+This effect is isolated as a separate safeguard (Eq.~6.6.3) and is \emph{not} used in
+galaxy calibration.
+
+The overarching aim of \version is not to propose a modification of gravity,
+but to organize observed phenomenology into a controlled effective description,
+with clear regime boundaries and falsifiable components.
 \end{abstract}
+
 
 %===========================
 % Status / Scope box
@@ -104,21 +114,38 @@ unexplained constant.
 \section*{Status and Scope (\version)}
 This document presents a \textbf{speculative effective framework} intended to sit
 beneath (not replace) the Standard Model and General Relativity.
+
 \begin{itemize}
-    \item \textbf{Empirical baseline:} The included Python scripts reproduce standard
-    galactic scaling regularities (SPARC-based RAR / BTFR / fixed-parameter rotation-curve prediction)
-    as external benchmarks. Verification code is available at:\\
+    \item \textbf{Empirical baseline:}
+    The accompanying Python scripts reproduce standard galaxy-scale regularities
+    (SPARC-based RAR / BTFR / fixed-parameter rotation-curve predictions)
+    as externally checkable benchmarks.
+    Verification code is available at:\\
     \url{https://github.com/EnchanTheory/Enchan-Field-Notes}
-    
-    \item \textbf{Theoretical proposal:} The working hypothesis is that these regularities can be
-    interpreted as signatures of defect-like configurations in the field $\EnchanS$.
-    \item \textbf{Assumptions:} The ``Anchor Condition'' linking baryonic structure to the defect scale
-    is currently a phenomenological ansatz and is explicitly marked as such.
-    \item \textbf{Conservativeness:} The framework is not presented as a modification of strong-field GR;
-    it targets the galaxy-scale, weak-field phenomenology where the empirical relations are defined.
+
+    \item \textbf{Theoretical proposal:}
+    The working hypothesis is that these regularities can be interpreted as signatures
+    of defect-like configurations in the field $\EnchanS$, with baryonic structure acting
+    as an anchor.
+
+    \item \textbf{Regime separation (\version):}
+    Environmental suppression in deep baryonic potentials (Eq.~6.6.2) is treated as
+    part of the galaxy-scale phenomenology and is calibrated on galaxy data.
+    Additional high-acceleration suppression (Eq.~6.6.3) is introduced only as an
+    optional safeguard for Solar-System diagnostics and is not included in galaxy fits.
+
+    \item \textbf{Assumptions:}
+    The anchor condition linking baryonic structure to the effective defect scale
+    remains a phenomenological ansatz and is explicitly identified as such.
+
+    \item \textbf{Conservativeness:}
+    The framework does not address strong-field gravity or precision Solar-System tests;
+    its domain of applicability is the weak-field, galaxy-scale regime where the
+    empirical relations are defined.
 \end{itemize}
 \hrule
 \vspace{1em}
+
 
 \clearpage
 \tableofcontents

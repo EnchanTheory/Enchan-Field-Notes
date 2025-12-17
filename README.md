@@ -1,6 +1,6 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current version:** v0.3.3  
+**Current version:** v0.4.0  
 **Status:** speculative research note + public-data reproducibility package
 
 Enchan Field Notes is a collection of theoretical memoranda exploring whether several
@@ -29,7 +29,7 @@ These are treated as **externally checkable targets** and regression tests.
 
 ---
 
-## The benchmark closure used in v0.3.x scripts
+## Benchmark closure (used as a reproducibility baseline)
 
 Several scripts use an effective one-parameter mapping as a working hypothesis:
 
@@ -40,19 +40,30 @@ $$
 This repository reproduces the above benchmarks using standard SPARC-style definitions and
 reports scatter/diagnostics. This should be read as **reproducibility of the benchmark mapping**,
 not as a completed derivation from a unique fundamental theory.
+In v0.4.0, Eq. 6.6.2/6.6.3 modify the effective acceleration scale used inside this benchmark-style closure for regime tests.
 
 ---
 
-## What's new in v0.3.3
+## What's new in v0.4.0
 
-- **Theory-side refinement (Chapter 6):** We reformulate the "surface-density anchor" as a **pressure-matching / stress-scale** condition, providing a compact dimensional motivation for a scaling of the form $V_0 \propto G \Sigma_b^2$ (up to order-unity factors and proxy systematics). This should be read as an EFT-level organizing principle, not yet a first-principles derivation.
+### 1) Eq. 6.6.2 is now explicit (Galaxy: Phi-screening / “pinning”)
+We introduce an explicit **environmental suppression** term in deep baryonic potentials:
+an effective acceleration scale
+\( a_{0,\mathrm{eff}} = a_{0,\mathrm{free}} \, \mathcal{S}_\Phi(|\Phi_{\mathrm{bar}}|) \)
+with a minimal pinning function parameterized by global \((\Phi_c, n)\).
+This term is evaluated and constrained on galaxy data via cross-validation (C1 pinning test).
 
-- **Differential Prediction Test (Test C1):** We added a 5-fold cross-validation test comparing:
-  (A) a fixed-$a_0$ baseline vs. (B) a proxy-driven variable-$a_0$ model.
-  - **Global (this run):** performance is similar overall (e.g., Mean RMS differs by ~0.003 dex; Win Rate ~52%).
-  - **Stratified (by SB_proxy quartiles):** the variable-$a_0$ model performs better in the **low-SB quartile** (e.g., Win Rate ~73% in Q1), while degrading in the highest-SB quartile. This pattern is consistent with (i) a cleaner disk proxy regime at low SB and/or (ii) proxy/structure limitations in dense inner regions.
+### 2) Eq. 6.6.3 is separated as an optional Solar-System safeguard (High-g suppression)
+Solar-System extrapolations can be sensitive to absolute-acceleration residuals in high-acceleration regimes.
+We therefore separate a **high-acceleration suppression** factor
+\( \mathcal{S}_g(g_N) \)
+as an optional safeguard used only for Solar-System diagnostic scripts.
+It is **not used** in galaxy calibration / cross-validation runs.
 
-- **Traceability upgrades:** the pipeline now exports reproducibility metadata (hashes, run config) and diagnostic lists (dropped-by-filter and name-collision logs) to support auditing and re-analysis.
+### 3) Code separation for reproducibility
+- `enchan_core_model_plus.py` implements **Eq. 6.6.2 only** (Phi-screening / pinning).
+- `enchan_core_model_g_screening.py` implements **Eq. 6.6.3 only** (High-g suppression).
+This separation is intentional to avoid mixing Solar-System safeguards into galaxy calibration.
 
 ---
 
@@ -72,8 +83,9 @@ The reproducibility package has its own README with detailed instructions:
 - Download SPARC public products:
   - `Rotmod_LTG.zip`
   - `BTFR_Lelli2019.mrt`
-  from the [SPARC website](http://astroweb.case.edu/SPARC/)
+  from the [SPARC website](https://astroweb.case.edu/SPARC/)
 - Run the scripts as described in `enchan-theory-verification/README.md`
+- For v0.4.0, see the `v0.4.0` section in `enchan-theory-verification/README.md` for the exact script set and commands.
 
 ---
 
@@ -89,7 +101,7 @@ and industrial applications are out of scope and are not disclosed here.
 
 If you wish to cite this work:
 
-> Kobayashi, M. (2025). *Enchan Field Notes: The Inception World and Topological Defects*. v0.3.3. GitHub Repository.
+> Kobayashi, M. (2025). *Enchan Field Notes: The Inception World and Topological Defects*. v0.4.0. GitHub Repository.
 
 ---
 
@@ -110,3 +122,4 @@ as long as you provide proper attribution and indicate if changes were made.
 ---
 
 *Note: This is a living document and subject to change without notice.*
+*Note: The Zenodo DOI may correspond to a tagged release (e.g., v0.3.3); this README describes the current GitHub state v0.4.0.*

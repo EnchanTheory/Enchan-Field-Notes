@@ -58,7 +58,11 @@ We introduce an \emph{effective defect stress scale}, $P_{\rm def}$, defined as:
 \begin{equation}
 P_{\rm def}(r) \equiv \frac{V_0(r)}{c^2 \eta_S}.
 \end{equation}
-By construction, $P_{\rm def}$ has the dimensions of pressure ($[M][L]^{-1}[T]^{-2}$).
+The factor $c^2$ converts an energy-density scale into a stress scale, while
+$\eta_S$ normalizes by the defect-strength parameter appearing in the logarithmic
+profile of Eq.~(\ref{eq:S_log_profile}).
+By construction, $P_{\rm def}$ has the dimensions of pressure
+($[M][L]^{-1}[T]^{-2}$).
 On the baryonic side, consider a self-gravitating sheet with surface mass density $\Sigma_{\rm b}$. The characteristic gravitational pressure (or vertical stress) within the sheet scales as $P_{\rm sg} \sim G \Sigma_{\rm b}^2$, up to an order-unity geometric factor.
 
 We therefore postulate that the defect's effective pressure scale matches the baryonic gravitational pressure at the anchor radius $r_c$.
@@ -85,6 +89,116 @@ where $\Upsilon_*$ is the stellar mass-to-light ratio and $I_{\rm disk}$ is the 
 We acknowledge that this proxy carries systematic uncertainties (e.g., from $\Upsilon_*$ variations, geometry, or bulge contamination).
 However, the primary goal of the differential prediction test (Test C1) is to verify the \textit{sign and power-law index} of the dependence implied by Eq.~(\ref{eq:V0_anchor})—specifically that the relevant acceleration scale scales with surface density—rather than to strictly constrain the normalization constants.
 Any global systematic offsets in the proxy are absorbed into the effective coupling factor $\alpha_c$.
+
+\subsubsection{Environmental suppression in deep potentials (``pinning'')}
+\label{subsubsec:pinning_suppression}
+
+Sections~\ref{sec:anchor_derivation}--\ref{eq:sigma_proxy} define a baseline (``free'') acceleration scale,
+$a_{0,\mathrm{free}}$, controlled by the local baryonic surface density proxy.
+This construction is expected to be most reliable in disk-dominated, low-complexity regions.
+However, dense central environments (high surface brightness and deep gravitational wells) introduce
+additional structure (bulge/bar geometry, noncircular motions, proxy contamination) that can spoil a
+single-parameter surface-density predictor.
+
+To encode this regime dependence while preserving the pressure-matching anchor as the leading-order
+term, we introduce a minimal \emph{environmental suppression} of the effective acceleration scale in
+deep baryonic potentials. Concretely, we define the \emph{observed / effective} acceleration scale as
+\begin{equation}
+a_{0,\mathrm{eff}}(r_c) \;\equiv\;
+a_{0,\mathrm{free}}(\Sigma_{\rm b}(r_c))\;
+\mathcal{S}_\Phi\!\left(|\Phi_{\rm bar}(r_c)|\right),
+\label{eq:a0_eff_with_phi_screening}
+\end{equation}
+where $0<\mathcal{S}_\Phi\le 1$ is a dimensionless suppression factor and
+$\Phi_{\rm bar}$ is the Newtonian gravitational potential sourced by baryons.
+
+\paragraph{Potential-depth proxy.}
+For observational work, we adopt a practical proxy for the potential depth at the anchor radius.
+Since $\Phi$ has the dimensions of velocity squared, a convenient estimator is
+\begin{equation}
+|\Phi_{\rm bar}(r_c)| \;\approx\; V_{\rm bar}(r_c)^2,
+\qquad
+V_{\rm bar}^2 \equiv V_{\rm gas}^2
++ \Upsilon_d V_{\rm disk}^2
++ \Upsilon_b V_{\rm bul}^2,
+\label{eq:phi_proxy_vbar2}
+\end{equation}
+using the standard SPARC mass-model decomposition.\footnote{
+Up to geometry-dependent $\mathcal{O}(1)$ factors, $V^2$ is the natural local proxy for potential depth.
+This choice is intended as an operational definition for reproducible tests, not as a unique theoretical
+identification.}
+
+\paragraph{Minimal pinning function.}
+The simplest EFT-motivated form that (i) leaves the low-potential regime unchanged and
+(ii) suppresses the anomaly in deep baryonic wells is
+\begin{equation}
+\mathcal{S}_\Phi(|\Phi|)
+\;=\;
+\left[1+\left(\frac{|\Phi|}{\Phi_c}\right)^{n}\right]^{-1},
+\label{eq:phi_screening_function}
+\end{equation}
+with two \emph{global} (non-galaxy-dependent) parameters: a critical potential scale $\Phi_c$
+and an index $n>0$.
+
+In the shallow-potential regime, $|\Phi|\ll\Phi_c$, one has $\mathcal{S}_\Phi\to1$ and
+Eq.~(\ref{eq:a0_eff_with_phi_screening}) reduces to the baseline surface-density anchor prediction.
+In deep baryonic wells, $|\Phi|\gg\Phi_c$, the suppression becomes strong,
+$\mathcal{S}_\Phi\sim(|\Phi|/\Phi_c)^{-n}$, effectively ``pinning'' the defect response and reducing
+the impact of the variable-$a_0$ correction.
+
+\paragraph{Interpretation and falsifiability.}
+Equation~(\ref{eq:a0_eff_with_phi_screening}) is a \emph{minimal regime extension} rather than a
+post-hoc per-galaxy tuning: $\Phi_c$ and $n$ are shared across the full sample and may be constrained
+(or excluded) by cross-validation.
+Operationally, this term predicts that the surface-density dependence of $a_0$ is most visible in
+low-potential, disk-dominated environments, while it is suppressed in high-potential central regions.
+
+\subsubsection{High-acceleration suppression in Solar-System extrapolations}
+\label{subsubsec:g_screening}
+
+When extrapolated to high-acceleration environments such as the Solar System,
+the quadrature-style closure generically exhibit a residual offset
+$\Delta g \sim \mathcal{O}(a_0)$ in the limit $g_N \gg a_0$.
+Although negligible in galactic low-acceleration regimes, such residuals can
+accumulate into observationally significant effects in precision Solar-System
+dynamics (e.g., effective phantom masses growing as $r^2$ or anomalous perihelion
+precession).
+
+To ensure consistency of Solar-System extrapolations while preserving the
+galaxy-calibrated form of Eq.~(\ref{eq:a0_eff_with_phi_screening}),
+we introduce an additional \emph{high-acceleration suppression factor}
+that acts only in regimes of large Newtonian acceleration.
+We write
+\begin{equation}
+a_{0,\mathrm{eff}}
+\;=\;
+a_{0,\mathrm{free}}\;
+\mathcal{S}_\Phi(|\Phi|)\;
+\mathcal{S}_g(g_N),
+\label{eq:a0_eff_with_g_screening}
+\end{equation}
+where $\mathcal{S}_g$ is defined as
+\begin{equation}
+\mathcal{S}_g(g_N)
+\;=\;
+\left[1+\left(\frac{g_N}{g_c}\right)^m\right]^{-1},
+\label{eq:g_screening_function}
+\end{equation}
+with $g_c$ a characteristic acceleration scale and $m>0$ an index controlling
+the sharpness of the suppression.
+
+By construction, $\mathcal{S}_g\to1$ for $g_N\ll g_c$, leaving galactic predictions
+unchanged, while $\mathcal{S}_g\to0$ for $g_N\gg g_c$, suppressing the residual
+high-acceleration response.
+
+\paragraph{Scope and interpretation.}
+The high-acceleration suppression term is \emph{not} part of the galaxy calibration
+and is therefore excluded from the C1 cross-validation analysis.
+It should be regarded as a Solar-System extrapolation safeguard, ensuring that the
+theory reduces smoothly to Newtonian dynamics in regimes where absolute acceleration
+constraints are strongest.
+
+
 
 \subsection{Derived acceleration scale}
 We define the effective acceleration scale $a_0$ by combining the defect profile parameter $\eta_S$ with the characteristic length $\ell_c$:
@@ -169,7 +283,7 @@ Equations~\eqref{eq:nu_quadrature}--\eqref{eq:mu_quadrature} define a transition
 The theory-side task for \version+ is to derive (or approximate) this response from an explicit
 defect profile and anchoring mechanism, rather than postulating it.
 
-\subsubsection{Why the modification ``hides'' in strong-gravity environments}
+\subsubsection{Why the benchmark closure is numerically innocuous on galaxies but problematic in precision Solar-System tests}
 The limits of Eq.~\eqref{eq:nu_quadrature} are:
 \begin{itemize}
 \item \textbf{Low-acceleration (deep) regime $g_{\rm bar}\ll a_0$:}
@@ -183,7 +297,11 @@ which yields asymptotically flat rotation curves ($v^2\simeq \sqrt{G M_{\rm bar}
 g_{\rm tot}= g_{\rm bar}\sqrt{1+\frac{a_0}{g_{\rm bar}}}
 \simeq g_{\rm bar}\left(1+\frac{a_0}{2g_{\rm bar}}\right).
 \end{equation}
-For Solar-System/terrestrial accelerations ($g_{\rm bar}\gg a_0$), the fractional correction $\Delta g/g_{\rm bar}\sim a_0/(2g_{\rm bar})$ becomes negligibly small, making the deviation effectively unobservable in practice.
+For Solar-System/terrestrial accelerations ($g_{\rm bar}\gg a_0$), the fractional correction
+$\Delta g/g_{\rm bar}\sim a_0/(2g_{\rm bar})$ is extremely small.
+However, the quadrature closure leaves a residual \emph{absolute} offset $\Delta g \sim \mathcal{O}(a_0)$,
+which can accumulate into measurable signatures in precision Solar-System dynamics.
+This motivates treating high-acceleration extrapolations separately via Eq.~(\ref{eq:a0_eff_with_g_screening}).
 \end{itemize}
 
 \subsubsection{Connection to the RAR benchmarks}
