@@ -56,21 +56,19 @@ A key design choice is to anchor the defect using a \textbf{surface-density} pro
 Dimensional analysis provides a robust guide for this coupling.
 We introduce an \emph{effective defect stress scale}, $P_{\rm def}$, defined as:
 \begin{equation}
-P_{\rm def}(r) \equiv \frac{V_0(r)}{c^2 \eta_S}.
+P_{\rm def}(r) \equiv \frac{V_0(r)}{\eta_S}.
 \end{equation}
-The factor $c^2$ converts an energy-density scale into a stress scale, while
-$\eta_S$ normalizes by the defect-strength parameter appearing in the logarithmic
-profile of Eq.~(\ref{eq:S_log_profile}).
-By construction, $P_{\rm def}$ has the dimensions of pressure
-($[M][L]^{-1}[T]^{-2}$).
-On the baryonic side, consider a self-gravitating sheet with surface mass density $\Sigma_{\rm b}$. The characteristic gravitational pressure (or vertical stress) within the sheet scales as $P_{\rm sg} \sim G \Sigma_{\rm b}^2$, up to an order-unity geometric factor.
+Here, $V_0(r)$ represents the local vacuum energy density scale. We normalize by $\eta_S$ to interpret $P_{\rm def}$ as the core energy density \emph{per unit defect strength}, ensuring that the anchor condition constrains the strength-normalized ``stress budget'' of the vacuum texture.
+By construction, since energy density and pressure share the same dimensions ($[M][L]^{-1}[T]^{-2}$), $P_{\rm def}$ naturally represents a stress scale.
+
+On the baryonic side, consider a self-gravitating sheet with surface mass density $\Sigma_{\rm b}$. The characteristic gravitational pressure (or vertical stress) within the sheet scales as $P_{\rm sg} \sim G \Sigma_{\rm b}^2$ (e.g., the midplane vertical stress scaling for a self-gravitating sheet), up to an order-unity geometric factor.
 
 We therefore postulate that the defect's effective pressure scale matches the baryonic gravitational pressure at the anchor radius $r_c$.
 The \textit{minimal anchor ansatz} is then the condition of pressure equilibrium:
 \begin{equation}
 P_{\rm def}(r_c) \simeq \frac{1}{\alpha_c} P_{\rm sg}(r_c)
 \quad \Longrightarrow \quad
-\frac{V_0(r_c)}{c^2 \eta_S} \simeq \frac{1}{\alpha_c} \, G \, \Sigma_{\rm b}(r_c)^2,
+\frac{V_0(r_c)}{\eta_S} \simeq \frac{1}{\alpha_c} \, G \, \Sigma_{\rm b}(r_c)^2,
 \label{eq:V0_anchor}
 \end{equation}
 where $\alpha_c$ is a dimensionless coupling efficiency factor of order unity.
