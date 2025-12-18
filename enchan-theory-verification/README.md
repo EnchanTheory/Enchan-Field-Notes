@@ -98,17 +98,6 @@ Scripts write outputs to local result directories (tables and figures). These ou
 * sanity checks (does it reproduce the known benchmark trend?)
 * regression comparisons (same inputs → comparable outputs)
 
-## Appendix: optional diagnostics (non-benchmark)
-
-This folder may also include optional **diagnostic** scripts/modules intended for *extrapolation checks*.
-They are **not** part of the galaxy benchmark calibration and should not be interpreted as an ephemeris fit.
-
-* `enchan_core_model_g_screening.py`
-  Optional **high-acceleration suppression** helper used only when explicitly enabled in diagnostics.
-* `enchan_solar_system_delta_accel.py`
-  Solar-System delta-acceleration **diagnostic** (not a fit to planetary ephemerides).
-  This is provided to quantify the behavior of the baseline mapping under high-acceleration extrapolation.
-
 ## License
 
-See the root `LICENSE` file for repository licensing.
+See the repository root `LICENSE`.

@@ -84,8 +84,8 @@ If you wish to cite this work:
 
 ## License
 
-This repository is released under the **GNU General Public License v3.0 (GPL-3.0)**.
-See `LICENSE` for details.
+This repository is released under a custom research & verification license.
+See `LICENSE` for the full terms.
 
 ---
 
