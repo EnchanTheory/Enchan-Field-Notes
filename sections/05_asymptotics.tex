@@ -1,87 +1,73 @@
 %==============================================================================
-% Section 5: Asymptotic Structure and Galactic Dynamics
+% Section 5: Asymptotic Structure and Galaxy-Scale Scaling Relations
 %==============================================================================
 
-\chap{Asymptotic Structure and Galactic Dynamics}
+\chap{Asymptotic Structure and Galaxy-Scale Scaling Relations}
 
-In this chapter, we explore the physical consequences of the Enchan field equations at galactic scales. We show that the "Inception" vacuum naturally supports long-range topological defects, which manifest observationally as "Dark Matter Halos" with a density profile falling as $1/r^2$, leading inevitably to flat rotation curves.
+This chapter summarizes the asymptotic behavior of the effective field description
+in the quasi-static regime and derives scaling relations relevant for galaxy rotation curves.
+The discussion is restricted to weak-field, large-radius behavior.
 
-\subsection{The Static Limit}
+\subsection{Quasi-static limit}
 
-For a galaxy in equilibrium, we consider the static limit of the field equation derived in Chapter 4:
+In the quasi-static regime, the effective field equation stated in Chapter~4 admits a
+Poisson-like form. For the purpose of asymptotic scaling, we consider the outer-region
+limit in which source variations are slow and the solution is dominated by the field's
+large-radius behavior:
 \begin{equation}
-    \sigma_{\text{vac}} \nabla^2 S \approx -V'(S).
+\nabla^2 S \simeq \mathcal{S}(S;\,\text{parameters}),
 \end{equation}
-We are interested in the behavior of the field far from the galactic center ($r \gg r_c$), where the direct influence of baryonic matter is negligible, and the dynamics are dominated by the self-interaction of the field (the vacuum structure).
+where $\mathcal{S}$ denotes the effective source/potential structure.
+The precise form used in later chapters is fixed by the phenomenological calibration.
 
-\subsection{The Logarithmic Wrinkle (Topological Defect)}
+\subsection{Logarithmic asymptotic profile}
 
-As derived in Chapter 6, the stability condition for a topological defect in this framework requires the field to behave logarithmically at large distances:
+A convenient and widely used asymptotic profile for producing flat rotation behavior
+is a logarithmic field configuration,
 \begin{equation}
-    S(r) \sim \eta_S \ln\left(\frac{r}{r_c}\right).
+S(r) \simeq \eta_S \ln\!\left(\frac{r}{r_c}\right),
+\label{eq:S_log}
 \end{equation}
-
-\paragraph{Physical Interpretation:}
-Standard Newtonian gravity relies on the Poisson equation $\nabla^2 \Phi = 4\pi G \rho$, where a point source creates a potential $\Phi \sim 1/r$ and a force $g \sim 1/r^2$.
-However, the Enchan field $S$ represents a \textbf{"Wrinkle" or "Tear" in the time flow}. Unlike a point mass that fades away, a topological defect carries a global constraint. The stress in the vacuum ($\nabla S$) cannot relax faster than $1/r$ due to the topology of the Inception World.
-
-\begin{itemize}
-    \item \textbf{Gradient Profile:} The "drag" on time decays slowly:
-    \begin{equation}
-        |\nabla S| = \frac{\eta_S}{r}.
-    \end{equation}
-    \item \textbf{Comparison:} This is a much slower decay than Newtonian gravity ($1/r^2$). This "long-range drag" is the origin of the mass discrepancy in the outer regions of galaxies.
-\end{itemize}
-
-\subsection{Geometric Dark Matter Halo}
-
-We identified the energy density of the dark sector with the gradient energy of the field:
+where $\eta_S$ is a dimensionless amplitude and $r_c$ is a characteristic scale.
+From Eq.~\eqref{eq:S_log} one obtains the radial gradient magnitude
 \begin{equation}
-    \rho_{\text{DM}} \equiv \frac{\sigma_{\text{vac}}}{2} (\nabla S)^2.
-\end{equation}
-Substituting the gradient profile $|\nabla S| = \eta_S / r$:
-\begin{equation}
-    \rho_{\text{DM}}(r) = \frac{\sigma_{\text{vac}}}{2} \left( \frac{\eta_S}{r} \right)^2 = \frac{\sigma_{\text{vac}} \eta_S^2}{2} \frac{1}{r^2}.
+\left|\nabla S\right| = \frac{\eta_S}{r}.
+\label{eq:grad_1overr}
 \end{equation}
 
-\paragraph{The 1/$r^2$ Profile:}
-This result is profound. Without introducing any new particles, the field theory predicts a "Halo" of energy density that falls off as $1/r^2$.
-This is mathematically identical to the density profile of a \textbf{Singular Isothermal Sphere}, which is known to produce perfectly flat rotation curves.
+Using the working relation $g_{\rm tot} \equiv c^2 \nabla S$,
+Eq.~\eqref{eq:grad_1overr} corresponds to an outer-region acceleration scaling
+$g_{\rm tot}\propto 1/r$.
 
-\begin{quote}
-    \textbf{Conclusion:} The "Dark Matter Halo" is not a cloud of invisible particles. It is the \textbf{elastic stress energy} of the vacuum stored in the topological wrinkle surrounding the galaxy.
-\end{quote}
+\subsection{Effective halo-like density scaling}
 
-\subsection{Flat Rotation Curves}
-
-The orbital velocity $v(r)$ of a test particle in this effective halo is determined by the enclosed mass $M_{\text{DM}}(r)$.
+For bookkeeping, it is useful to associate an effective density profile with the
+field-gradient sector by defining
 \begin{equation}
-    M_{\text{DM}}(r) = \int_0^r 4\pi x^2 \rho_{\text{DM}}(x) \, dx = \int_0^r 4\pi x^2 \left( \frac{\mathcal{A}}{x^2} \right) dx = 4\pi \mathcal{A} r,
+\rho_{\rm eff}(r) \propto \left|\nabla S\right|^2 .
 \end{equation}
-where $\mathcal{A} = \sigma_{\text{vac}} \eta_S^2 / 2$ is a constant related to the tension of the wrinkle.
-The circular velocity is then:
+Substituting Eq.~\eqref{eq:grad_1overr} yields the characteristic scaling
 \begin{equation}
-    v^2(r) = \frac{G M_{\text{DM}}(r)}{r} = \frac{G (4\pi \mathcal{A} r)}{r} = 4\pi G \mathcal{A} = \text{const}.
+\rho_{\rm eff}(r) \propto \frac{1}{r^2}.
+\label{eq:rho_1overr2}
 \end{equation}
+This is the same radial scaling as the singular isothermal sphere profile used as a
+standard phenomenological representation of flat rotation curves.
 
-This demonstrates that \textbf{flat rotation curves are a generic prediction} of the Inception World hypothesis. They are not anomalies; they are the expected behavior of gravity in a universe containing topological defects.
+\subsection{Flat rotation scaling}
 
-\subsection{The Anchor Effect and Baryonic Coupling}
+If the outer-region dynamics are dominated by an effective density profile of the form
+$\rho_{\rm eff}\propto r^{-2}$, then the enclosed effective mass scales linearly with radius,
+$M_{\rm eff}(r)\propto r$.
+The corresponding circular velocity satisfies
+\begin{equation}
+v^2(r) \propto \frac{M_{\rm eff}(r)}{r} \simeq \text{const},
+\end{equation}
+which is the standard flat-rotation scaling.
 
-Why do these wrinkles form around galaxies?
-According to the \textbf{Anchor Condition} (Chapter 6), baryonic mass acts as the pinning center for these defects.
-\begin{itemize}
-    \item A galaxy is not just a collection of stars; it is a "knot" in the time-flow.
-    \item The baryonic mass $M_b$ determines the core radius $r_c$ and the amplitude of the wrinkle.
-    \item This tight coupling explains the \textbf{Renzo's Rule} and the \textbf{Radial Acceleration Relation (RAR)}: the detailed features of the baryonic distribution are imprinted on the rotation curve because the baryons are physically shaping the defect.
-\end{itemize}
+\subsection*{Remark}
 
-\subsection{Cosmological Cutoff}
-
-The logarithmic potential ($S \sim \ln r$) and the linear mass growth ($M \sim r$) cannot continue indefinitely, as the total energy would diverge.
-In the Enchan cosmology, this divergence is naturally cut off by:
-\begin{enumerate}
-    \item \textbf{Neighboring Defects:} The wrinkle of one galaxy eventually merges with the wrinkles of its neighbors (cluster scale).
-    \item \textbf{Cosmic Horizon:} The finite size of the observable universe (or the Inception bubble) provides a hard cutoff.
-\end{enumerate}
-This suggests that "Dark Matter" effects are most prominent at galactic to cluster scales, where the $1/r$ gradient can dominate, but must saturate at cosmological scales.
+This chapter isolates the asymptotic scaling structure used in later derivations.
+The connection between $(\eta_S, r_c)$ and baryonic inputs, and the calibration of the
+effective response function used for observational benchmarks, are addressed in
+Chapters~6--7.

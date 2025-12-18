@@ -6,7 +6,7 @@ Enchan C1 Pinning Test (Strict Nested CV Edition) - v0.4.0 Compatible
 Goal
 ----
 Verify the Pinning Mechanism using strict Nested Cross-Validation.
-Compatible with enchan_core_model_plus v0.4.0 Gold Master.
+Compatible with enchan_core_model_plus v0.4.2
 
 Usage:
   python enchan_c1_pinning_test_strict.py --mrt BTFR_Lelli2019.mrt --zip Rotmod_LTG.zip --inner_cut 1.0
@@ -23,7 +23,7 @@ from itertools import product
 # Import Enchan Modules
 # ---------------------------------------------------------
 # Add root directory to path to allow imports
-sys.path.append(str(Path(__file__).resolve().parent.parent))
+sys.path.append(str(Path(__file__).resolve().parent))
 
 try:
     from enchan_core_model import KMS_TO_MS, G_SI, MSUN_KG
@@ -55,7 +55,7 @@ def calculate_screened_rms(gal_rar, a0_free_val, phi_val, phi_c, n, inner_cut_kp
     go = df["g_obs"].values
     
     # Apply Screening
-    a0_eff = apply_screening(a0_free_val, phi_val=phi_val, phi_c=phi_c, n=n)
+    a0_eff = apply_screening(a0_free_val, phi_val, phi_c, n)
     
     g_pred = np.sqrt(gb**2 + a0_eff * gb)
     g_pred = np.maximum(g_pred, 1e-15)
@@ -231,8 +231,8 @@ def main():
     if df_sb["name_norm"].duplicated().any():
         df_sb = df_sb.groupby("name_norm", as_index=False)["SB_proxy"].median()
         
-    gal_data_tuple = load_rar_data_by_galaxy(zip_path, Yd=0.5, Yb=0.7, max_bulge_frac=0.5, quantile_thr=0.95)
-    rar_data_map = gal_data_tuple[0]
+    tmp = load_rar_data_by_galaxy(zip_path, Yd=0.5, Yb=0.7, max_bulge_frac=0.5, quantile_thr=0.95)
+    rar_data_map = tmp if isinstance(tmp, dict) else tmp[0]
     
     # Compute Potential Proxy using v0.4.0 Gold Master
     print("Calculating potential depths (|Phi| ~ V_bar^2) using calculate_phi_median_proxy...")

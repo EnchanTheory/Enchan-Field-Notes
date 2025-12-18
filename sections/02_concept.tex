@@ -1,81 +1,60 @@
 %==============================================================================
-% Section 2: Conceptual Structure of the Inception World
+% Section 2: Conceptual Setup and Effective Variables
 %==============================================================================
 
-\chap{Conceptual Structure: The Inception World}
+\chap{Conceptual Setup and Effective Variables}
 
-In this chapter, we detail the cosmological foundation of the Enchan framework \version. We abandon the assumption that spacetime is a fundamental, pre-existing stage. Instead, we adopt the \textbf{"Inception World"} hypothesis, which posits that our universe exists within the interior of a higher-dimensional singularity. This perspective radically redefines the nature of time, gravity, and the dark sector.
+This chapter introduces the minimal conceptual setup used throughout these notes.
+We work with a dimensionless scalar field $S(x)$ as an effective proxy variable
+in the weak-field regime and define the derived quantities used in later chapters.
 
-\subsection{The Inception Hypothesis}
+\subsection{Field variable}
 
-Standard cosmology treats the Big Bang as a singular event in the past. The Enchan framework reinterprets the cosmological history as a dynamic process occurring inside a parent structure.
+The scalar field $S(x)$ is taken to be dimensionless.
+In the intended regime of applicability, spatial gradients of $S$ are used to
+parametrize an effective gravitational response, summarized by
+\begin{equation}
+g_{\rm tot} \equiv c^2 \nabla S .
+\end{equation}
+This relation is used as a working definition for the phenomenological mapping
+between the field variable and the inferred acceleration field in galaxies.
 
-\begin{quote}
-\textbf{Hypothesis 2 (The Inception World):}
-Our observable universe is the interior of a "Black Hole" (or an equivalent gravitational collapse) belonging to an \textbf{Upper Universe}. The "Singularity" is not merely a point in the past, but the destination of the future flow.
-\end{quote}
+\subsection{Derived quantities}
 
-In this picture, the expansion of the universe and the arrow of time are consequences of the geometry of this collapse. We are comparable to droplets of water falling down a massive waterfall; the "flow" is universal and inescapable.
-
-\subsection{Time as Velocity of Fall}
-
-This topology necessitates a redefinition of Time ($T$).
-
-\begin{itemize}
-    \item \textbf{Time is Motion:} The progression of time is physically equivalent to the velocity of fall toward the Upper Singularity. To exist in this universe is to fall.
-    \item \textbf{The Arrow of Time:} The irreversibility of time arises because the fall toward the singularity is unidirectional.
-\end{itemize}
-
-\subsection{Gravity as Drag (The Anchor)}
-
-If time is the "velocity of fall," then what is Gravity?
-In General Relativity, a massive object curves spacetime, causing time to run slower near it (Time Dilation). The Enchan framework interprets this mechanically:
-
-\begin{itemize}
-    \item \textbf{Mass as Resistance:} Mass (and information density) acts as a brake or an \textbf{Anchor} against the cosmic fall.
-    \item \textbf{Gravity as Friction:} A massive object "clings" to the fabric of spacetime, resisting the flow toward the singularity. This resistance creates a local drag, slowing down the passage of time relative to the free-falling background.
-    \item \textbf{Black Holes as Stagnation Points:} A Black Hole in our universe is a region where the resistance is so high that the fall is locally halted relative to the metric. To an outside observer, an object at the horizon appears frozen in time because it has "stopped falling" through the temporal dimension and is stuck on the fabric.
-\end{itemize}
-
-\subsection{The Primordial Wrinkles (Dark Sector)}
-
-The Upper Singularity is not a perfect sphere. It possesses initial asymmetries, rotation, and topological defects. These imprint themselves onto our universe as \textbf{Primordial Wrinkles}.
-
-\begin{itemize}
-    \item \textbf{Topology over Particle:} The Dark Sector ($D$) is not composed of particulate matter. It is the manifestation of these pre-existing wrinkles in the flow of time.
-    \item \textbf{Formation of Structure:} Baryonic matter tends to accumulate in these wrinkles, much like dust settles in the grooves of a spinning record. The "Dark Matter Halo" is simply the shadow of the wrinkle where the time-flow is naturally distorted.
-\end{itemize}
-
-\subsection{Effective Degrees of Freedom}
-
-Based on this cosmology, we define the effective variables used in the field model (Chapter 4):
+Two derived quantities are used repeatedly:
 
 \begin{enumerate}
-    \item \textbf{Fluctuation Source ($F$):}
-    The projection of the Upper Universe's geometry (the shape of the singularity). It acts as the source term for topological defects.
+    \item \textbf{Gradient magnitude.}
+    We denote the magnitude of the spatial gradient by
+    \begin{equation}
+        D(x) \equiv \|\nabla S\| .
+    \end{equation}
+    In the effective description, $D$ serves as a compact measure of spatial
+    variation in $S$.
 
-    \item \textbf{Rotational Control ($\Omega$):}
-    The vorticity inherited from the Upper Universe or generated locally. As discussed in Chapter 3, rotation creates a "Frame Dragging" effect that enhances the anchoring capability, allowing defects to stabilize.
-
-    \item \textbf{The Enchan Field ($S$):}
-    The order parameter representing the \textbf{Time Dilation Factor}.
-    \[
-    S(x) \sim \ln(\text{Time Lag})
-    \]
-    $S=0$ corresponds to the asymptotic "free fall" (vacuum). Non-zero $S$ indicates a region where time is being dragged or anchored.
-
-    \item \textbf{Geometric Dark Density ($D$):}
-    The energy cost of the shear in the time flow:
-    \[
-    D \equiv \|\nabla S\|
-    \]
-    This gradient energy acts gravitationally, producing the effects attributed to Dark Matter.
+    \item \textbf{Kinetic invariant.}
+    For covariant expressions we define
+    \begin{equation}
+        \mathcal{X} \equiv \frac{\nabla_\mu S\,\nabla^\mu S}{a_0^2},
+    \end{equation}
+    where $a_0$ is the characteristic acceleration scale introduced later.
+    The function $\mu(\mathcal{X})$ used in the field equation is chosen so that
+    the quasi-static limit reproduces the empirical interpolation employed in
+    the observational benchmarks.
 \end{enumerate}
 
-\subsection{Summary of the Paradigm}
+\subsection{Effective source structure}
 
-In \version, we shift from "resonating the space" to "anchoring the time."
-\begin{itemize}
-    \item \textbf{Old View (v0.2):} Gravity waves are vibrations. We need huge energy to ring the bell.
-    \item \textbf{New View (v0.3):} Gravity is a drag force. We can manipulate it by creating \textbf{local anchors} (via high-speed rotation or information density) that snag the flow of time, creating artificial gravity fields without the need for planetary mass.
-\end{itemize}
+The galaxy-scale description uses baryonic structure as the primary source input.
+We denote the baryonic mass density by $\rho_{\rm b}$ and adopt an anchoring ansatz
+in which baryonic distributions select characteristic scales for spatial variations
+of $S$.
+Environmental modulation is incorporated through an effective suppression of the
+acceleration scale in deep baryonic potentials, using a potential-depth proxy.
+
+\subsection{Notation and conventions}
+
+Unless stated otherwise, we work in the weak-field, nonrelativistic limit when
+connecting the field model to observational quantities.
+The field $S$ is treated as an effective variable; no assumptions are made here
+about a unique fundamental completion beyond the regime studied in these notes.

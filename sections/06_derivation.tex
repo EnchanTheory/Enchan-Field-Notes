@@ -4,309 +4,95 @@
 
 \chap{Derivation: the acceleration scale}
 
-\subsection{Purpose and scope}
-This chapter provides a \textbf{model-facing derivation ledger} for the acceleration scale $a_0$.
-The goal is not to claim completion, but to fix:
-(i) the assumptions used in the derivation,
-(ii) the dimensional bookkeeping, and
-(iii) a concrete, testable dependence that can be confronted with public data.
+\subsection{Scope}
 
-\subsection{Assumptions used in this chapter}
-We work under the following controlled assumptions:
+This chapter fixes the minimal definitions and parametric dependencies used to
+introduce an effective acceleration scale $a_0$ within the field description.
+
+\subsection{Controlled assumptions}
+
+We work under the following assumptions:
 \begin{itemize}
-\item \textbf{Static limit:} $\partial_t S \simeq 0$ on galactic scales.
-\item \textbf{Spherical defect ansatz:} the dominant large-scale defect profile is treated as effectively spherical.
-\item \textbf{Anchor condition (ansatz):} the defect core energy density is tied to a baryonic \emph{surface}-density proxy evaluated at a characteristic anchor radius $r=r_c$.
+\item \textbf{Quasi-static limit:} $\partial_t S \simeq 0$ on galaxy scales.
+\item \textbf{Spherical profile (outer region):} the dominant large-radius behavior is
+treated as effectively spherical.
+\item \textbf{Anchor ansatz:} a defect-core energy-density scale is tied to a baryonic
+surface-density proxy evaluated at a characteristic radius $r=r_c$.
 \end{itemize}
-These assumptions are explicitly flagged so that later revisions can replace them with a more fundamental construction.
 
-\subsection{Field normalization and dimensions}
-We adopt the \version convention that the Enchan field $S$ is \textbf{dimensionless} and is interpreted as an effective time-dilation factor.
-The Lagrangian density is written schematically as
-\begin{equation}
-\mathcal{L} = \frac{\sigma_{\rm vac}}{2}(\partial_\mu S)(\partial^\mu S) - V(S),
-\end{equation}
-where $\sigma_{\rm vac}$ is a universal stiffness parameter (vacuum ``rigidity'') and $V(S)$ is an effective potential encoding anchoring and defect-core energetics.
-This chapter uses $\sigma_{\rm vac}$ and a defect-core energy density scale $V_0$ to define the length and acceleration scales below.
+\subsection{Core length scale}
 
-\subsection{Defect length scale}
-We introduce a characteristic core/anchor length scale $\ell_c$ via
+Let $S$ be dimensionless and consider an effective Lagrangian with a constant kinetic
+coefficient $\sigma$ and an effective core energy-density scale $V_0$.
+We define a characteristic core/anchor length scale
 \begin{equation}
-\ell_c \equiv \sqrt{\frac{\sigma_{\rm vac}}{2V_0}},
+\ell_c \equiv \sqrt{\frac{\sigma}{2V_0}}.
 \label{eq:lc_def}
 \end{equation}
-where $V_0$ has units of energy density and represents the effective defect-core energy density associated with the anchoring region.
-This definition is used as a convenient parameterization of the ``stiffness versus core energy'' balance.
 
-\subsection{Defect profile ansatz}
-At radii outside the core, we take a logarithmic defect profile,
+\subsection{Outer defect profile}
+
+Outside the core region, we adopt a logarithmic profile as a minimal asymptotic form,
 \begin{equation}
 S(r) \simeq S_0 + \eta_S \ln\!\left(\frac{r}{\ell_c}\right),
 \label{eq:S_log_profile}
 \end{equation}
-where $\eta_S$ is a dimensionless defect-strength parameter and $S_0$ is a gauge constant.
-This log profile is the minimal form that yields an asymptotic gradient $|\nabla S|\propto 1/r$.
-
-\subsection{The Surface-Density Anchor: A Pressure-Matching Condition}
-\label{sec:anchor_derivation}
-
-We now formulate the local condition that determines the topological defect strength from the baryonic distribution.
-A key design choice is to anchor the defect using a \textbf{surface-density} proxy rather than a volume density, thereby avoiding the enormous dynamic range of $\rho_{\rm b}$ across galactic scales and focusing on the relevant dynamical quantity for disk systems.
-
-Dimensional analysis provides a robust guide for this coupling.
-We introduce an \emph{effective defect stress scale}, $P_{\rm def}$, defined as:
+where $\eta_S$ is a dimensionless amplitude and $S_0$ is an additive constant.
+This implies
 \begin{equation}
-P_{\rm def}(r) \equiv \frac{V_0(r)}{\eta_S}.
+|\nabla S| = \frac{\eta_S}{r}.
 \end{equation}
-Here, $V_0(r)$ represents the local vacuum energy density scale. We normalize by $\eta_S$ to interpret $P_{\rm def}$ as the core energy density \emph{per unit defect strength}, ensuring that the anchor condition constrains the strength-normalized ``stress budget'' of the vacuum texture.
-By construction, since energy density and pressure share the same dimensions ($[M][L]^{-1}[T]^{-2}$), $P_{\rm def}$ naturally represents a stress scale.
 
-On the baryonic side, consider a self-gravitating sheet with surface mass density $\Sigma_{\rm b}$. The characteristic gravitational pressure (or vertical stress) within the sheet scales as $P_{\rm sg} \sim G \Sigma_{\rm b}^2$ (e.g., the midplane vertical stress scaling for a self-gravitating sheet), up to an order-unity geometric factor.
+\subsection{Definition of the acceleration scale}
 
-We therefore postulate that the defect's effective pressure scale matches the baryonic gravitational pressure at the anchor radius $r_c$.
-The \textit{minimal anchor ansatz} is then the condition of pressure equilibrium:
+We define the effective acceleration scale by combining $\eta_S$ and $\ell_c$:
 \begin{equation}
-P_{\rm def}(r_c) \simeq \frac{1}{\alpha_c} P_{\rm sg}(r_c)
-\quad \Longrightarrow \quad
-\frac{V_0(r_c)}{\eta_S} \simeq \frac{1}{\alpha_c} \, G \, \Sigma_{\rm b}(r_c)^2,
+a_0 \equiv \frac{c^2\,\eta_S}{\ell_c}
+= c^2\,\eta_S \sqrt{\frac{2V_0}{\sigma}}.
+\label{eq:a0_def}
+\end{equation}
+
+\subsection{Surface-density anchor (minimal form)}
+
+Let $\Sigma_{\rm b}(r_c)$ be a baryonic surface-density proxy evaluated at the
+characteristic radius $r_c$.
+We postulate a leading-order anchoring relation of the form
+\begin{equation}
+\frac{V_0(r_c)}{\eta_S} \simeq \frac{1}{\alpha_c}\,G\,\Sigma_{\rm b}(r_c)^2,
 \label{eq:V0_anchor}
 \end{equation}
-where $\alpha_c$ is a dimensionless coupling efficiency factor of order unity.
-This relation implies that the vacuum texture is locally "pinned" or regulated by the self-gravity of the baryonic sheet.
-Equation (\ref{eq:V0_anchor}) recovers the scaling dependence used in Eq.~(19), but frames it as a leading-order effective field theory (EFT) description consistent with pressure dimensions, rather than an arbitrary choice.
+where $\alpha_c$ is a dimensionless efficiency parameter.
+Together with Eq.~\eqref{eq:a0_def}, this fixes the parametric dependence of $a_0$
+on the surface-density proxy up to dimensionless factors.
 
-\subsubsection{Observational Proxy for \texorpdfstring{$\Sigma_{\rm b}$}{Sigma\_b}}
-For practical confrontation with SPARC data, we treat $\Sigma_{\rm b}(r_c)$ not as a theoretically exact quantity, but as an \textbf{observational proxy} derived from surface photometry.
-Assuming the disk dominates the potential at the anchor radius, we adopt:
+\subsection{Environmental suppression in deep potentials}
+
+We allow a minimal environmental suppression of the effective acceleration scale in
+deep baryonic potentials by defining
 \begin{equation}
-\Sigma_{\rm b}(r_c) \approx \Upsilon_* I_{\rm disk}(r_c) + \Sigma_{\rm gas}(r_c),
-\label{eq:sigma_proxy}
-\end{equation}
-where $\Upsilon_*$ is the stellar mass-to-light ratio and $I_{\rm disk}$ is the observed luminosity profile.
-
-We acknowledge that this proxy carries systematic uncertainties (e.g., from $\Upsilon_*$ variations, geometry, or bulge contamination).
-However, the primary goal of the differential prediction test (Test C1) is to verify the \textit{sign and power-law index} of the dependence implied by Eq.~(\ref{eq:V0_anchor})—specifically that the relevant acceleration scale scales with surface density—rather than to strictly constrain the normalization constants.
-Any global systematic offsets in the proxy are absorbed into the effective coupling factor $\alpha_c$.
-
-\subsubsection{Environmental suppression in deep potentials (``pinning'')}
-\label{subsubsec:pinning_suppression}
-
-Sections~\ref{sec:anchor_derivation}--\ref{eq:sigma_proxy} define a baseline (``free'') acceleration scale,
-$a_{0,\mathrm{free}}$, controlled by the local baryonic surface density proxy.
-This construction is expected to be most reliable in disk-dominated, low-complexity regions.
-However, dense central environments (high surface brightness and deep gravitational wells) introduce
-additional structure (bulge/bar geometry, noncircular motions, proxy contamination) that can spoil a
-single-parameter surface-density predictor.
-
-To encode this regime dependence while preserving the pressure-matching anchor as the leading-order
-term, we introduce a minimal \emph{environmental suppression} of the effective acceleration scale in
-deep baryonic potentials. Concretely, we define the \emph{observed / effective} acceleration scale as
-\begin{equation}
-a_{0,\mathrm{eff}}(r_c) \;\equiv\;
-a_{0,\mathrm{free}}(\Sigma_{\rm b}(r_c))\;
+a_{0,\mathrm{eff}}(r_c) \equiv
+a_{0,\mathrm{free}}\!\big(\Sigma_{\rm b}(r_c)\big)\;
 \mathcal{S}_\Phi\!\left(|\Phi_{\rm bar}(r_c)|\right),
 \label{eq:a0_eff_with_phi_screening}
 \end{equation}
-where $0<\mathcal{S}_\Phi\le 1$ is a dimensionless suppression factor and
-$\Phi_{\rm bar}$ is the Newtonian gravitational potential sourced by baryons.
-
-\paragraph{Potential-depth proxy.}
-For observational work, we adopt a practical proxy for the potential depth at the anchor radius.
-Since $\Phi$ has the dimensions of velocity squared, a convenient estimator is
+with a suppression factor $0<\mathcal{S}_\Phi\le 1$.
+Operationally, we use the standard baryonic mass-model proxy
 \begin{equation}
-|\Phi_{\rm bar}(r_c)| \;\approx\; V_{\rm bar}(r_c)^2,
+|\Phi_{\rm bar}(r_c)| \approx V_{\rm bar}(r_c)^2,
 \qquad
-V_{\rm bar}^2 \equiv V_{\rm gas}^2
-+ \Upsilon_d V_{\rm disk}^2
-+ \Upsilon_b V_{\rm bul}^2,
+V_{\rm bar}^2 \equiv V_{\rm gas}^2 + \Upsilon_d V_{\rm disk}^2 + \Upsilon_b V_{\rm bul}^2,
 \label{eq:phi_proxy_vbar2}
 \end{equation}
-using the standard SPARC mass-model decomposition.\footnote{
-Up to geometry-dependent $\mathcal{O}(1)$ factors, $V^2$ is the natural local proxy for potential depth.
-This choice is intended as an operational definition for reproducible tests, not as a unique theoretical
-identification.}
-
-\paragraph{Minimal pinning function.}
-The simplest EFT-motivated form that (i) leaves the low-potential regime unchanged and
-(ii) suppresses the anomaly in deep baryonic wells is
+and adopt the minimal two-parameter form
 \begin{equation}
 \mathcal{S}_\Phi(|\Phi|)
-\;=\;
+=
 \left[1+\left(\frac{|\Phi|}{\Phi_c}\right)^{n}\right]^{-1},
 \label{eq:phi_screening_function}
 \end{equation}
-with two \emph{global} (non-galaxy-dependent) parameters: a critical potential scale $\Phi_c$
-and an index $n>0$.
+with global parameters $(\Phi_c, n)$ shared across the sample.
 
-In the shallow-potential regime, $|\Phi|\ll\Phi_c$, one has $\mathcal{S}_\Phi\to1$ and
-Eq.~(\ref{eq:a0_eff_with_phi_screening}) reduces to the baseline surface-density anchor prediction.
-In deep baryonic wells, $|\Phi|\gg\Phi_c$, the suppression becomes strong,
-$\mathcal{S}_\Phi\sim(|\Phi|/\Phi_c)^{-n}$, effectively ``pinning'' the defect response and reducing
-the impact of the variable-$a_0$ correction.
+\subsection*{Connection to observational benchmarks}
 
-\paragraph{Interpretation and falsifiability.}
-Equation~(\ref{eq:a0_eff_with_phi_screening}) is a \emph{minimal regime extension} rather than a
-post-hoc per-galaxy tuning: $\Phi_c$ and $n$ are shared across the full sample and may be constrained
-(or excluded) by cross-validation.
-Operationally, this term predicts that the surface-density dependence of $a_0$ is most visible in
-low-potential, disk-dominated environments, while it is suppressed in high-potential central regions.
-
-\subsubsection{High-acceleration suppression in Solar-System extrapolations}
-\label{subsubsec:g_screening}
-
-When extrapolated to high-acceleration environments such as the Solar System,
-the quadrature-style closure generically exhibit a residual offset
-$\Delta g \sim \mathcal{O}(a_0)$ in the limit $g_N \gg a_0$.
-Although negligible in galactic low-acceleration regimes, such residuals can
-accumulate into observationally significant effects in precision Solar-System
-dynamics (e.g., effective phantom masses growing as $r^2$ or anomalous perihelion
-precession).
-
-To ensure consistency of Solar-System extrapolations while preserving the
-galaxy-calibrated form of Eq.~(\ref{eq:a0_eff_with_phi_screening}),
-we introduce an additional \emph{high-acceleration suppression factor}
-that acts only in regimes of large Newtonian acceleration.
-We write
-\begin{equation}
-a_{0,\mathrm{eff}}
-\;=\;
-a_{0,\mathrm{free}}\;
-\mathcal{S}_\Phi(|\Phi|)\;
-\mathcal{S}_g(g_N),
-\label{eq:a0_eff_with_g_screening}
-\end{equation}
-where $\mathcal{S}_g$ is defined as
-\begin{equation}
-\mathcal{S}_g(g_N)
-\;=\;
-\left[1+\left(\frac{g_N}{g_c}\right)^m\right]^{-1},
-\label{eq:g_screening_function}
-\end{equation}
-with $g_c$ a characteristic acceleration scale and $m>0$ an index controlling
-the sharpness of the suppression.
-
-By construction, $\mathcal{S}_g\to1$ for $g_N\ll g_c$, leaving galactic predictions
-unchanged, while $\mathcal{S}_g\to0$ for $g_N\gg g_c$, suppressing the residual
-high-acceleration response.
-
-\paragraph{Scope and interpretation.}
-The high-acceleration suppression term is \emph{not} part of the galaxy calibration
-and is therefore excluded from the C1 cross-validation analysis.
-It should be regarded as a Solar-System extrapolation safeguard, ensuring that the
-theory reduces smoothly to Newtonian dynamics in regimes where absolute acceleration
-constraints are strongest.
-
-
-
-\subsection{Derived acceleration scale}
-We define the effective acceleration scale $a_0$ by combining the defect profile parameter $\eta_S$ with the characteristic length $\ell_c$:
-\begin{equation}
-a_0 \equiv \frac{c^2\,\eta_S}{\ell_c}
-= c^2\,\eta_S \sqrt{\frac{2V_0}{\sigma_{\rm vac}}}.
-\label{eq:a0_def}
-\end{equation}
-Using the anchor scaling in Eq.~\eqref{eq:V0_anchor}, this implies the parametric dependence
-\begin{equation}
-a_0 \propto \eta_S\,\Sigma_{\rm b}(r_c)\,\sqrt{\frac{G}{\sigma_{\rm vac}}}\,,
-\label{eq:a0_scaling}
-\end{equation}
-i.e.\ $a_0$ is not assumed fundamental, but is controlled by vacuum stiffness and an anchored surface-density proxy (up to dimensionless factors).
-
-\subsection{Testable prediction}
-Because Eq.~\eqref{eq:a0_scaling} links $a_0$ to a baryonic surface-density proxy, this framework makes a direct, falsifiable statement:
-\begin{quote}
-\textbf{Prediction:} the per-galaxy acceleration scale inferred from galaxy-level relations should exhibit a \emph{weak} correlation with surface-brightness indicators (or related $\Sigma_{\rm b}$ proxies), rather than being perfectly universal.
-\end{quote}
-If a near-universal $a_0$ continues to describe diverse galaxies, this must correspond to either
-(i) weak variation of the relevant proxy, or
-(ii) self-regulation (e.g.\ compensating variation in $\eta_S$ and/or $\alpha_c$).
-Either outcome is informative and can be tested.
-
-\subsection{Connection to the empirical benchmarks}
-Sec.~\ref{sec:obs_btfr} and Sec.~\ref{sec:obs_rar} (benchmarks) summarize the observed emergence of an acceleration scale $\sim 10^{-10}\,\mathrm{m/s^2}$ from public data.
-This chapter provides a \textbf{theory-side parametrization} of where such a scale could enter the model, and fixes the dependencies that must be checked against the benchmark outputs.
-
-%===========================================================
-% \version Addendum: Effective Field Equation & Transition
-%===========================================================
-\subsection{Effective field equation and a candidate transition function}
-\label{sec:transition_function}
-
-This section provides an \emph{effective} (approximate) derivation of the transition
-between the low-acceleration and high-acceleration regimes. The goal is to connect
-the benchmark closure used in v0.3.x to a field-equation form suitable for \version.
-
-\subsubsection{Quasi-static limit and the source term}
-We assume a quasi-static, weak-field regime on galactic scales, and identify the
-effective gravitational response with the gradient of the dimensionless time-dilation field:
-\begin{equation}
-\bm{g}_{\rm tot} \equiv c^2 \nabla S .
-\end{equation}
-Because matter follows the physical metric that depends on $S$ (time dilation),
-the matter sector contributes an effective source for $S$ in the non-relativistic limit.
-We therefore adopt the following Poisson-like \emph{effective} equation:
-\begin{equation}
-\nabla \cdot \left[ \mu\!\left(\frac{g_{\rm tot}}{a_0}\right)\, \bm{g}_{\rm tot} \right]
-= 4\pi G \rho_{\rm bar}.
-\label{eq:mu_poisson}
-\end{equation}
-Equation~\eqref{eq:mu_poisson} should be read as an effective macroscopic description
-of the vacuum texture response. A microscopic derivation from a specific defect model
-is deferred to future work.
-
-\subsubsection{Transition function consistent with the quadrature closure}
-In spherical symmetry, Eq.~\eqref{eq:mu_poisson} reduces to the algebraic relation
-\begin{equation}
-\mu\!\left(\frac{g_{\rm tot}}{a_0}\right)\, g_{\rm tot} = g_{\rm bar},
-\qquad
-g_{\rm bar}(r)\equiv \frac{G M_{\rm bar}(<r)}{r^2}.
-\label{eq:mu_relation}
-\end{equation}
-The v0.3.x benchmarks use the ``Enchan quadrature'' closure
-\begin{equation}
-g_{\rm tot}=\sqrt{g_{\rm bar}^2+a_0 g_{\rm bar}}
-= g_{\rm bar}\,\nu\!\left(\frac{g_{\rm bar}}{a_0}\right),
-\qquad
-\nu(y)=\sqrt{1+\frac{1}{y}} .
-\label{eq:nu_quadrature}
-\end{equation}
-We define a candidate $\mu$-function that reproduces this closure:
-\begin{equation}
-\mu\!\left(x\right)=\frac{g_{\rm bar}}{g_{\rm tot}}
-=\frac{\sqrt{1+4x^2}-1}{2x},
-\qquad x\equiv \frac{g_{\rm tot}}{a_0}.
-\label{eq:mu_quadrature}
-\end{equation}
-Equations~\eqref{eq:nu_quadrature}--\eqref{eq:mu_quadrature} define a transition function that is \emph{by construction} consistent with the benchmark closure.
-The theory-side task for \version+ is to derive (or approximate) this response from an explicit
-defect profile and anchoring mechanism, rather than postulating it.
-
-\subsubsection{Why the benchmark closure is numerically innocuous on galaxies but problematic in precision Solar-System tests}
-The limits of Eq.~\eqref{eq:nu_quadrature} are:
-\begin{itemize}
-\item \textbf{Low-acceleration (deep) regime $g_{\rm bar}\ll a_0$:}
-\begin{equation}
-g_{\rm tot}\simeq \sqrt{a_0 g_{\rm bar}},
-\end{equation}
-which yields asymptotically flat rotation curves ($v^2\simeq \sqrt{G M_{\rm bar} a_0}$).
-
-\item \textbf{High-acceleration regime $g_{\rm bar}\gg a_0$:}
-\begin{equation}
-g_{\rm tot}= g_{\rm bar}\sqrt{1+\frac{a_0}{g_{\rm bar}}}
-\simeq g_{\rm bar}\left(1+\frac{a_0}{2g_{\rm bar}}\right).
-\end{equation}
-For Solar-System/terrestrial accelerations ($g_{\rm bar}\gg a_0$), the fractional correction
-$\Delta g/g_{\rm bar}\sim a_0/(2g_{\rm bar})$ is extremely small.
-However, the quadrature closure leaves a residual \emph{absolute} offset $\Delta g \sim \mathcal{O}(a_0)$,
-which can accumulate into measurable signatures in precision Solar-System dynamics.
-This motivates treating high-acceleration extrapolations separately via Eq.~(\ref{eq:a0_eff_with_g_screening}).
-\end{itemize}
-
-\subsubsection{Connection to the RAR benchmarks}
-Using $\nu(y)=\sqrt{1+1/y}$, the closure can be written as
-\begin{equation}
-g_{\rm tot}=g_{\rm bar}\,\nu\!\left(\frac{g_{\rm bar}}{a_0}\right),
-\end{equation}
-which is the mapping implemented in the v0.3.x reproducibility scripts. In this sense,
-the RAR benchmark can be restated as a \emph{field-equation-compatible} effective law,
-pending a microscopic derivation of $\mu$ (or $\nu$) from the Enchan defect model.
+Chapter~7 confronts the model with observational benchmarks using the dependencies
+fixed in this chapter.

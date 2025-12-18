@@ -1,103 +1,76 @@
 %==============================================================================
-% Section 4: Minimal Enchan Field Model
+% Section 4: Minimal Field Model
 %==============================================================================
 
-\chap{Minimal Enchan Field Model}
+\chap{Minimal Field Model}
 
-In this chapter, we formalize the Enchan framework as a scalar field theory. We construct a Lagrangian density that describes how the time-dilation field $S$ propagates through the "rigid" vacuum of the Inception World, driven by primordial fluctuations and stabilized by a potential.
+This chapter states a minimal effective field model for a dimensionless scalar
+$S(x)$ and fixes the notation used in the remainder of the document.
+The model is used only as a weak-field, galaxy-scale effective description.
 
-\subsection{Field Variables and Dimensional Analysis (\version)}
+\subsection{Field variable and conventions}
 
-To ensure physical consistency with the derivation of $a_0$ (Chapter 5), we explicitly fix the dimensions of the fields and constants. We adopt the standard SI units where the Lagrangian density $\mathcal{L}$ has dimensions of Energy Density $[J/m^3]$.
-
-\begin{itemize}
-    \item \textbf{Enchan Field $S(x)$ [Dimensionless]:}
-    The order parameter representing the local time dilation. $S=0$ corresponds to the asymptotic vacuum (free fall).
-
-    \item \textbf{Vacuum Stiffness $\sigma_{\text{vac}}$ [Force, N]:}
-    A fundamental coupling constant representing the "rigidity" of the spacetime fabric against time dilation. It converts the dimensionless gradient $(\nabla S)^2$ into an energy density.
-    
-    \item \textbf{Fluctuation Source $F(x)$ [Energy Density, $J/m^3$]:}
-    The external driving force from the Upper Universe (e.g., the roughness of the singularity).
-
-    \item \textbf{Stabilizing Potential $V(S)$ [Energy Density, $J/m^3$]:}
-    The self-interaction energy of the field, responsible for forming topological defects.
-\end{itemize}
-
-\subsection{The Lagrangian Density}
-
-We propose the following effective Lagrangian density for the Enchan field:
-
+We take $S(x)$ to be dimensionless. Indices are raised and lowered with the
+background metric; $\nabla_\mu$ denotes the covariant derivative and
+$\Box \equiv \nabla_\mu \nabla^\mu$.
+In quasi-static applications we use the working relation
 \begin{equation}
-    \boxed{
-    \mathcal{L} \;=\;
-    \frac{\sigma_{\text{vac}}}{2} (\partial_\mu S)(\partial^\mu S)
-    \;+\; F S
-    \;-\; V(S)
-    }
-    \label{eq:Lagrangian}
+g_{\rm tot} \equiv c^2 \nabla S .
 \end{equation}
 
-\paragraph{Physical Interpretation of Terms:}
-\begin{enumerate}
-    \item \textbf{Kinetic Term ($\frac{\sigma_{\text{vac}}}{2} (\partial S)^2$):}
-    Represents the elastic energy cost of having "uneven time." Because $\sigma_{\text{vac}}$ is large (spacetime is rigid), gradients in $S$ are energetically costly. This term eventually manifests as the "Geometric Dark Matter" energy density.
-    
-    \item \textbf{Source Term ($F S$):}
-    Represents the coupling to the primordial fluctuations. A non-zero $F$ drives $S$ away from zero, creating initial seeds for structures.
-    
-    \item \textbf{Potential Term ($-V(S)$):}
-    Represents the "Anchoring" energy. As derived in Chapter 5, the requirement for logarithmic defects imposes a specific form on this potential: $V(S) \sim e^{-2S}$.
-\end{enumerate}
+\subsection{Minimal effective Lagrangian}
 
-\subsection{Equation of Motion}
-
-Varying the action associated with Eq.~\eqref{eq:Lagrangian} with respect to $S$ yields the Euler-Lagrange equation:
-
+A compact effective Lagrangian density is
 \begin{equation}
-    \partial_\mu \left( \frac{\partial \mathcal{L}}{\partial (\partial_\mu S)} \right) - \frac{\partial \mathcal{L}}{\partial S} = 0
+\mathcal{L}
+=
+\frac{\sigma}{2}\,\nabla_\mu S\,\nabla^\mu S
+- V(S)
++ J(x)\,S,
+\label{eq:L_min}
+\end{equation}
+where $\sigma$ is a constant coefficient, $V(S)$ is an effective potential,
+and $J(x)$ denotes an external source term used to encode phenomenological
+anchoring by baryonic structure.
+No microscopic interpretation of $\sigma$, $V$, or $J$ is assumed in these notes.
+
+\subsection{Equation of motion}
+
+Varying the action associated with Eq.~\eqref{eq:L_min} yields
+\begin{equation}
+\sigma\,\Box S = J(x) - V'(S).
+\label{eq:EOM_linear}
 \end{equation}
 
-Substituting our specific Lagrangian:
-
+For the galaxy-scale applications considered here, we primarily use the
+quasi-static limit in which time derivatives are negligible and sources vary
+slowly.
+In that limit, Eq.~\eqref{eq:EOM_linear} reduces to a Poisson-like form,
 \begin{equation}
-    \sigma_{\text{vac}} \partial_\mu \partial^\mu S \;=\; F \;-\; \frac{dV}{dS}
+\sigma\,\nabla^2 S \simeq J(x) - V'(S).
+\label{eq:EOM_static}
 \end{equation}
 
-Or, using the d'Alembertian operator $\square$:
+\subsection{Nonlinear ``vessel'' form}
 
+To accommodate RAR-compatible phenomenology, it is convenient to generalize the
+kinetic sector to a nonlinear response function $\mu(\mathcal{X})$ with
 \begin{equation}
-    \boxed{
-    \sigma_{\text{vac}} \square S \;=\; F \;-\; V'(S)
-    }
-    \label{eq:FieldEq}
+\mathcal{X} \equiv \frac{\nabla_\mu S\,\nabla^\mu S}{a_0^2},
 \end{equation}
-
-This is the fundamental field equation of Enchan \version. It states that:
-\begin{quote}
-    \textit{"The curvature of time ($\square S$) is driven by the primordial roughness ($F$) and resisted by the anchoring potential ($V'$), scaled by the stiffness of the vacuum ($\sigma_{\text{vac}}$)."}
-\end{quote}
-
-\subsection{Static Limit and Dark Matter Halo}
-
-In the static limit (galactic scales) and far from the core (where $F \approx 0$), the equation simplifies to:
+leading to the effective field equation
 \begin{equation}
-    \sigma_{\text{vac}} \nabla^2 S \approx -V'(S).
+\nabla_\mu\!\Big(\mu(\mathcal{X})\,\nabla^\mu S\Big) - V'(S)
+= -\kappa\,\rho_{\rm b}c^2 ,
+\label{eq:EOM_nonlinear}
 \end{equation}
-This is the equation we solved in Chapter 5 to derive the $a_0$ scale. The resulting gradient energy density is:
-\begin{equation}
-    \rho_{\text{DM}} \approx \frac{\sigma_{\text{vac}}}{2} (\nabla S)^2.
-\end{equation}
-Since the defect solution gives $|\nabla S| \propto 1/r$, the energy density scales as:
-\begin{equation}
-    \rho_{\text{DM}} \propto \frac{1}{r^2}.
-\end{equation}
-This $1/r^2$ profile is exactly what is required to produce flat rotation curves in galaxies, identifying the "Enchan Field Gradient" as the physical substance of Dark Matter halos.
+where $\rho_{\rm b}$ is the baryonic rest-mass density used as the observational
+source input and $\kappa$ is an effective coupling constant.
+The function $\mu(\mathcal{X})$ is chosen so that the quasi-static limit matches
+the empirical interpolation used for the observational benchmarks in Chapter~7.
 
-\subsection{Relation to General Relativity (Effective Metric)}
+\subsection*{Scope}
 
-Although we treat $S$ as a scalar field on a background, it effectively modifies the metric experienced by matter. The line element in the presence of an Enchan field can be approximated (in the weak field limit) as:
-\begin{equation}
-    ds^2 \approx -c^2 e^{-2S} dt^2 + e^{2S} d\mathbf{x}^2.
-\end{equation}
-This confirms that $S$ acts as a conformal factor or a time-dilation potential. Matter follows the geodesics of this effective metric, which leads to the observed "extra gravity" without requiring additional mass.
+Equations \eqref{eq:EOM_linear}--\eqref{eq:EOM_nonlinear} are used as effective,
+weak-field relations for galaxy-scale dynamics only.
+No claims are made regarding strong-field gravity or precision Solar-System tests.

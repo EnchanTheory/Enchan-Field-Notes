@@ -1,6 +1,6 @@
 %==============================================================================
 % Enchan Field Notes (Theoretical Framework)
-% Version: \version (Pivot: Inception & Anchor)
+% Version: \version
 % Main file - loads sections from ./sections/
 %==============================================================================
 
@@ -26,52 +26,44 @@
     linkcolor=blue,
     citecolor=blue,
     urlcolor=blue,
-    pdftitle={Enchan Field Notes v0.4.1},
+    pdftitle={Enchan Field Notes},
     pdfauthor={Mitsuhiro Kobayashi},
-    pdfsubject={Inception World: Topological Defects and Emergent Acceleration Scale},
-    pdfkeywords={Enchan, dark matter, RAR, BTFR, topological defect, scalar field}
+    pdfsubject={Scalar Field Description of Galaxy-Scale Regularities},
+    pdfkeywords={galaxy dynamics, RAR, BTFR, scalar field, effective theory}
 }
 
 %===========================
 % Helpers
 %===========================
-% chapter-like section with page break
 \newcommand{\chap}[1]{\clearpage\section{#1}}
-
-% Dimensionless field symbol (explicitly defined)
 \newcommand{\EnchanS}{S}
 
-%---------------------------
-% hyperref: avoid PDF-string warnings when math appears in headings
-%---------------------------
 \pdfstringdefDisableCommands{%
   \def\EnchanS{S}%
   \def\bm#1{#1}%
   \def\mathrm#1{#1}%
   \def\mathcal#1{#1}%
-  \def\sqrt#1{sqrt(#1)}%
-  \def\ln{ln}%
 }
+
+%===========================
+% Version
+%===========================
+\newcommand{\version}{v0.4.2}
 
 %===========================
 % Title / Author
 %===========================
 \title{\textbf{Enchan Field Notes \version}\\[0.5em]
-\large The Inception World: Topological Defects and the Origin of an Acceleration Scale}
+\large A Scalar-Field Description of Galaxy-Scale Acceleration Regularities}
 
-\author{Mitsuhiro Kobayashi\\[0.25em]
-Tokyo, Japan\\
-\texttt{enchan.theory@gmail.com}}
+\author{Mitsuhiro Kobayashi\\
+Tokyo, Japan}
 
-\date{\today}
+\date{}
 
 %===========================
 % Document
 %===========================
-%--- Version Definition ---
-\newcommand{\version}{v0.4.1} 
-%--------------------------
-
 \begin{document}
 
 \maketitle
@@ -82,77 +74,42 @@ Tokyo, Japan\\
 %===========================
 \begin{abstract}
 \noindent
-\textbf{\version update (structural refinement):}
-This version consolidates the framework into a minimal, explicitly testable form.
-We formulate a \emph{dimensionless} scalar field $\EnchanS$, interpreted as an effective
-time-dilation factor (a compact proxy for gravitational time delay), and examine how
-defect-like configurations of $\EnchanS$ anchored by baryonic structure can generate
-galaxy-scale regularities.
+We present a compact theoretical framework that organizes several well-known
+galaxy-scale regularities into an effective scalar-field description.
+A dimensionless field $\EnchanS$ is introduced as a proxy for gravitational
+time-delay effects in the weak-field regime.
 
-A central result of \version is the explicit separation of regimes.
-At the galaxy scale, we introduce an \emph{environmental pinning} mechanism
-(Eq.~6.6.2) in which the effective acceleration scale
-$a_{0,\mathrm{eff}}$ is suppressed in deep baryonic potentials via a potential-depth proxy.
-This term is constrained directly by cross-validated fits to SPARC data.
+The framework is constructed to reproduce the Radial Acceleration Relation (RAR)
+and the Baryonic Tully--Fisher Relation (BTFR) through defect-like configurations
+of $\EnchanS$ anchored by baryonic structure.
+Environmental suppression in deep baryonic potentials is incorporated as an
+effective modulation of the acceleration scale, calibrated directly on
+observational data.
 
-At smaller, high-acceleration scales (e.g.\ the Solar System), we show that an additional
-suppression may be required to avoid unphysical extrapolation.
-This effect is isolated as a separate safeguard (Eq.~6.6.3) and is \emph{not} used in
-galaxy calibration.
-
-The overarching aim of \version is not to propose a modification of gravity,
-but to organize observed phenomenology into a controlled effective description,
-with clear regime boundaries and falsifiable components.
+The purpose of these notes is not to modify General Relativity, but to provide
+a minimal and internally consistent parametrization of observed phenomenology
+within a controlled effective description.
 \end{abstract}
 
-
 %===========================
-% Status / Scope box
+% Scope
 %===========================
 \vspace{1em}
 \hrule
-\section*{Status and Scope (\version)}
-This document presents a \textbf{speculative effective framework} intended to sit
-beneath (not replace) the Standard Model and General Relativity.
-
-\begin{itemize}
-    \item \textbf{Empirical baseline:}
-    The accompanying Python scripts reproduce standard galaxy-scale regularities
-    (SPARC-based RAR / BTFR / fixed-parameter rotation-curve predictions)
-    as externally checkable benchmarks.
-    Verification code is available at:\\
-    \url{https://github.com/EnchanTheory/Enchan-Field-Notes}
-
-    \item \textbf{Theoretical proposal:}
-    The working hypothesis is that these regularities can be interpreted as signatures
-    of defect-like configurations in the field $\EnchanS$, with baryonic structure acting
-    as an anchor.
-
-    \item \textbf{Regime separation (\version):}
-    Environmental suppression in deep baryonic potentials (Eq.~6.6.2) is treated as
-    part of the galaxy-scale phenomenology and is calibrated on galaxy data.
-    Additional high-acceleration suppression (Eq.~6.6.3) is introduced only as an
-    optional safeguard for Solar-System diagnostics and is not included in galaxy fits.
-
-    \item \textbf{Assumptions:}
-    The anchor condition linking baryonic structure to the effective defect scale
-    remains a phenomenological ansatz and is explicitly identified as such.
-
-    \item \textbf{Conservativeness:}
-    The framework does not address strong-field gravity or precision Solar-System tests;
-    its domain of applicability is the weak-field, galaxy-scale regime where the
-    empirical relations are defined.
-\end{itemize}
+\section*{Scope and Domain of Applicability}
+This document is restricted to the weak-field, galaxy-scale regime in which
+empirical acceleration regularities are defined.
+No claims are made regarding strong-field gravity, cosmology at early times,
+or precision Solar-System tests.
 \hrule
 \vspace{1em}
-
 
 \clearpage
 \tableofcontents
 \clearpage
 
 %===========================
-% Content Injection
+% Content
 %===========================
 \input{sections/01_overview}
 \input{sections/02_concept}
@@ -161,7 +118,6 @@ beneath (not replace) the Standard Model and General Relativity.
 \input{sections/05_asymptotics}
 \input{sections/06_derivation}
 \input{sections/07_observation}
-\input{sections/99_conclusion}
 
 %===========================
 % Bibliography
@@ -169,35 +125,25 @@ beneath (not replace) the Standard Model and General Relativity.
 \clearpage
 \begin{thebibliography}{99}
 
-\bibitem{Kibble1976}
-T.~W.~B. Kibble,
-\newblock ``Topology of cosmic domains and strings,''
-\newblock {\em Journal of Physics A: Mathematical and General}, 9:1387, 1976.
-
-\bibitem{BarriolaVilenkin1989}
-M. Barriola and A. Vilenkin,
-\newblock ``Gravitational field of a global monopole,''
-\newblock {\em Physical Review Letters}, 63:341, 1989.
-
 \bibitem{McGaugh2016}
 S.~S. McGaugh, F.~Lelli, and J.~M. Schombert,
-\newblock ``Radial Acceleration Relation in Rotationally Supported Galaxies,''
-\newblock {\em Physical Review Letters}, 117:201101, 2016.
+``Radial Acceleration Relation in Rotationally Supported Galaxies,''
+{\em Phys. Rev. Lett.} 117, 201101 (2016).
 
 \bibitem{Lelli2019}
 F. Lelli et al.,
-\newblock ``The Baryonic Tully--Fisher Relation for Different Galaxy Types,''
-\newblock {\em Monthly Notices of the Royal Astronomical Society}, 484:3267, 2019.
+``The Baryonic Tully--Fisher Relation for Different Galaxy Types,''
+{\em Mon. Not. R. Astron. Soc.} 484, 3267 (2019).
 
-\bibitem{Abbott2021}
-R. Abbott et al. (LIGO Scientific Collaboration and Virgo Collaboration),
-\newblock ``Open Data from the First and Second Observing Runs of Advanced LIGO and Advanced Virgo,''
-\newblock {\em SoftwareX}, 13:100658, 2021.
+\bibitem{Kibble1976}
+T.~W.~B. Kibble,
+``Topology of cosmic domains and strings,''
+{\em J. Phys. A} 9, 1387 (1976).
 
-\bibitem{Dvali2000}
-G. Dvali, G. Gabadadze, and M. Porrati,
-\newblock ``4D Gravity on a Brane in 5D Minkowski Space,''
-\newblock {\em Physics Letters B}, 485:208, 2000.
+\bibitem{BarriolaVilenkin1989}
+M. Barriola and A. Vilenkin,
+``Gravitational Field of a Global Monopole,''
+{\em Phys. Rev. Lett.} 63, 341 (1989).
 
 \end{thebibliography}
 
