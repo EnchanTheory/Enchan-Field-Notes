@@ -2,7 +2,7 @@
 
 **Current version:** v0.4.2
 **Status:** theoretical note + public-data benchmark package
-**License:** GNU GPL v3.0 (see `LICENSE`)
+**License:** Enchan Research & Verification License v1.0 (see `LICENSE`)
 
 Enchan Field Notes is a set of theoretical memoranda exploring whether several galaxy-scale regularities can be organized within an effective field description built around a dimensionless scalar `S`.
 
