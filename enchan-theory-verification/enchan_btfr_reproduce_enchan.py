@@ -267,7 +267,7 @@ def fixed_slope_a0_best(x_logV: np.ndarray, y_logM: np.ndarray, slope: float = 4
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mrt", required=True, help="Path to SPARC BTFR .mrt table (e.g., BTFR_Lelli2019.mrt)")
-    ap.add_argument("--outdir", default="Enchan_BTFR_Test_Report_v0_1", help="Output directory")
+    ap.add_argument("--outdir", default="Enchan_BTFR_Test_Report", help="Output directory")
     ap.add_argument("--max_elogMb", type=float, default=None, help="Optional cut: keep rows with elogMb <= value")
     args = ap.parse_args()
 

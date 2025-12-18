@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enchan a0 vs Surface Brightness Correlation (v0.3.2 Final)
+Enchan a0 vs Surface Brightness Correlation (v0.4.2 Final)
 
 Exploratory test of the "Surface Density Anchor" ansatz (Chapter 6).
 This script checks for correlations between:
@@ -296,7 +296,7 @@ def main() -> None:
         "zip_sha256": sha256_file(zip_path),
         "n_total_btfr": n_total_btfr,
         "n_valid": n_valid,
-        # Expanded Drop Logs (Requested Fix B-1)
+        # Expanded Drop Logs
         "n_matched_sb3": n_matched,
         "n_dropped_unmatched_sb3": n_total_btfr - n_matched,
         "n_dropped_nan_sb3": n_nan_sb,
@@ -310,7 +310,7 @@ def main() -> None:
         "primary_spearman_rho": results["primary_rho"],
         "robust_trimmed_r": results["trimmed_r"],
         "robust_sensitivity_5pt_r": results["sens_5pt_r"],
-        # Softer Interpretation (Requested Fix B-3)
+        # Softer Interpretation
         "interpretation": "Positive r is consistent with P1 (minimal anchor) under this SB proxy; does not establish causality."
     }
     pd.DataFrame([summary]).to_csv(outdir / "correlation_summary.csv", index=False)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enchan C1 Pinning Test (Strict Nested CV Edition) - v0.4.0 Compatible
+Enchan C1 Pinning Test (Strict Nested CV Edition) - v0.4.2 Compatible
 
 Goal
 ----
