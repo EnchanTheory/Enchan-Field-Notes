@@ -1,6 +1,6 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current version:** v0.4.3
+**Current version:** v0.4.4
 **Status:** theoretical note + public-data benchmark package
 **License:** Enchan Research & Verification License v1.0 (see `LICENSE`)
 
@@ -15,9 +15,9 @@ This work is not peer-reviewed. It does not claim to falsify particle dark matte
 
 ---
 
-## Scope (v0.4.3)
+## Scope (v0.4.4)
 
-v0.4.3 is a **copyedited, minimal-scope release** intended for external distribution.
+v0.4.4 is a **copyedited, minimal-scope release** intended for external distribution.
 
 * The PDF focuses on definitions, effective equations, and galaxy-scale benchmark targets.
 * Implementation details, device concepts, project planning, and forward roadmaps are intentionally out of scope.
@@ -48,7 +48,7 @@ This should be read as **reproducibility of the benchmark interface**, not as a 
 
 ---
 
-## What's new in v0.4.3
+## What's new in v0.4.4
 
 * **Editorial / scope tightening:** removed nonessential narrative and non-public operational details from the TeX/PDF.
 * **Consistency pass:** unified notation and kept the field description in a minimal effective form.
@@ -78,13 +78,13 @@ Reproducibility instructions are provided inside:
 
 If you wish to cite this work:
 
-> Kobayashi, M. (2026). *Enchan Field Notes: Theoretical Framework*. v0.4.3. GitHub repository.
+> Kobayashi, M. (2026). *Enchan Field Notes: Theoretical Framework*. v0.4.4. GitHub repository.
 
 ---
 
 ## License
 
-This repository is released under a custom research & verification license.
+This project is licensed under the Apache License 2.0.
 See `LICENSE` for the full terms.
 
 ---
