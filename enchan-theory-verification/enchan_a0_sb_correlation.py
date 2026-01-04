@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enchan a0 vs Surface Brightness Correlation (v0.4.2 Final)
+Enchan a0 vs Surface Brightness Correlation (v0.4.3)
 
 Exploratory test of the "Surface Density Anchor" ansatz (Chapter 6).
 This script checks for correlations between:
