@@ -22,19 +22,22 @@ The scripts in this folder evaluate three benchmark targets commonly used in the
 2. **BTFR** (one galaxy = one point)
 3. **Rotation-curve shape stress test** (fixed-rule prediction without per-galaxy tuning)
 
-## Inputs (not committed)
+## Inputs
 
-Upstream public datasets are not committed to this repository.
+You need the following public SPARC products locally.
+Please download them and place them in this directory (`enchan-theory-verification/`).
 
-You need the following public SPARC products locally:
+### 1. Rotmod_LTG.zip
+* **Source:** SPARC Galaxy Rotation Curves (Zenodo Record 16284118)
+* **Download:** [Rotmod_LTG.zip](https://zenodo.org/records/16284118/files/Rotmod_LTG.zip?download=1)
+* **Action:** Save the file as `Rotmod_LTG.zip`.
 
-* `Rotmod_LTG.zip` (mass-model rotation-curve decomposition files)
-* `BTFR_Lelli2019.mrt` (SPARC BTFR table; CDS-style fixed-width)
+### 2. BTFR_Lelli2019.mrt
+* **Source:** SPARC Website (Lelli et al. 2019)
+* **Download:** [BTFR_Lelli2019.mrt](https://astroweb.case.edu/SPARC/BTFR_Lelli2019.mrt)
+* **Action:** Save the file as `BTFR_Lelli2019.mrt`.
 
-Source (SPARC):
-[https://astroweb.case.edu/SPARC/](https://astroweb.case.edu/SPARC/)
-
-Each run records hashes of local input files so results can be compared across environments.
+*Note: The scripts will check the SHA-256 hash of these files to ensure data integrity.*
 
 ## Requirements
 
