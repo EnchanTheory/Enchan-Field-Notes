@@ -1,7 +1,7 @@
 # Enchan Theory Verification (public-data benchmarks)
 
 This folder contains a small set of reproducible, public-data benchmarks referenced by
-**Enchan Field Notes v0.4.2**.
+**Enchan Field Notes v0.4.3**.
 
 ## What this is (and what it is not)
 
