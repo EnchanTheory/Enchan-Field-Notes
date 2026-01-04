@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enchan Core Model Plus (v0.4.2 Fix)
+Enchan Core Model Plus (v0.4.5)
 
 This module implements the galaxy-calibrated *Phi-screening (pinning)* mechanism only.
 It intentionally excludes any high-acceleration (g-screening) safeguard terms.

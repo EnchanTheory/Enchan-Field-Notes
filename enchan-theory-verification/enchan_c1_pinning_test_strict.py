@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enchan C1 Pinning Test (Strict Nested CV, leakage-guarded) - v0.4.3
+Enchan C1 Pinning Test (Strict Nested CV, leakage-guarded) - v0.4.5
 
 What this script does
 ---------------------
@@ -406,7 +406,7 @@ def main() -> None:
     ap.add_argument("--k_inner", type=int, default=4)
     args = ap.parse_args()
 
-    print(f"--- Enchan C1 Pinning Test (Strict Nested CV) v0.4.3 | seed={SEED} ---")
+    print(f"--- Enchan C1 Pinning Test (Strict Nested CV) v0.4.5 | seed={SEED} ---")
 
     mrt_path = Path(args.mrt)
     zip_path = Path(args.zip)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enchan core model utilities (v0.4.3)
+Enchan core model utilities (v0.4.5)
 
 This module provides:
 - Shared physical constants (SI / unit conversions)

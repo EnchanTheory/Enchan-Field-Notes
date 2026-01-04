@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Enchan Variable a0 Prediction Test (Prediction C1) - Disk-Dominated Validation (v0.4.3)
+Enchan Variable a0 Prediction Test (Prediction C1) - Disk-Dominated Validation (v0.4.5)
 
 Hypothesis
 ----------
@@ -262,7 +262,7 @@ def main() -> None:
     q_val = args.bulge_quantile * 100
     q_label_str = f"{q_val:.1f}" if q_val < 99.9 else f"{q_val:.4g}"
 
-    print("--- Enchan Differential Prediction C1: Disk-Dominated Validation (v0.4.3) ---")
+    print("--- Enchan Differential Prediction C1: Disk-Dominated Validation (v0.4.5) ---")
     print(f"Protocol: {args.folds}-Fold Cross Validation (seed={args.seed})")
     print(f"Filter:   q{q_label_str}%(f_bul) < {args.max_bulge_frac}")
     print(f"Params:   Yd={args.Yd}, Yb={args.Yb}")
