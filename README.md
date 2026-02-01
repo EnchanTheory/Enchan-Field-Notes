@@ -91,7 +91,7 @@ See `LICENSE` for the full terms.
 
 ## Contact
 
-For research collaboration, commercial licensing inquiries, or any questions regarding the Enchan Theory, please reach out to: enchan.theory@gmail.com
+For research collaboration, commercial licensing inquiries, or any questions regarding the Enchan Theory, please reach out to: **enchan.theory@gmail.com**
 
 ---
 
