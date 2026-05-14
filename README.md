@@ -1,7 +1,7 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current version:** v0.4.5
-**Status:** theoretical note + public-data benchmark package
+**Current version:** v0.4.5  
+**Status:** theoretical note + public-data benchmark package  
 **License:** Apache License 2.0 (see `LICENSE`)
 
 Enchan Field Notes is a set of theoretical memoranda exploring whether several galaxy-scale regularities can be organized within an effective field description built around a dimensionless scalar `S`.
@@ -10,6 +10,15 @@ This repository includes:
 
 * a LaTeX/PDF note (`main.pdf`, `sections/`)
 * a small reproducibility package for public-data benchmarks (`enchan-theory-verification/`)
+
+## Current theoretical synthesis
+
+The v1.0.0 formulation of the Enchan Field is maintained in:
+
+**The Enchan Field: An Effective Field Framework for Geometric Stabilization and Non-Linear Relaxation**  
+https://github.com/EnchanTheory/The-Enchan-Field-Paper
+
+This repository should be read as an earlier field-note and public-data benchmark precursor to that formulation. The later paper generalizes the original scalar-field notes into a finite-tension geometric stabilization framework and connects the continuous field formulation to deterministic relaxation on discrete graph topologies.
 
 This work is not peer-reviewed. It does not claim to falsify particle dark matter.
 
@@ -79,6 +88,10 @@ Reproducibility instructions are provided inside:
 If you wish to cite this work:
 
 > Kobayashi, M. (2026). *Enchan Field Notes: Theoretical Framework*. v0.4.5. GitHub repository.
+
+For the current v1.0.0 theoretical synthesis, see:
+
+> Kobayashi, M. (2026). *The Enchan Field: An Effective Field Framework for Geometric Stabilization and Non-Linear Relaxation*. GitHub repository. https://github.com/EnchanTheory/The-Enchan-Field-Paper
 
 ---
 
