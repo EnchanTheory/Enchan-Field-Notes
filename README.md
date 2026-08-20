@@ -1,8 +1,8 @@
 # Enchan Field Notes (Theoretical Framework)
 
-**Current version:** v0.4.5  
-**Status:** theoretical note + public-data benchmark package  
-**License:** Apache License 2.0 (see `LICENSE`)
+**Current version:** v0.4.6
+**Status:** theoretical note + public-data benchmark package
+**License:** Enchan Research & Verification License v1.0 (see `LICENSE`)
 
 Enchan Field Notes is a set of theoretical memoranda exploring whether several galaxy-scale regularities can be organized within an effective field description built around a dimensionless scalar `S`.
 
@@ -24,9 +24,9 @@ This work is not peer-reviewed. It does not claim to falsify particle dark matte
 
 ---
 
-## Scope (v0.4.5)
+## Scope (v0.4.6)
 
-v0.4.5 is a **copyedited, minimal-scope release** intended for external distribution.
+v0.4.6 is a **copyedited, minimal-scope release** intended for external distribution.
 
 * The PDF focuses on definitions, effective equations, and galaxy-scale benchmark targets.
 * Implementation details, device concepts, project planning, and forward roadmaps are intentionally out of scope.
@@ -57,7 +57,7 @@ This should be read as **reproducibility of the benchmark interface**, not as a 
 
 ---
 
-## What's new in v0.4.5
+## What's new in v0.4.6
 
 * **Editorial / scope tightening:** removed nonessential narrative and non-public operational details from the TeX/PDF.
 * **Consistency pass:** unified notation and kept the field description in a minimal effective form.
@@ -87,7 +87,7 @@ Reproducibility instructions are provided inside:
 
 If you wish to cite this work:
 
-> Kobayashi, M. (2026). *Enchan Field Notes: Theoretical Framework*. v0.4.5. GitHub repository.
+> Kobayashi, M. (2026). *Enchan Field Notes: Theoretical Framework*. v0.4.6. GitHub repository.
 
 For the current v1.0.0 theoretical synthesis, see:
 
@@ -97,7 +97,7 @@ For the current v1.0.0 theoretical synthesis, see:
 
 ## License
 
-This project is licensed under the Apache License 2.0.
+This project is licensed under the Enchan Research & Verification License v1.0.
 See `LICENSE` for the full terms.
 
 ---
